@@ -1,2 +1,8 @@
-# SOEN390
-Project
+# COVID-19 Tracking App
+SOEN390 ... 
+
+# Team 13 - members:
+...
+
+# Sprint 1 
+Deliverables links ...
