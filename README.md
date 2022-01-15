@@ -16,5 +16,14 @@ SOEN390 ...
 focus on your team meeting, the time, attendee, what you have fixed, your plan ...
 
 # Sprint 1 
-Deliverables links ... ASAP Then, I can comment on your docs.
-
+```diff
+- Please add all links to deliverables ASAP, so that I can give comments on them. --- by TA
+```
+1. User Stories Backlog (USB)
+3. Release Plan (Sprint #2 planning)
+4. Software Architecture Document (SAD)
+5. Risk Assessment & Risk Management Plan (RMP)
+6. UI prototypes for Sprint #2 user stories
+7. Testing Plan
+8. Running prototype
+9. Short sprint retrospective
