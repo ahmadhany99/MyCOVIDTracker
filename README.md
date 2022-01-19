@@ -15,12 +15,13 @@ SOEN390 ...
 |Minh-Tam Do              |mint47       |40095639
 
 # Meeting
-focus on your team meeting, the time, attendee, what you have fixed, your plan ...
+```diff
+- basic notes of meeting (team meeting, TA meeting) 
+- focus on your team meeting, the time, attendee, what you have fixed, your plan ...
+```
+
 
 # Sprint 1 
-```diff
-- Please add all links to deliverables ASAP, so that I can give comments on them. --- by TA
-```
 |deliverables                                    |link
 |---|---
 |1. User Stories Backlog (USB)                   |[USB](https://docs.google.com/spreadsheets/d/11p0U-zCPAayfLQusWur0hO5mZX3hGNTCIV7EMeG5r5M/edit?usp=sharing)
