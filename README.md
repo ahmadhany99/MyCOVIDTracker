@@ -18,6 +18,7 @@ SOEN390 ...
 ```diff
 - basic notes of meeting (team meeting, TA meeting) 
 - focus on your team meeting, the time, attendee, what you have fixed, your plan ...
+- Added them as issues with fully detalied of what happened in the meeting
 ```
 
 
