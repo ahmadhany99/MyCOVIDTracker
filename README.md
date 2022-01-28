@@ -31,6 +31,7 @@ SOEN390 ...
 |8. Short sprint retrospective                   |
 
  ```diff
+ - USB
  - We will check whether the document and runable app is consistent with the user sotries. 
  -(The backend code and database is not required in sprint1)
  - Order the user stories by sprint and user.
@@ -49,3 +50,7 @@ SOEN390 ...
    [Template of SAD, SAD example.pdf (iCare System Architecture Design)]https://drive.google.com/drive/folders/1H62zNZX2YFFCfa6naJNAwh4GuzvnNKgN
  
  
+ ```diff
+   - Testing plan
+   - Perhaps you can refer to the template required by the course, focusing on Unit tests  Integration tests    System tests 
+   ```
