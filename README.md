@@ -43,7 +43,7 @@ SOEN390 ...
  ```
  
    ```diff
-   - SAD 
+   - SAD      high priority
    - Current SAD is not complete. Add more contents as much as you can following the template.
    - according to the course plan: Completeness of Domain Model, Component Diagram (at least)
    ```
