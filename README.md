@@ -29,3 +29,23 @@ SOEN390 ...
 |6. Testing Plan                                 |
 |7. Running prototype                            |
 |8. Short sprint retrospective                   |
+
+ ```diff
+ - We will check whether the document and runable app is consistent with the user sotries. 
+ -(The backend code and database is not required in sprint1)
+ - Order the user stories by sprint and user.
+ ```
+ 
+  ```diff
+ - Release plan 
+ - Please finish a release plan according to the template required by the course 
+ ```
+ 
+   ```diff
+   - SAD 
+   - Current SAD is not complete. Add more contents as much as you can following the template.
+   - according to the course plan: Completeness of Domain Model, Component Diagram (at least)
+   ```
+   [Template of SAD, SAD example.pdf (iCare System Architecture Design)]https://drive.google.com/drive/folders/1H62zNZX2YFFCfa6naJNAwh4GuzvnNKgN
+ 
+ 
