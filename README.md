@@ -50,7 +50,7 @@ SOEN390 ...
    [Template of SAD, SAD example.pdf (iCare System Architecture Design)]https://drive.google.com/drive/folders/1H62zNZX2YFFCfa6naJNAwh4GuzvnNKgN
  
  
- ```diff
+   ```diff
    - Testing plan
    - Perhaps you can refer to the template required by the course, focusing on Unit tests  Integration tests    System tests 
    ```
