@@ -28,7 +28,7 @@ SOEN390 ...
 |5. UI prototypes for Sprint #2 user stories     | [UIP](https://docs.google.com/document/d/1uBESrofI35jFGL3LGNSbbG86htb_SX91NCIj1kRFRq8/edit?usp=sharing)
 |6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1U0KxoS2rs6KsZzzbmEmhgOBPQjwYIcvrWPOFbWAgWvM/edit?usp=sharing)
 |7. Running prototype                            |
-|8. Short sprint retrospective                   |
+|8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/1H8JICzKLXaSyhRE0D3rl2DCiasXhYU3WP7lSid5yX7I/edit#)
 
  ```diff
  - USB
