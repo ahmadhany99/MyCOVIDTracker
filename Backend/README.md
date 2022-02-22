@@ -15,11 +15,7 @@ SOEN390 ...
 |Minh-Tam Do              |mint47       |40095639
 
 # Meeting
-```diff
-- basic notes of meeting (team meeting, TA meeting) 
-- focus on your team meeting, the time, attendee, what you have fixed, your plan ...
-- Added them as issues with fully detalied of what happened in the meeting
-```
+
 
 
 # Sprint 1 
@@ -30,6 +26,31 @@ SOEN390 ...
 |3. Software Architecture Document (SAD)         |[SAD](https://onedrive.live.com/edit.aspx?resid=24E44FED4DE29290!127635&ithint=file%2cdocx&wdLOR=cE23BF4F7-DC33-45D7-8092-5B9C08C689D0&authkey=!ALvoQ1ATMqdebok) <br> [Viewpoints](https://docs.google.com/document/d/141-sKeF1fhYgcpItkO8x6FpbBK9v4EHno8PujWkCae4/edit)
 |4. Risk Assessment & Risk Management Plan (RMP) |[RMP](https://docs.google.com/spreadsheets/d/19pll7K4vfft5RpWc3XY_mr_mzK3Kgz0W/edit?usp=sharing&ouid=100065792280865296979&rtpof=true&sd=true)
 |5. UI prototypes for Sprint #2 user stories     | [UIP](https://docs.google.com/document/d/1uBESrofI35jFGL3LGNSbbG86htb_SX91NCIj1kRFRq8/edit?usp=sharing)
-|6. Testing Plan                                 |
+|6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1U0KxoS2rs6KsZzzbmEmhgOBPQjwYIcvrWPOFbWAgWvM/edit?usp=sharing)
 |7. Running prototype                            |
-|8. Short sprint retrospective                   |
+|8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/1H8JICzKLXaSyhRE0D3rl2DCiasXhYU3WP7lSid5yX7I/edit#)
+
+ ```diff
+ - USB
+ - We will check whether the document and runable app is consistent with the user sotries. 
+ -(The backend code and database is not required in sprint1)
+ - Order the user stories by sprint and user.
+ ```
+ 
+  ```diff
+ - Release plan 
+ - Please finish a release plan according to the template required by the course 
+ ```
+ 
+   ```diff
+   - SAD      high priority
+   - Current SAD is not complete. Add more contents as much as you can following the template.
+   - according to the course plan: Completeness of Domain Model, Component Diagram (at least)
+   ```
+   [Template of SAD, SAD example.pdf (iCare System Architecture Design)]https://drive.google.com/drive/folders/1H62zNZX2YFFCfa6naJNAwh4GuzvnNKgN
+ 
+ 
+   ```diff
+   - Testing plan
+   - Perhaps you can refer to the template required by the course, focusing on Unit tests  Integration tests    System tests 
+   ```
