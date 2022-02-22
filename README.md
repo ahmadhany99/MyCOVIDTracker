@@ -29,28 +29,3 @@ SOEN390 ...
 |6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1U0KxoS2rs6KsZzzbmEmhgOBPQjwYIcvrWPOFbWAgWvM/edit?usp=sharing)
 |7. Running prototype                            |
 |8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/1H8JICzKLXaSyhRE0D3rl2DCiasXhYU3WP7lSid5yX7I/edit#)
-
- ```diff
- - USB
- - We will check whether the document and runable app is consistent with the user sotries. 
- -(The backend code and database is not required in sprint1)
- - Order the user stories by sprint and user.
- ```
- 
-  ```diff
- - Release plan 
- - Please finish a release plan according to the template required by the course 
- ```
- 
-   ```diff
-   - SAD      high priority
-   - Current SAD is not complete. Add more contents as much as you can following the template.
-   - according to the course plan: Completeness of Domain Model, Component Diagram (at least)
-   ```
-   [Template of SAD, SAD example.pdf (iCare System Architecture Design)]https://drive.google.com/drive/folders/1H62zNZX2YFFCfa6naJNAwh4GuzvnNKgN
- 
- 
-   ```diff
-   - Testing plan
-   - Perhaps you can refer to the template required by the course, focusing on Unit tests  Integration tests    System tests 
-   ```
