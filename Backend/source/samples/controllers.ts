@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
 
-const NAMESPACE = "samples/controllers.ts";
+const NAMESPACE = 'samples/controllers.ts';
 
 //  createSample (POST)
 const createSample = (req: Request, res: Response, next: NextFunction) => {
@@ -11,27 +11,19 @@ const createSample = (req: Request, res: Response, next: NextFunction) => {
     let { LastName, FirstName } = req.body;
     let query = `INSERT INTO samples VALUES ("${LastName}", "${FirstName}")`;
 
-    queryDatabase(req, res, next, query); 
+    queryDatabase(req, res, next, query);
 };
 
 //  getAllSamples (GET)
 const getAllSamples = (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting all samples.');
 
-    let query = 'SELECT * FROM samples';
+    let query = 'SELECT * FROM samples;';
 
-    queryDatabase (req, res, next, query);
+    queryDatabase(req, res, next, query);
 };
 
-
-
-
-
-
-
-
-
-function queryDatabase (req: Request, res: Response, next: NextFunction, query: string ){
+function queryDatabase(req: Request, res: Response, next: NextFunction, query: string) {
     logging.info(NAMESPACE, 'Connecting to SQL Server.');
 
     Connect()
