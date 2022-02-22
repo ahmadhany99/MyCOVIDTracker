@@ -18,7 +18,7 @@ const createSample = (req: Request, res: Response, next: NextFunction) => {
 const getAllSamples = (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting all samples.');
 
-    let query = 'SELECT * FROM samples;';
+    let query = 'SELECT * FROM samples';
 
     queryDatabase(req, res, next, query);
 };
