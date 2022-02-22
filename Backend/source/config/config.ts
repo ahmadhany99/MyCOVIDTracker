@@ -23,7 +23,7 @@ const SERVER = {
     hostname: SERVER_HOSTNAME,
     port: SERVER_PORT
 };
-
+;
 // Defining CONFIG Object
 const config = {
     mysql: MYSQL,
