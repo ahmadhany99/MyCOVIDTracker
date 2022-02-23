@@ -2,8 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import * as userService from '../services/user';
 import { userModel } from '../models/user';
+import bcryptjs from 'bcryptjs';
 
-const NAMESPACE = 'user/controller';
+const NAMESPACE = 'User';
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Creating user.');
@@ -13,7 +14,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     
     //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try{
-        if (!userDTO.firstName || !userDTO.lastName){
+        if (!userDTO.username || !userDTO.password){
             return res.status(400).json({
                 status: 400,
                 message: "Missing LastName or FirstName"
@@ -31,6 +32,29 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+
+const validateToken = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, "Token validated, user authorized.");
+
+    return res.status(200).json({
+        message: "Authorized"
+    });
+}
+const register = async (req: Request, res: Response, next: NextFunction) => {
+    const user: userModel = req.body;
+
+    bcryptjs.hash(user.password, 10, (hashError, hash) => {
+        if (hashError){
+            return res.status(500).json({
+                message: hashError.message,
+                error: hashError
+            })
+        }
+    });
+}
+const login = async (req: Request, res: Response, next: NextFunction) => {
+    
+}
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting all samples.');
 
@@ -40,7 +64,6 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     // Return a response to client.
     return res.json(result);
 };
-
-export default {createUser, getAllUsers};
+export default {validateToken, register, login, getAllUsers};
 
 
