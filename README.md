@@ -18,7 +18,7 @@ SOEN390 ...
 
 
 
-# Sprint 1 
+# Sprint 2
 |deliverables                                    |link
 |---|---
 |1. User Stories Backlog (USB)                   |[USB](https://docs.google.com/spreadsheets/d/11p0U-zCPAayfLQusWur0hO5mZX3hGNTCIV7EMeG5r5M/edit?usp=sharing)
