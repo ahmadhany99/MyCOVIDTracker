@@ -2,15 +2,21 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import * as userService from '../services/user';
 import { userModel } from '../models/user';
-import bcryptjs from 'bcryptjs';
 import signJWT from '../functions/signJWT';
-import { Connect, Query } from '../config/mysql';
-import IUser from '../interfaces/user';
-import IMySQLResult from '../interfaces/result';
+
+
 
 const NAMESPACE = 'User';
 
-const createUser = async (req: Request, res: Response, next: NextFunction) => {
+const validateToken = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, "Token validated, user authorized.");
+
+    return res.status(200).json({
+        message: "Authorized"
+    });
+}
+const register = async (req: Request, res: Response, next: NextFunction) => {
+    const user: userModel = req.body;
     logging.info(NAMESPACE, 'Creating user.');
 
     //  Data Transfer Object (DTO)
@@ -26,7 +32,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         }
         
         //  Call to service layer
-        const user = await userService.createUser(userDTO);
+        const result = await userService.register(userDTO);
 
         // Return a response to client.
         return res.json(user);
@@ -34,27 +40,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     } catch(e){
         return res.status(500).json(e);
     }
-};
 
-
-const validateToken = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, "Token validated, user authorized.");
-
-    return res.status(200).json({
-        message: "Authorized"
-    });
-}
-const register = async (req: Request, res: Response, next: NextFunction) => {
-    const user: userModel = req.body;
-
-    bcryptjs.hash(user.password, 10, (hashError, hash) => {
-        if (hashError){
-            return res.status(500).json({
-                message: hashError.message,
-                error: hashError
-            })
-        }
-    });
 }
 const login = async (req: Request, res: Response, next: NextFunction) => {
     
@@ -68,6 +54,6 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     // Return a response to client.
     return res.json(result);
 };
-export default {createUser, validateToken, register, login, getAllUsers};
+export default {validateToken, register, login, getAllUsers};
 
 
