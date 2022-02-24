@@ -23,7 +23,7 @@ function queryDatabase(query: string) {
                 });
         })
         .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
+            //logging.error(NAMESPACE, error.message, error);
             throw error;
     });
 }
