@@ -3,6 +3,10 @@ import logging from '../config/logging';
 import * as userService from '../services/user';
 import { userModel } from '../models/user';
 import bcryptjs from 'bcryptjs';
+import signJWT from '../functions/signJWT';
+import { Connect, Query } from '../config/mysql';
+import IUser from '../interfaces/user';
+import IMySQLResult from '../interfaces/result';
 
 const NAMESPACE = 'User';
 
@@ -17,12 +21,12 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         if (!userDTO.username || !userDTO.password){
             return res.status(400).json({
                 status: 400,
-                message: "Missing LastName or FirstName"
+                message: "Missing username or password"
             })
         }
         
         //  Call to service layer
-        const user = await userService.Signup(userDTO);
+        const user = await userService.createUser(userDTO);
 
         // Return a response to client.
         return res.json(user);
@@ -64,6 +68,6 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     // Return a response to client.
     return res.json(result);
 };
-export default {validateToken, register, login, getAllUsers};
+export default {createUser, validateToken, register, login, getAllUsers};
 
 

@@ -14,7 +14,7 @@ import { create, retrieve } from "../repositories/user";
 
 const NAMESPACE = 'user/service';
 
-const Signup = async (user: userModel) => {
+const createUser = async (user: userModel) => {
     // Business Logic
 
     // Call to user repository
@@ -28,4 +28,4 @@ const retrieveSample = () => {
     return retrieve();
 }
 
-export {Signup, retrieveSample};
+export {createUser, retrieveSample};
