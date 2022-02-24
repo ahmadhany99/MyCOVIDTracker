@@ -11,15 +11,23 @@
 
 import { userModel } from "../models/user";
 import { create, retrieve } from "../repositories/user";
+import bcryptjs, { hash } from 'bcryptjs';
 
 const NAMESPACE = 'user/service';
 
-const createUser = async (user: userModel) => {
+const register = async (user: userModel) => {
     // Business Logic
-
+    bcryptjs.hash(user.password, 10, (hashError, hash) => {
+        if (hashError){
+            return ({
+                message: hashError.message,
+                error: hashError
+            })
+        }
+        const userRecord = create(user, hash);
+        return userRecord;
+    });
     // Call to user repository
-    const userRecord = await create(user);
-    return userRecord;
 }
 
 const retrieveSample = () => {
@@ -28,4 +36,4 @@ const retrieveSample = () => {
     return retrieve();
 }
 
-export {createUser, retrieveSample};
+export {register, retrieveSample};

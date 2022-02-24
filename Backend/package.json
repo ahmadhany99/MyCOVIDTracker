@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.ts",
+  "main": "source/server.ts",
   "scripts": {
     "build": "del -rf build/ && prettier --write source/ && tsc"
   },
