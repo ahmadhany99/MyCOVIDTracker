@@ -1,8 +1,8 @@
 const info = (namespace: string, message: string, object?: any) => {
     if (object) {
-        console.info(`[${getTimeStamp()}] [INFO2] [${namespace}] ${message}`, object);
+        console.info(`[${getTimeStamp()}] [INFO] [${namespace}] ${message}`, object);
     } else {
-        console.info(`[${getTimeStamp()}] [INFO2] [${namespace}] ${message}`);
+        console.info(`[${getTimeStamp()}] [INFO] [${namespace}] ${message}`);
     }
 };
 

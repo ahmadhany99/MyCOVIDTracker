@@ -1,12 +1,13 @@
 import mysql from 'mysql';
 import config from './config';
+import logging from './logging';
 
 const NAMESPACE = 'mysql';
 
 const params = {
+    host: config.mysql.host,
     user: config.mysql.user,
     password: config.mysql.password,
-    host: config.mysql.host,
     database: config.mysql.database
 };
 
@@ -15,6 +16,7 @@ const Connect = async () =>
         const connection = mysql.createConnection(params);
         connection.connect((error) => {
             if (error) {
+                logging.error(NAMESPACE, error.message, error);
                 reject(error);
                 return;
             }
