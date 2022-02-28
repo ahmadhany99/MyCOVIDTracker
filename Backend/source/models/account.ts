@@ -1,8 +1,12 @@
 export type accountModel = 
 {
     accountId : number,
+    lastname: string,
+    firstname: string,
+    email: string,
     username: string,
     password: string,
-    passwordModificationDate: Date,
-    typeId : number
+    typeId : number,
+    cellPhone: string,
+    languageId : number
 }

@@ -17,7 +17,7 @@ const NAMESPACE = 'user/service';
 
 const register = async (user: userModel) => {
     // Business Logic
-    bcryptjs.hash(user.password, 10, (hashError, hash) => {
+    bcryptjs.hash(user.firstName, 10, (hashError, hash) => {
         if (hashError){
             return ({
                 message: hashError.message,

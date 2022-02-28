@@ -10,38 +10,28 @@
 */
 
 import { accountModel } from "../models/account";
-import { create, retrieve, getAccountByUsername } from "../repositories/account";
+import { getAccountByUsernameAndPassword,createAccount,getAccountByUsername  } from "../repositories/account";
 import bcryptjs, { hash } from 'bcryptjs';
 
 const NAMESPACE = 'account/service';
 
-const register = async (user: accountModel) => {
-    // Business Logic
-    bcryptjs.hash(user.password, 10, (hashError, hash) => {
-        if (hashError){
-            return ({
-                message: hashError.message,
-                error: hashError
-            })
-        }
-        const userRecord = create(user, hash);
-        return userRecord;
-    });
-    // Call to user repository
-}
 
 const login = (account: accountModel) => {
-    // Encrypt the password
 
-        return getAccountByUsername();
-    
-
+        return getAccountByUsernameAndPassword(account);
 }
 
-const retrieveSample = () => {
-    // Business Logic
-    // Call Repo
-    return retrieve();
+const create = (account: accountModel) => {
+
+        return createAccount(account);
 }
 
-export {login, register, retrieveSample};
+const getAccount = (account: accountModel) => {
+
+        return getAccountByUsername(account);
+}
+
+
+
+
+export {login,create,getAccount};
