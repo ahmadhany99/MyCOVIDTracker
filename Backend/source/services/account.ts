@@ -10,7 +10,7 @@
 */
 
 import { accountModel } from "../models/account";
-import { getAccountByUsernameAndPassword,createAccount,getAccountByUsername  } from "../repositories/account";
+import { getAccountByUsernameAndPassword,createAccount,getAllAccount  } from "../repositories/account";
 import bcryptjs, { hash } from 'bcryptjs';
 
 const NAMESPACE = 'account/service';
@@ -26,12 +26,9 @@ const create = (account: accountModel) => {
         return createAccount(account);
 }
 
-const getAccount = (account: accountModel) => {
+const getAll = () => {
 
-        return getAccountByUsername(account);
+        return getAllAccount();
 }
 
-
-
-
-export {login,create,getAccount};
+export {login,create,getAll};
