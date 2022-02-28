@@ -5,7 +5,7 @@ import logging from '../config/logging';
 const NAMESPACE = 'user/repository';
 
 const create = (user: userModel, hash: string) => {
-    const query = `INSERT INTO test VALUES ("${user.username}", "${hash}")`;
+    const query = `INSERT INTO test VALUES ("${user.firstName}", "${hash}")`;
     logging.info(NAMESPACE, 'WE OUT HERE');
     return queryDatabase(query);
 }
