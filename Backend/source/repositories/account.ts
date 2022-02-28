@@ -11,8 +11,8 @@ const getAccountByUsernameAndPassword = (account: accountModel) => {
     return queryDatabase(query);
 }
 
-const createAccount = (account: accountModel) => {
-    const query = `INSERT INTO account VALUES (accountID, "${account.lastname}", "${account.firstname}", "${account.email}", "${account.username}", "${account.password}",${account.typeId}, null, 0)`;
+const createAccount = (account: accountModel, hash: string, salt: string) => {
+    const query = `INSERT INTO account VALUES (accountID, "${account.lastname}", "${account.firstname}", "${account.email}", "${account.username}", "${hash}", 1, null, 0, "${salt}")`;
     return queryDatabase(query);
 }
 
@@ -21,7 +21,11 @@ const getAccountByUsername = (account: accountModel) => {
     return queryDatabase(query);
 }
 
+const getAllAccount = (account: accountModel) => {   
+    const query = `SELECT * FROM account`;
+    return queryDatabase(query);
+}
 
-export {getAccountByUsername, createAccount, getAccountByUsernameAndPassword};
+export {getAccountByUsername, createAccount, getAccountByUsernameAndPassword, getAllAccount};
 
 
