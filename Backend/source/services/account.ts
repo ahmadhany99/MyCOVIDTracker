@@ -1,4 +1,4 @@
-/* Should: 
+/* Should:
         - Contain business logic
         - Leverage data access layer to interact with database
         - Be framework agnostic
@@ -10,29 +10,41 @@
 */
 
 import { accountModel } from "../models/account";
-import { createAccount, getAccountByUsername, getAccountByUsernameAndPassword, getAllAccount } from "../repositories/account";
+import { loginDTO } from "../models/loginDTO";
+import { createAccount, getPasswordByUsername, getAccountByUsernameAndPassword, getAllAccount } from "../repositories/account";
 import bcryptjs, { hash } from 'bcryptjs';
 import logging from "../config/logging";
 
 const NAMESPACE = 'account/service';
 
 
-const login = (account: accountModel) => {
-
-        return getAccountByUsername(account);
-}
-
-const create = async(account: accountModel) => {
-        const salt = bcryptjs.genSaltSync(10).substring(0,9);
-        logging.debug(NAMESPACE, "[salt] = "+salt);
-        bcryptjs.hash(account.password, salt, (hashError, hash) => {
+const login = async (account: accountModel) => {
+        var data = await getPasswordByUsername(account);
+        const salt = data[0].salt;
+        logging.debug(NAMESPACE, "this pw = ", account.password)
+        logging.debug(NAMESPACE, "stored pw = ", data[0].password)
+        bcryptjs.compare(account.password, data[0].password, (hashError, success) => {
                 if (hashError) {
                         return ({
                                 message: hashError.message,
                                 error: hashError
                         })
                 }
-                logging.debug(NAMESPACE, account.username+":"+hash);
+                logging.debug(NAMESPACE, "pw are equal = ", success.valueOf())
+                return success
+        });
+}
+
+const create = async (account: accountModel) => {
+        const salt = bcryptjs.genSaltSync(10);
+        bcryptjs.hash(account.password, salt, (hashError, hash) => {
+                if (hashError) {
+                        logging.error(NAMESPACE, "error while creating account", hashError);
+                        return ({
+                                message: hashError.message,
+                                error: hashError
+                        })
+                }
                 createAccount(account, hash, salt);
         });
 }
@@ -42,7 +54,8 @@ const getAccount = (account: accountModel) => {
         return getAllAccount(account);
 }
 
-
-
-
-export {login,create,getAccount};
+export {
+        login,
+        create,
+        getAccount
+};
