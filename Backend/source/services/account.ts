@@ -30,8 +30,9 @@ const login = async (account: accountModel) => {
                                 error: hashError
                         })
                 }
-                logging.debug(NAMESPACE, "pw are equal = ", success.valueOf())
-                return success
+                var result = JSON.stringify(success.valueOf())
+                logging.debug(NAMESPACE, "pw are equal = ", result)
+                return result
         });
 }
 
