@@ -11,7 +11,6 @@ SOEN390 ...
 |Sofiya Taver             |sofiyataver  |40095050
 |Allan Paul Lopez         |allanation   |40000954
 |Michael Laplaine-Pereira |Mikeymousey  |40018253
-|Hadi Hawi                |Hadihw       |40096690
 |Minh-Tam Do              |mint47       |40095639
 
 # Meeting
@@ -26,6 +25,6 @@ SOEN390 ...
 |3. Software Architecture Document (SAD)         |[SAD](https://docs.google.com/document/d/141-sKeF1fhYgcpItkO8x6FpbBK9v4EHno8PujWkCae4/edit)
 |4. Risk Assessment & Risk Management Plan (RMP) |[RMP](https://docs.google.com/spreadsheets/d/19pll7K4vfft5RpWc3XY_mr_mzK3Kgz0W/edit?usp=sharing&ouid=100065792280865296979&rtpof=true&sd=true)
 |5. UI prototypes for Sprint #2 user stories     | [UIP](https://docs.google.com/document/d/1uBESrofI35jFGL3LGNSbbG86htb_SX91NCIj1kRFRq8/edit?usp=sharing)
-|6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1U0KxoS2rs6KsZzzbmEmhgOBPQjwYIcvrWPOFbWAgWvM/edit?usp=sharing)
+|6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1fAbSfHkD02Vpo1PR5BOb2GjjUOXwF3dXkvfmESFn3SA/edit?usp=sharing)
 |7. Running prototype                            |
 |8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/10_UorVNeMjcE4S7uRp6yxJfB0mJkpFw1EboA8nAk5pQ/edit?usp=sharing)
