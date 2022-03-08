@@ -12,7 +12,7 @@
 import { accountModel } from "../models/account";
 import { loginDTO } from "../models/loginDTO";
 import { createAccount, getPasswordByUsername, getAccountByUsernameAndPassword, getAllAccount } from "../repositories/account";
-import bcryptjs, { hash } from 'bcryptjs';
+import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
 
 const NAMESPACE = 'account/service';
