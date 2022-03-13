@@ -14,6 +14,7 @@ import * as account from "../repositories/account";
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
 
+
 const NAMESPACE = 'account/service';
 
 const login = async (acc: accountModel) => {

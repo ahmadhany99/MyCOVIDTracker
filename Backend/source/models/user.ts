@@ -1,6 +1,6 @@
 export type userModel = 
 {
-    lasName: string,
+    lastName: string,
     firstName: string,
     homePhone: string,
     workPhone: string,

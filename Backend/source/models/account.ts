@@ -1,11 +1,11 @@
 export type accountModel = 
 {
     accountId : number,
+    username: string,
+    password: string,
     lastname: string,
     firstname: string,
     email: string,
-    username: string,
-    password: string,
     typeId : number,
     cellPhone: string,
     languageId : number

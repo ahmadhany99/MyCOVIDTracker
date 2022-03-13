@@ -20,7 +20,7 @@ const getAccountByUsername = (account: accountModel) => {
     return queryDatabase(query);
 }
 
-const getAllAccount = () => {   
+const getAllAccount = () => {
     const query = `SELECT * FROM account`;
     return queryDatabase(query);
 }

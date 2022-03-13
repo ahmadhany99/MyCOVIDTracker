@@ -24,7 +24,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     
     //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try{
-        if (!userDTO.firstName || !userDTO.firstName){
+        if (!userDTO.firstName || !userDTO.lastName){
             return res.status(400).json({
                 status: 400,
                 message: "Missing username or password"
