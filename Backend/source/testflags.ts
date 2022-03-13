@@ -1,0 +1,5 @@
+const GETACCOUNTTESTING = true;
+
+export {
+    GETACCOUNTTESTING,
+}
