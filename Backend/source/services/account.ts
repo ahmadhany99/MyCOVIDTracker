@@ -47,6 +47,7 @@ const create = async (acc: accountModel) => {
 }
 
 const deleteAccount = async (acc: accountModel) => {
+        logging.debug(NAMESPACE, 'deleting account ', acc.username);
         return account.deleteAccountByUsername(acc);
 }
 
@@ -69,4 +70,5 @@ export {
         create,
         getAccountTestingOnly,
         getAccount,
+        deleteAccount
 };
