@@ -60,7 +60,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const getAccount = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, 'Login to account.');
+    logging.info(NAMESPACE, 'Retrieving Account from Database');
 
 
     //  Data Transfer Object (DTO)
@@ -69,7 +69,8 @@ const getAccount = async (req: Request, res: Response, next: NextFunction) => {
     try{
         
         //  Call to service layer
-        const result = await accountService.getAll();
+        //const result = await accountService.getAccount(accountDTO);
+        const result = await accountService.getAccountTestingOnly(accountDTO);
 
         // Return a response to client.
         return res.json(result);
@@ -80,6 +81,27 @@ const getAccount = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
-export default {createAccount, login, getAccount};
+const deleteAccount = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Deleting Account');
+
+    const accountDTO: accountModel = req.body;
+
+    try {
+        const result = await accountService.deleteAccount(accountDTO);
+
+        return res.json(result);
+    }
+    catch (err) {
+        return res.status(500).json(err);
+    }
+
+}
+
+export default {
+    createAccount, 
+    login, 
+    getAccount,
+    deleteAccount
+};
 
 
