@@ -69,7 +69,8 @@ const getAccount = async (req: Request, res: Response, next: NextFunction) => {
     try{
         
         //  Call to service layer
-        const result = await accountService.getAccount(accountDTO);
+        //const result = await accountService.getAccount(accountDTO);
+        const result = await accountService.getAccountTestingOnly(accountDTO);
 
         // Return a response to client.
         return res.json(result);

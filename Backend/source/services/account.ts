@@ -10,53 +10,63 @@
 */
 
 import { accountModel } from "../models/account";
-import { loginDTO } from "../models/loginDTO";
-import { createAccount, getPasswordByUsername, getAccountByUsernameAndPassword, getAllAccount } from "../repositories/account";
+import * as account from "../repositories/account";
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
 
 const NAMESPACE = 'account/service';
 
-
-const login = async (account: accountModel) => {
-        var data = await getPasswordByUsername(account);
-        const salt = data[0].salt;
-        logging.debug(NAMESPACE, "this pw = ", account.password)
-        logging.debug(NAMESPACE, "stored pw = ", data[0].password)
-        bcryptjs.compare(account.password, data[0].password, (hashError, success) => {
-                if (hashError) {
-                        return ({
-                                message: hashError.message,
-                                error: hashError
-                        })
-                }
-                var result = JSON.stringify(success.valueOf())
-                logging.debug(NAMESPACE, "pw are equal = ", result)
-                return result
-        });
+const login = async (acc: accountModel) => {
+        var data = await account.getPasswordByUsername(acc);
+        logging.debug(NAMESPACE, "this pw = ", acc.password);
+        logging.debug(NAMESPACE, "stored pw = ", data[0].password);
+        const result = await bcryptjs.compare(acc.password, data[0].password).then((isEqual: boolean) => {
+                logging.debug(NAMESPACE, "isEqual = ", isEqual);
+                return isEqual;
+        })
+        logging.debug(NAMESPACE, "result = ", result);
+        return result;
 }
 
-const create = async (account: accountModel) => {
-        const salt = bcryptjs.genSaltSync(10);
-        bcryptjs.hash(account.password, salt, (hashError, hash) => {
-                if (hashError) {
-                        logging.error(NAMESPACE, "error while creating account", hashError);
-                        return ({
-                                message: hashError.message,
-                                error: hashError
+const create = async (acc: accountModel) => {
+        bcryptjs.hash(acc.password, 10)
+                .then((hash: any) => {
+                        account.createAccount(acc, hash, '10')
+                        .then(() => {
+                                logging.debug(NAMESPACE, "new account added successfully");
                         })
-                }
-                createAccount(account, hash, salt);
-        });
+                        .catch((error) => {
+                                logging.error(NAMESPACE, "error while creating account");
+                                throw (error);
+                        })
+                })
+                .catch((error) => {
+                        logging.error(NAMESPACE, "error while hashing password");
+                        throw (error);
+                })
 }
 
-const getAccount = (account: accountModel) => {
+const deleteAccount = async (acc: accountModel) => {
+        return account.deleteAccountByUsername(acc);
+}
 
-        return getAllAccount(account);
+const getAccountTestingOnly = (acc: accountModel) => {
+        if (acc.username != null) {
+                return account.getAccountByUsername(acc);
+        }
+        return account.getAllAccount();
+}
+
+const getAccount = (acc: accountModel) => {
+        if (acc.username != null) {
+                return account.getAccountByUsername(acc);
+        }
+        throw (new Error("No username specified"));
 }
 
 export {
         login,
         create,
-        getAccount
+        getAccountTestingOnly,
+        getAccount,
 };
