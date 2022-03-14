@@ -1,0 +1,31 @@
+.patient {
+  background-color: #51c4d3;
+  width: 75%;
+  display: flex;
+  margin: 1rem;
+  margin-left: 5rem;
+  padding: 0 1rem;
+  border-radius: 15px;
+
+}
+
+.patient p {
+  text-align: left;
+}
+
+.doctor {
+  background-color: white;
+  width: 75%;
+  display: flex;
+  margin: 1rem;
+  padding: 0 1rem;
+  border-radius: 15px;
+}
+
+.doctor p {
+  text-align: left;
+}
+
+.urgent {
+  color: red;
+}

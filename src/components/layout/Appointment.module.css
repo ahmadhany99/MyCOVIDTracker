@@ -1,0 +1,13 @@
+.card {
+  background-color: #51c4d3;
+  color: white;
+  width: 80%;
+  padding: 1rem 0;
+  margin: .8rem auto;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+.card p{
+    margin: 0;
+}
