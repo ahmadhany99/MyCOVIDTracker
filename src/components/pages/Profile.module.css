@@ -24,7 +24,6 @@
 }
 
 .profile_pic {
-  
 }
 
 .patient_info p {
@@ -56,4 +55,7 @@
   width: 120px;
   height: 44px;
   border-radius: 100px;
+}
+.floatAboveEverything {
+  position: absolute;
 }

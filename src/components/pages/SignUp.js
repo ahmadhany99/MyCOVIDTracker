@@ -22,7 +22,7 @@ const Register = () => {
       email: "",
       firstName: "",
       lastName: "",
-      profession: "",
+      // profession: "",
       password: "",
       password2: "",
       policy: false,
@@ -34,7 +34,7 @@ const Register = () => {
         .required("Email is required"),
       firstName: Yup.string().max(255).required("First name is required"),
       lastName: Yup.string().max(255).required("Last name is required"),
-      profession: Yup.boolean().required("Profession is required"),
+      //profession: Yup.boolean().required("Profession is required"),
       password: Yup.string().max(255).required("Password is required"),
       password2: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -117,7 +117,9 @@ const Register = () => {
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.password2 && formik.errors.password2)}
+              error={Boolean(
+                formik.touched.password2 && formik.errors.password2
+              )}
               fullWidth
               helperText={formik.touched.password2 && formik.errors.password2}
               label="Re-enter password"
@@ -154,18 +156,16 @@ const Register = () => {
               <FormHelperText error>{formik.errors.policy}</FormHelperText>
             )}
             <Box sx={{ py: 2 }}>
-              <L to="/dashboard">
-                <Button
-                  color="primary"
-                  disabled={formik.isSubmitting}
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                >
-                  Sign Up Now
-                </Button>
-              </L>
+              <Button
+                color="primary"
+                disabled={formik.isSubmitting}
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+              >
+                Sign Up Now
+              </Button>
             </Box>
             <Typography color="textSecondary" variant="body2">
               Have an account? <L to="/login">Log In</L>

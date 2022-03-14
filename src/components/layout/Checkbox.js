@@ -110,7 +110,7 @@ export default function CheckboxListSecondary() {
         })}
       </List>
       <Link to="/profile">
-        <div className={classes.submit}>
+        <div className={classes.submit} position="up">
           Confirm
         </div>
       </Link>
