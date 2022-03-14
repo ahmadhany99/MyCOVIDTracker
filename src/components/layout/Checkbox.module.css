@@ -14,8 +14,7 @@
   margin: 0.8rem auto;
 }
 
-
-.submit:hover{
-    cursor: pointer;
-    background-color: #132C33;
+.submit:hover {
+  cursor: pointer;
+  background-color: #132c33;
 }

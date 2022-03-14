@@ -5,7 +5,6 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import StatusLog from "../layout/StatusLog";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-
 const patientInfo = {
   name: "Victoria Robertson",
   age: "26",

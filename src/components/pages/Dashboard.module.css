@@ -22,12 +22,13 @@
 .status_cta {
   background-color: #126e82;
   color: white;
- margin-bottom: 1rem;
- border-radius: 100px;
+  margin-bottom: 1rem;
+  border-radius: 100px;
+  margin-top: 10rem;
 }
 
-.self_q{
-    text-align: center;
-    padding-top: 3rem;
-    padding-bottom: 1rem;
+.self_q {
+  text-align: center;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
 }

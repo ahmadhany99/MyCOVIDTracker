@@ -1,13 +1,13 @@
-
-.banner{
-    background-color: #132C33;
-    height: 110px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    color: white;
-    font-size: 30px;
-    margin: auto auto;
-    text-align: center;
-    padding-top: 3.5rem;
+.banner {
+  background-color: #132c33;
+  position: absolute;
+  height: 110px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  color: white;
+  font-size: 30px;
+  margin: auto auto;
+  text-align: center;
+  padding-top: 3.5rem;
 }
