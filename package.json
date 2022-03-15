@@ -2,12 +2,12 @@
   "name": "backend-app",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/source/server.ts",
+  "main": "Backend/source/server.ts",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "postinstall": "tsc",
-    "start": "node backend/build/server.js"
+    "start": "node Backend/build/server.js"
   },
   "author": "",
   "license": "ISC",
