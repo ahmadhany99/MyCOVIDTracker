@@ -10,14 +10,13 @@ const updateStatus = async (req: Request, res: Response, next: NextFunction) => 
     const status: statusModel = req.body;
     
     try{
-        //call service layer to execute call
+        //call service layer to execute api call
         const result = await statusService.updateStatus(status);
 
         return res.status(200).json({
             status: 200,
             message: "Status Updated Successfully"
         })
-
     } catch(e){
         return res.status(500).json(e);
     }
@@ -29,14 +28,13 @@ const deleteStatus = async (req: Request, res: Response, next: NextFunction) => 
     const status: statusModel = req.body;
     
     try{
-        //call service layer to execute call
+        //call service layer to execute api call
         const result = await statusService.deleteStatus(status);
 
         return res.status(200).json({
             status: 200,
             message: "Status Deleted Successfully"
         })
-
     } catch(e){
         return res.status(500).json(e);
     }
@@ -47,11 +45,10 @@ const getStatus = async (req: Request, res: Response, next: NextFunction) => {
     const status: statusModel = req.body;
     
     try{
-        //call service layer to execute call
+        //call service layer to execute api call
         const result = await statusService.getStatus(status);
 
         return res.status(200).json(JSON.parse(JSON.stringify(result)));
-
     } catch(e){
         return res.status(500).json(e);
     }
@@ -62,11 +59,10 @@ const getAllStatus = async (req: Request, res: Response, next: NextFunction) => 
     const status: statusModel = req.body;
     
     try{
-        //call service layer to execute call
+        //call service layer to execute api call
         const result = await statusService.getAllStatus(status);
 
         return res.status(200).json(JSON.parse(JSON.stringify(result)));
-
     } catch(e){
         return res.status(500).json(e);
     }

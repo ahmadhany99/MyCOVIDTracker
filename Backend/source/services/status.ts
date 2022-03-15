@@ -25,6 +25,7 @@ const updateStatus = async (status: statusModel) => {
                 throw new Error("uid undefined")
         }
         // use today's date if date not specified
+        // #TODO separate this into a separate function for reuse
         if (status.date == null) {
                 status.date = new Date().toISOString().slice(0, 10);
         }
