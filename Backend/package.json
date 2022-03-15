@@ -1,10 +1,11 @@
 {
-  "name": "backend",
+  "name": "backend-soen390",
   "version": "1.0.0",
   "description": "",
   "main": "source/server.ts",
   "scripts": {
-    "build": "del -rf build/ && prettier --write source/ && tsc"
+    "build": "del -rf build/ && prettier --write source/ && tsc",
+    "postinstall": "tsc"
   },
   "author": "",
   "license": "ISC",
