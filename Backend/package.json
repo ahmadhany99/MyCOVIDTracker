@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "source/server.ts",
+  "main": "backend/source/server.ts",
   "scripts": {
-    "build": "del -rf build/ && prettier --write source/ && tsc",
+    "start": "node backend/source/server.ts",
     "postinstall": "tsc"
   },
   "author": "",
