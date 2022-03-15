@@ -13,6 +13,7 @@ import { accountModel } from "../models/account";
 import * as account from "../repositories/account";
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
+import { GETACCOUNTTESTINGMODE } from "../testflags";
 
 
 const NAMESPACE = 'account/service';
@@ -29,7 +30,7 @@ const login = async (acc: accountModel) => {
         return result;
 }
 
-const create = async (acc: accountModel) => {
+const createAccount = async (acc: accountModel) => {
         bcryptjs.hash(acc.password, 10)
                 .then((hash: any) => {
                         account.createAccount(acc, hash, '10')
@@ -52,24 +53,21 @@ const deleteAccount = async (acc: accountModel) => {
         return account.deleteAccountByUsername(acc);
 }
 
-const getAccountTestingOnly = (acc: accountModel) => {
-        if (acc.username != null) {
-                return account.getAccountByUsername(acc);
-        }
-        return account.getAllAccount();
-}
-
 const getAccount = (acc: accountModel) => {
         if (acc.username != null) {
                 return account.getAccountByUsername(acc);
         }
-        throw (new Error("No username specified"));
+        if (GETACCOUNTTESTINGMODE == true) {
+                return account.getAllAccount();
+        }
+        else {
+                throw (new Error("No username specified"));
+        }
 }
 
 export {
         login,
-        create,
-        getAccountTestingOnly,
+        createAccount,
         getAccount,
         deleteAccount
 };

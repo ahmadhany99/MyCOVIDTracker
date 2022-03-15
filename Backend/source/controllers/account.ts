@@ -7,9 +7,9 @@ import signJWT from '../functions/signJWT';
 
 
 
-const NAMESPACE = 'Account';
+const NAMESPACE = 'account/controller';
 
-const createAccount = async (req: Request, res: Response, next: NextFunction) => {
+const register = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, "Create account");
 
     //  Data Transfer Object (DTO)
@@ -17,7 +17,7 @@ const createAccount = async (req: Request, res: Response, next: NextFunction) =>
     
     try{
         //  Call to service layer
-        const result = await accountService.create(accountDTO);
+        const result = await accountService.createAccount(accountDTO);
 
         // Return a response to client.
         return res.status(200).json({
@@ -69,8 +69,7 @@ const getAccount = async (req: Request, res: Response, next: NextFunction) => {
     try{
         
         //  Call to service layer
-        //const result = await accountService.getAccount(accountDTO);
-        const result = await accountService.getAccountTestingOnly(accountDTO);
+        const result = await accountService.getAccount(accountDTO);
 
         // Return a response to client.
         return res.json(result);
@@ -98,7 +97,7 @@ const deleteAccount = async (req: Request, res: Response, next: NextFunction) =>
 }
 
 export default {
-    createAccount, 
+    register, 
     login, 
     getAccount,
     deleteAccount
