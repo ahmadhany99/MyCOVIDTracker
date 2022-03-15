@@ -4,8 +4,8 @@
   "description": "",
   "main": "backend/source/server.ts",
   "scripts": {
-    "start": "node backend/source/server.ts",
-    "postinstall": "tsc"
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "author": "",
   "license": "ISC",
