@@ -71,7 +71,7 @@ const getAccount = (acc: accountModel) => {
         if (acc.username != null) {
                 return account.getAccountByUsername(acc);
         }
-        throw (new Error("No username specified"));
+        throw (new Error("No username specified"));    
 }
 
 const getAllDoctors = () => {
