@@ -25,9 +25,24 @@ const getAllAccount = () => {
     return queryDatabase(query);
 }
 
+const getAllDoctors = () => {
+    const query = `SELECT * FROM account WHERE typeId=1`;
+    return queryDatabase(query);
+}
+
 const getPasswordByUsername = (account: accountModel) => {
     const query = `SELECT password FROM account WHERE username="${account.username}"`;
     return queryDatabase(query) as unknown as loginDTO[];
+}
+
+const checkIfUsernameExists = (account: accountModel) => {
+    const query = `SELECT * FROM account WHERE username="${account.username}"`;
+    return queryDatabase(query) as unknown as accountModel[];
+}
+
+const checkIfEmailExists = (account: accountModel) => {
+    const query = `SELECT * FROM account WHERE email="${account.email}"`;
+    return queryDatabase(query) as unknown as accountModel[];
 }
 
 const deleteAccountByUsername = (account: accountModel) => {
@@ -42,6 +57,9 @@ export {
     getAllAccount,
     getPasswordByUsername,
     deleteAccountByUsername,
+    checkIfUsernameExists,
+    checkIfEmailExists,
+    getAllDoctors
 };
 
 

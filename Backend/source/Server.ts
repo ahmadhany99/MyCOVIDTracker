@@ -6,6 +6,7 @@ import config from './config/config';
 import userRoutes from './routes/template';
 import accountRoutes from './routes/account';
 import statusRoutes from './routes/status';
+import appointmentRoutes from './routes/appointment';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -43,6 +44,7 @@ router.use((req, res, next) => {
 router.use('/api', userRoutes);
 router.use('/api', accountRoutes);
 router.use('/api', statusRoutes)
+router.use('/api', appointmentRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {

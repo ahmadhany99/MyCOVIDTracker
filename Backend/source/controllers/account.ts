@@ -37,7 +37,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     //  Data Transfer Object (DTO)
     const accountDTO: accountModel = req.body;
-    
+     
     //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try{
         if (!accountDTO.username || !accountDTO.password){
@@ -80,6 +80,23 @@ const getAccount = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
+const getAllDoctors = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Retrieving Account from Database');
+
+    try{
+        
+        //  Call to service layer
+        const result = await accountService.getAllDoctors();
+
+        // Return a response to client.
+        return res.json(result);
+
+    } catch(e){
+        return res.status(500).json(e);
+    }
+
+}
+
 const deleteAccount = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Deleting Account');
 
@@ -100,7 +117,8 @@ export default {
     register, 
     login, 
     getAccount,
-    deleteAccount
+    deleteAccount,
+    getAllDoctors
 };
 
 
