@@ -7,7 +7,7 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "postinstall": "npm update && npm install package-name",
-    "start": "node Bgackend/build/server.js"
+    "start": "node Backend/build/server.js"
   },
   "author": "",
   "license": "ISC",
