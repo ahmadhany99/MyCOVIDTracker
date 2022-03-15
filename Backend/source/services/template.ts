@@ -10,7 +10,7 @@
 */
 
 import { userModel } from "../models/user";
-import { create, retrieve } from "../repositories/user";
+import { create, retrieve } from "../repositories/template";
 import bcryptjs, { hash } from 'bcryptjs';
 
 const NAMESPACE = 'user/service';
