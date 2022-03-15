@@ -2,10 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/source/server.ts",
+  "main": "source/server.ts",
   "scripts": {
     "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean",
+    "postinstall": "tsc",
+    "start": "node build/server.js"
   },
   "author": "",
   "license": "ISC",
