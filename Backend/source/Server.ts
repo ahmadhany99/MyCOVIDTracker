@@ -43,7 +43,7 @@ router.use((req, res, next) => {
 /** Routes go here */
 router.use('/api', userRoutes);
 router.use('/api', accountRoutes);
-router.use('/api', statusRoutes)
+router.use('/api', statusRoutes);
 router.use('/api', appointmentRoutes);
 
 /** Error handling */

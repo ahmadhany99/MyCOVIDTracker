@@ -18,11 +18,11 @@ import { GETALLSTATUSTESTINGMODE } from "../testflags";
 const NAMESPACE = 'status/service';
 
 const updateStatus = async (status: statusModel) => {
-        logging.info(NAMESPACE, "Updating Status")
+        logging.info(NAMESPACE, "Updating Status");
 
         // throw error if uid not specified
         if (status.uid == null) {
-                throw new Error("uid undefined")
+                throw new Error("uid undefined");
         }
         // use today's date if date not specified
         // #TODO separate this into a separate function for reuse
@@ -34,12 +34,12 @@ const updateStatus = async (status: statusModel) => {
         db.getStatusByUserAndDate(status).then((result) => {
                 // if none found, create new
                 if (result[0] == null) {
-                        logging.debug(NAMESPACE, "no existing status found for u:"+status.uid+" and date:"+status.date)
+                        logging.debug(NAMESPACE, "no existing status found for u:"+status.uid+" and date:"+status.date);
                         return db.createStatus(status);
                 }
                 // if existing status, edit existing
                 else {
-                        logging.debug(NAMESPACE, "existing status found for u:"+status.uid+" and date:"+status.date+"\n", result)
+                        logging.debug(NAMESPACE, "existing status found for u:"+status.uid+" and date:"+status.date+"\n", result);
                         return db.updateStatus(status);
                 }
         })
@@ -50,11 +50,11 @@ const deleteStatus = async (status: statusModel) => {
 
         // throw error if uid not specified
         if (status.uid == null) {
-                throw new Error("uid undefined")
+                throw new Error("uid undefined");
         }
         // throw error if date not specified
         if (status.date == null) {
-                throw new Error("date undefined")
+                throw new Error("date undefined");
         }
 
         logging.debug(NAMESPACE, "u:"+status.uid+", d:"+status.date);
@@ -66,11 +66,11 @@ const getStatus = async (status: statusModel) => {
 
         // throw error if uid not specified
         if (status.uid == null) {
-                throw new Error("uid undefined")
+                throw new Error("uid undefined");
         }
         // throw error if date not specified
         if (status.date == null) {
-                throw new Error("date undefined")
+                throw new Error("date undefined");
         }
 
         const result = await db.getStatusByUserAndDate(status);
@@ -90,7 +90,7 @@ const getAllStatus = async (status: statusModel) => {
         else {
                 // throw error if uid not specified
                 if (status.uid == null) {
-                        throw new Error("uid undefined")
+                        throw new Error("uid undefined");
                 }
                 logging.info(NAMESPACE, "Fetching All Status for u:"+status.uid);
                 const result = await db.getStatusByUser(status);
