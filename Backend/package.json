@@ -1,11 +1,11 @@
 {
-  "name": "backend-soen390",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "source/server.ts",
   "scripts": {
     "start": "node build/server.js",
-    "postinstall": "tsc"
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
