@@ -4,7 +4,8 @@
   "description": "",
   "main": "source/server.ts",
   "scripts": {
-    "build": "tsc"
+    "start": "node build/server.js",
+    "postinstall": "tsc"
   },
   "author": "",
   "license": "ISC",

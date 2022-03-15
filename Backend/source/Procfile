@@ -1,1 +1,1 @@
-worker: nodemon source/server.ts
+worker: npm start
