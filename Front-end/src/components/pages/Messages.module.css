@@ -1,0 +1,47 @@
+.title{
+    padding-left:2rem;
+    padding-top: 1rem;
+    font-weight: 400;
+}
+
+.message{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    background-color: white;
+    border-top: 2px solid white;
+    padding: .5rem;
+    position: fixed;
+    bottom: 56px;
+    width: 100%;
+}
+
+.urgent{
+    background-color: white;
+    color: red;
+    width: 35px;
+    height: 35px;
+    border: 3px solid red;
+    border-radius: 100px;
+    text-align: center;
+    font-size:20px;
+    font-weight: 600;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.message_input{
+   width: 75%;
+}
+
+.send{
+    background-color: #126E82;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    width: 35px;
+    height: 35px;
+    border-radius: 100px;
+    margin-top: 12px;
+    cursor: pointer;
+}
