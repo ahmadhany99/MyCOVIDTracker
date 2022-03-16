@@ -30,7 +30,11 @@ const login = async (acc: accountModel) => {
 }
 
 const create = async (acc: accountModel) => {
-        bcryptjs.hash(acc.password, 10)
+        //Check if the username or email already exists in the database
+        var username = await account.checkIfUsernameExists(acc);
+        var email = await account.checkIfEmailExists(acc);
+        if(username[0] == undefined && email[0] == undefined){
+                bcryptjs.hash(acc.password, 10)
                 .then((hash: any) => {
                         account.createAccount(acc, hash, '10')
                         .then(() => {
@@ -44,7 +48,11 @@ const create = async (acc: accountModel) => {
                 .catch((error) => {
                         logging.error(NAMESPACE, "error while hashing password");
                         throw (error);
-                })
+                })              
+        }else{    
+                logging.error(NAMESPACE, "username already exists");
+                throw ("Username or email already exists.")
+        }
 }
 
 const deleteAccount = async (acc: accountModel) => {
@@ -66,10 +74,16 @@ const getAccount = (acc: accountModel) => {
         throw (new Error("No username specified"));
 }
 
+const getAllDoctors = () => {
+
+        return account.getAllDoctors();
+}
+
 export {
         login,
         create,
         getAccountTestingOnly,
         getAccount,
-        deleteAccount
+        deleteAccount,
+        getAllDoctors
 };

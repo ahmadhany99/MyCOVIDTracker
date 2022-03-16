@@ -1,5 +1,5 @@
 import axios from 'axios';
-import logging from '../source/config/logging';
+import logging from '../../source/config/logging';
 
 const NAMESPACE = 'account/test';
 
@@ -15,7 +15,8 @@ test('testing login', () =>{
                 'username': "doremi",
                 'password': "test"
             },
-
+        // Case 1: Check email does not exists (request)
+        // Case 2: Email no exist in database (response)
         });
     } catch(err) {
         logging.error(NAMESPACE, 'login test error', err);
