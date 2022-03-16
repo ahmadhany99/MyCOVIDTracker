@@ -1,0 +1,49 @@
+.bg_photo {
+  position: absolute;
+  opacity: 60%;
+  margin: -10rem 10rem;
+  height: 80vh;
+  width: 80vw;
+}
+
+.big_name {
+  color: black;
+  margin: 2rem auto;
+  text-align: center;
+  font-size: 70px;
+}
+
+.small_name {
+  color: black;
+  margin: auto;
+  text-align: center;
+  font-size: 50px;
+}
+
+@media (max-width: 576px) {
+  h1 {
+    color: black;
+    text-align: center;
+    margin: 0;
+  }
+
+  p{
+    text-align: center;
+  }
+
+  img {
+    width: 85%;
+    padding: 6.5rem 0rem;
+  }
+
+  .start_cta {
+    height: 44px;
+    width: 343px;
+    border-radius: 100px;
+    background-color: #126e82;
+    color: white;
+    padding: 16px 32px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
