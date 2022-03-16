@@ -9,7 +9,6 @@ import StatusPage from "./components/pages/Status.js";
 import CalendarPage from "./components/pages/Calendar.js";
 import Layout from "./components/layout/Layout.js";
 import Banner from './components/layout/Banner';
-
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/

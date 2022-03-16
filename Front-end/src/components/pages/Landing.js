@@ -22,7 +22,7 @@ function Landing() {
         Keeping track of your status made <br /> easier with myCOVIDtracker
       </p>
       <Link to="/signup">
-        <Button variant="contained"className={classes.start_cta}>
+        <Button variant="contained" className={classes.start_cta}>
           Get Started
         </Button>
       </Link>

@@ -24,7 +24,7 @@ function DashboardPage() {
       </div>
       <h2 className={classes.self_q}>Self-quarantining</h2>
       <QuarantineClock />
-      <SimpleBottomNavigation></SimpleBottomNavigation>
+      <SimpleBottomNavigation />
     </section>
   );
 }
