@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
-import * as userService from '../services/user';
+import * as userService from '../services/template';
 import { userModel } from '../models/user';
 import signJWT from '../functions/signJWT';
 

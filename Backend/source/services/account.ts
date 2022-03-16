@@ -13,6 +13,7 @@ import { accountModel } from "../models/account";
 import * as account from "../repositories/account";
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
+import { GETACCOUNTTESTINGMODE } from "../testflags";
 
 
 const NAMESPACE = 'account/service';
@@ -29,7 +30,7 @@ const login = async (acc: accountModel) => {
         return result;
 }
 
-const create = async (acc: accountModel) => {
+const createAccount = async (acc: accountModel) => {
         //Check if the username or email already exists in the database
         var username = await account.checkIfUsernameExists(acc);
         var email = await account.checkIfEmailExists(acc);
@@ -60,18 +61,16 @@ const deleteAccount = async (acc: accountModel) => {
         return account.deleteAccountByUsername(acc);
 }
 
-const getAccountTestingOnly = (acc: accountModel) => {
-        if (acc.username != null) {
-                return account.getAccountByUsername(acc);
-        }
-        return account.getAllAccount();
-}
-
 const getAccount = (acc: accountModel) => {
         if (acc.username != null) {
                 return account.getAccountByUsername(acc);
         }
-        throw (new Error("No username specified"));
+        if (GETACCOUNTTESTINGMODE == true) {
+                return account.getAllAccount();
+        }
+        else {
+                throw (new Error("No username specified"));
+        }
 }
 
 const getAllDoctors = () => {
@@ -81,8 +80,7 @@ const getAllDoctors = () => {
 
 export {
         login,
-        create,
-        getAccountTestingOnly,
+        createAccount,
         getAccount,
         deleteAccount,
         getAllDoctors
