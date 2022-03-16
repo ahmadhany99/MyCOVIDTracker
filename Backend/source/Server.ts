@@ -3,8 +3,9 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import logging from './config/logging';
 import config from './config/config';
-import userRoutes from './routes/user';
+import userRoutes from './routes/template';
 import accountRoutes from './routes/account';
+import statusRoutes from './routes/status';
 import appointmentRoutes from './routes/appointment';
 
 const NAMESPACE = 'Server';
@@ -42,6 +43,7 @@ router.use((req, res, next) => {
 /** Routes go here */
 router.use('/api', userRoutes);
 router.use('/api', accountRoutes);
+router.use('/api', statusRoutes);
 router.use('/api', appointmentRoutes);
 
 /** Error handling */
