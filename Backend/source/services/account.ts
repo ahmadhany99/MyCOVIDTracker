@@ -29,7 +29,9 @@ const login = async (acc: accountModel) => {
         return result;
 }
 
+//Method to create an account
 const create = async (acc: accountModel) => {
+
         //Check if the username or email already exists in the database
         var username = await account.checkIfUsernameExists(acc);
         var email = await account.checkIfEmailExists(acc);
@@ -50,15 +52,18 @@ const create = async (acc: accountModel) => {
                         throw (error);
                 })              
         }else{    
+                //If username of email already exists, throw error
                 logging.error(NAMESPACE, "username already exists");
                 throw ("Username or email already exists.")
         }
 }
 
+//Method to delete an account
 const deleteAccount = async (acc: accountModel) => {
         logging.debug(NAMESPACE, 'deleting account ', acc.username);
         return account.deleteAccountByUsername(acc);
 }
+
 
 const getAccountTestingOnly = (acc: accountModel) => {
         if (acc.username != null) {
@@ -67,6 +72,7 @@ const getAccountTestingOnly = (acc: accountModel) => {
         return account.getAllAccount();
 }
 
+//Method to get an account
 const getAccount = (acc: accountModel) => {
         if (acc.username != null) {
                 return account.getAccountByUsername(acc);
@@ -74,6 +80,7 @@ const getAccount = (acc: accountModel) => {
         throw (new Error("No username specified"));
 }
 
+//Method to get all doctors 
 const getAllDoctors = () => {
 
         return account.getAllDoctors();

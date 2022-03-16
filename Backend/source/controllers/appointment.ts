@@ -12,6 +12,7 @@ const NAMESPACE = 'Appointment';
 const createAppointment = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Create Appointment');
 
+    //  Data Transfer Object (DTO)
     const appointmentDTO: appointmentModel = req.body;
 
     try {
@@ -32,6 +33,7 @@ const createAppointment = async (req: Request, res: Response, next: NextFunction
 const updateAppointment = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Create Appointment');
 
+    //  Data Transfer Object (DTO)
     const appointmentDTO: appointmentModel = req.body;
 
     try {
