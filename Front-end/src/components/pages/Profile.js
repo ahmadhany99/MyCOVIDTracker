@@ -20,7 +20,9 @@ function Profile() {
         <span className={classes.profile_pic_box}>
           <AccountCircleOutlinedIcon className={classes.profile_pic} />
         </span>
-        <Button>Logout</Button>
+        <Link to="/">
+          <Button>Logout</Button>
+        </Link>
       </div>
       <div className={classes.patient_info}>
         <h2>{patientInfo.name}</h2>
