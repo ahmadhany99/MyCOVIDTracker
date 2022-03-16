@@ -27,4 +27,4 @@ SOEN390 ...
 |5. UI prototypes for Sprint #3 user stories     | [UIP](https://docs.google.com/document/d/1uBESrofI35jFGL3LGNSbbG86htb_SX91NCIj1kRFRq8/edit?usp=sharing)
 |6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1U0KxoS2rs6KsZzzbmEmhgOBPQjwYIcvrWPOFbWAgWvM/edit?usp=sharing)
 |7. Running prototype                            |
-|8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/10_UorVNeMjcE4S7uRp6yxJfB0mJkpFw1EboA8nAk5pQ/edit?usp=sharing)
+|8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/1pFZH462nWNPEsGrj6iZgess3Quugwuw-cpMWT9qJ7cE/edit?usp=sharing)
