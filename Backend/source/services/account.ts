@@ -78,6 +78,8 @@ const getAccount = (acc: accountModel) => {
         else {
                 throw (new Error("No username specified"));
         }
+
+        throw (new Error("No username specified"));    
 }
 
 //Method to get all doctors 

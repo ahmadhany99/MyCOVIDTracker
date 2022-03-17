@@ -16,11 +16,10 @@ const MYSQL = {
 };
 
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
-const SERVER_PORT = process.env.SERVER_PORT || 1337;
-const SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3600;    // expire time in seconds
-const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || "coolIsuer";    //  organization name
-const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || "superencryptedsecret";    //  encrypting jwt
-
+const SERVER_PORT = process.env.PORT || 1337;
+const SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3600; // expire time in seconds
+const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIsuer'; //  organization name
+const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'superencryptedsecret'; //  encrypting jwt
 
 // Defining SERVER Object
 const SERVER = {
@@ -32,7 +31,6 @@ const SERVER = {
         secret: SERVER_TOKEN_SECRET
     }
 };
-;
 // Defining CONFIG Object
 const config = {
     mysql: MYSQL,

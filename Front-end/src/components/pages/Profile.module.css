@@ -1,0 +1,61 @@
+.profileHeader {
+  display: flex;
+  justify-content: space-around;
+  background-color: #132c33;
+  color: white;
+  height: 175px;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+}
+
+.profileHeader Button {
+  text-align: center;
+  margin-top: 20px;
+  color: white;
+  border: 2px solid white;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.profile_pic_box {
+  transform: translateY(100px);
+}
+
+.profile_pic {
+}
+
+.patient_info p {
+  margin: 0;
+  text-align: left;
+  margin-left: 5rem;
+}
+
+.patient_info h2 {
+  text-align: center;
+}
+
+.statusHeader {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+}
+
+.statusHeader h2 {
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.statusHeader Button {
+  padding: 0;
+  margin-top: 1rem;
+  background-color: #126e82;
+  color: white;
+  width: 120px;
+  height: 44px;
+  border-radius: 100px;
+}
+.floatAboveEverything {
+  position: absolute;
+}
