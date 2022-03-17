@@ -4,7 +4,7 @@
   "description": "SOEN390 ...",
   "main": "source/Server.ts",
   "scripts": {
-    "build": "del -rf build/ && prettier --write source/ && tsc", 
+    "build": "tsc --build", 
     "clean": "tsc --build --clean",
     "start": "node build/Server.js",
     "postinstall": "tsc"
