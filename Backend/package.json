@@ -2,11 +2,11 @@
   "name": "backend-app",
   "version": "1.0.0",
   "description": "SOEN390 ...",
-  "main": "Backend/source/Server.ts",
+  "main": "source/Server.ts",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "start": "node Backend/build/Server.js",
+    "start": "node build/Server.js",
     "postinstall": "tsc"
   },
   "author": "",
