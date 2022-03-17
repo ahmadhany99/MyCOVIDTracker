@@ -9,6 +9,7 @@ const create = (user: userModel, hash: string) => {
     logging.info(NAMESPACE, 'WE OUT HERE');
     return queryDatabase(query);
 }
+
 const retrieve = () => {
     const query = 'SELECT * FROM test';
 

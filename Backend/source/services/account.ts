@@ -13,6 +13,7 @@ import { accountModel } from "../models/account";
 import * as account from "../repositories/account";
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
+import { GETACCOUNTTESTINGMODE } from "../testflags";
 
 
 const NAMESPACE = 'account/service';
@@ -29,7 +30,9 @@ const login = async (acc: accountModel) => {
         return result;
 }
 
-const create = async (acc: accountModel) => {
+
+
+const createAccount = async (acc: accountModel) => {
         //Check if the username or email already exists in the database
         var username = await account.checkIfUsernameExists(acc);
         var email = await account.checkIfEmailExists(acc);
@@ -50,30 +53,36 @@ const create = async (acc: accountModel) => {
                         throw (error);
                 })              
         }else{    
+                //If username of email already exists, throw error
                 logging.error(NAMESPACE, "username already exists");
                 throw ("Username or email already exists.")
         }
 }
 
+//Method to delete an account
 const deleteAccount = async (acc: accountModel) => {
         logging.debug(NAMESPACE, 'deleting account ', acc.username);
         return account.deleteAccountByUsername(acc);
 }
 
-const getAccountTestingOnly = (acc: accountModel) => {
-        if (acc.username != null) {
-                return account.getAccountByUsername(acc);
-        }
-        return account.getAllAccount();
-}
 
+
+//Method to get an account
 const getAccount = (acc: accountModel) => {
         if (acc.username != null) {
                 return account.getAccountByUsername(acc);
         }
+        if (GETACCOUNTTESTINGMODE == true) {
+                return account.getAllAccount();
+        }
+        else {
+                throw (new Error("No username specified"));
+        }
+
         throw (new Error("No username specified"));    
 }
 
+//Method to get all doctors 
 const getAllDoctors = () => {
 
         return account.getAllDoctors();
@@ -81,8 +90,7 @@ const getAllDoctors = () => {
 
 export {
         login,
-        create,
-        getAccountTestingOnly,
+        createAccount,
         getAccount,
         deleteAccount,
         getAllDoctors
