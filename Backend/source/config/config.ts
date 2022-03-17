@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-
+/* //"tsc --build" */
 dotenv.config();
 
 const MYSQL_USER = process.env.MYSQL_HOST || 'root';

@@ -4,7 +4,7 @@
   "description": "SOEN390 ...",
   "main": "source/Server.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "del -rf build/ && prettier --write source/ && tsc", 
     "clean": "tsc --build --clean",
     "start": "node build/Server.js",
     "postinstall": "tsc"
@@ -32,10 +32,7 @@
     "ts-jest": "^27.1.3",
     "typescript": "^4.6.2"
   },
-  "engines": {
-    "npm": ">=6.14.13",
-    "node": ">=14.17.0"
-  },
+ 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ahmadhany99/SOEN390.git"
