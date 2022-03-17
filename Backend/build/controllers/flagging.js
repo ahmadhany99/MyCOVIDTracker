@@ -36,43 +36,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = __importDefault(require("../config/logging"));
-const userService = __importStar(require("../services/user"));
-const NAMESPACE = 'User';
-const validateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, "Token validated, user authorized.");
-    return res.status(200).json({
-        message: "Authorized"
-    });
-});
-const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.body;
-    logging_1.default.info(NAMESPACE, 'Creating user.');
-    //  Data Transfer Object (DTO)
-    const userDTO = req.body;
-    //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
+const flaggingService = __importStar(require("../services/flagging"));
+const NAMESPACE = 'Flagging';
+/**
+   * Executes the flagPatient function from services/flagging passing the flagging model
+   * as parameter
+   * Returns status of 200 if done successfully
+   */
+const flagPatient = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Flag Patient');
+    const flaggingDTO = req.body;
     try {
-        if (!userDTO.firstName || !userDTO.lastName) {
-            return res.status(400).json({
-                status: 400,
-                message: "Missing username or password"
-            });
-        }
-        //  Call to service layer
-        const result = yield userService.register(userDTO);
+        const result = yield flaggingService.flagPatient(flaggingDTO);
         // Return a response to client.
-        return res.json(user);
+        return res.status(200).json({
+            status: 200,
+            message: "Patient Flagged."
+        });
     }
-    catch (e) {
-        return res.status(500).json(e);
+    // returns error if deemed unsuccessful
+    catch (err) {
+        return res.status(500).json(err);
     }
 });
-const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+/**
+   * Executes the getFlaggedPatients function from services/flagging passing the flagging model
+   * as parameter
+   * Returns status of 200 if done successfully
+   */
+const getFlaggedPatients = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Get Flagged Patients');
+    const flaggingDTO = req.body;
+    try {
+        const result = yield flaggingService.getFlaggedPatients(flaggingDTO);
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            message: "Flagged Patients Returned."
+        });
+    }
+    // returns error if deemed unsuccessful
+    catch (err) {
+        return res.status(500).json(err);
+    }
 });
-const getAllUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Getting all samples.');
-    //  Call to service layer
-    const result = yield userService.retrieveSample();
-    // Return a response to client.
-    return res.json(result);
-});
-exports.default = { validateToken, register, login, getAllUsers };
+exports.default = {
+    flagPatient,
+    getFlaggedPatients
+};

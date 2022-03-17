@@ -36,87 +36,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = __importDefault(require("../config/logging"));
-const accountService = __importStar(require("../services/account"));
-const NAMESPACE = 'account/controller';
-const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, "Create account");
-    //  Data Transfer Object (DTO)
-    const accountDTO = req.body;
-    try {
-        //  Call to service layer
-        const result = yield accountService.createAccount(accountDTO);
-        // Return a response to client.
-        return res.status(200).json({
-            status: 200,
-            message: "Account Created."
-        });
-    }
-    catch (e) {
-        return res.status(500).json(e);
-    }
+const userService = __importStar(require("../services/template"));
+const NAMESPACE = 'User';
+const validateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Token validated, user authorized.");
+    return res.status(200).json({
+        message: "Authorized"
+    });
 });
-const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Login to account.');
+const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.body;
+    logging_1.default.info(NAMESPACE, 'Creating user.');
     //  Data Transfer Object (DTO)
-    const accountDTO = req.body;
+    const userDTO = req.body;
     //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try {
-        if (!accountDTO.username || !accountDTO.password) {
+        if (!userDTO.firstName || !userDTO.lastName) {
             return res.status(400).json({
                 status: 400,
                 message: "Missing username or password"
             });
         }
         //  Call to service layer
-        const result = yield accountService.login(accountDTO);
+        const result = yield userService.register(userDTO);
         // Return a response to client.
-        return res.json(result);
+        return res.json(user);
     }
     catch (e) {
         return res.status(500).json(e);
     }
 });
-const getAccount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Retrieving Account from Database');
-    //  Data Transfer Object (DTO)
-    const accountDTO = req.body;
-    try {
-        //  Call to service layer
-        const result = yield accountService.getAccount(accountDTO);
-        // Return a response to client.
-        return res.json(result);
-    }
-    catch (e) {
-        return res.status(500).json(e);
-    }
+const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
 });
-const getAllDoctors = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Retrieving Account from Database');
-    try {
-        //  Call to service layer
-        const result = yield accountService.getAllDoctors();
-        // Return a response to client.
-        return res.json(result);
-    }
-    catch (e) {
-        return res.status(500).json(e);
-    }
+const getAllUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Getting all samples.');
+    //  Call to service layer
+    const result = yield userService.retrieveSample();
+    // Return a response to client.
+    return res.json(result);
 });
-const deleteAccount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Deleting Account');
-    const accountDTO = req.body;
-    try {
-        const result = yield accountService.deleteAccount(accountDTO);
-        return res.json(result);
-    }
-    catch (err) {
-        return res.status(500).json(err);
-    }
-});
-exports.default = {
-    register,
-    login,
-    getAccount,
-    deleteAccount,
-    getAllDoctors
-};
+exports.default = { validateToken, register, login, getAllUsers };

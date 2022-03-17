@@ -23,21 +23,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAppointment = exports.getAppointments = exports.createAppointment = void 0;
-const appointment = __importStar(require("../repositories/appointment"));
-const NAMESPACE = 'appointment/service';
-//Method to create an appointment
-const createAppointment = (app) => {
-    return appointment.createAppointment(app);
+exports.getFlaggedPatients = exports.flagPatient = void 0;
+const flagging = __importStar(require("../repositories/flagging"));
+const NAMESPACE = 'flagging/service';
+const flagPatient = (app) => {
+    return flagging.flagPatient(app);
 };
-exports.createAppointment = createAppointment;
-//Method to get all appointments of a patient
-const getAppointments = (app) => {
-    return appointment.getAppointments(app);
+exports.flagPatient = flagPatient;
+const getFlaggedPatients = (app) => {
+    return flagging.getFlaggedPatients(app);
 };
-exports.getAppointments = getAppointments;
-//Method to update an appointment
-const updateAppointment = (app) => {
-    return appointment.updateAppointment(app);
-};
-exports.updateAppointment = updateAppointment;
+exports.getFlaggedPatients = getFlaggedPatients;

@@ -8,9 +8,12 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const express_1 = __importDefault(require("express"));
 const logging_1 = __importDefault(require("./config/logging"));
 const config_1 = __importDefault(require("./config/config"));
-const user_1 = __importDefault(require("./routes/user"));
+const template_1 = __importDefault(require("./routes/template"));
 const account_1 = __importDefault(require("./routes/account"));
+const quarantine_1 = __importDefault(require("./routes/quarantine"));
+const status_1 = __importDefault(require("./routes/status"));
 const appointment_1 = __importDefault(require("./routes/appointment"));
+const flagging_1 = __importDefault(require("./routes/flagging"));
 const NAMESPACE = 'Server';
 const router = (0, express_1.default)();
 /** Log the request */
@@ -37,9 +40,12 @@ router.use((req, res, next) => {
     next();
 });
 /** Routes go here */
-router.use('/api', user_1.default);
+router.use('/api', template_1.default);
 router.use('/api', account_1.default);
+router.use('/api', quarantine_1.default);
+router.use('/api', status_1.default);
 router.use('/api', appointment_1.default);
+router.use('/api', flagging_1.default);
 /** Error handling */
 router.use((req, res, next) => {
     const error = new Error('Not found');

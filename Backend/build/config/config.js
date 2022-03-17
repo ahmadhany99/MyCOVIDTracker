@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
+/* //"tsc --build" */
 dotenv_1.default.config();
 const MYSQL_USER = process.env.MYSQL_HOST || 'root';
 const MYSQL_PASSWORD = process.env.MYSQL_HOST || 'soen390';

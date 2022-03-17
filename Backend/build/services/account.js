@@ -45,10 +45,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllDoctors = exports.deleteAccount = exports.getAccount = exports.getAccountTestingOnly = exports.create = exports.login = void 0;
+exports.getAllDoctors = exports.deleteAccount = exports.getAccount = exports.createAccount = exports.login = void 0;
 const account = __importStar(require("../repositories/account"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const logging_1 = __importDefault(require("../config/logging"));
+const testflags_1 = require("../testflags");
 const NAMESPACE = 'account/service';
 const login = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     var data = yield account.getPasswordByUsername(acc);
@@ -62,7 +63,7 @@ const login = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 exports.login = login;
-const create = (acc) => __awaiter(void 0, void 0, void 0, function* () {
+const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     //Check if the username or email already exists in the database
     var username = yield account.checkIfUsernameExists(acc);
     var email = yield account.checkIfEmailExists(acc);
@@ -84,30 +85,33 @@ const create = (acc) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     else {
+        //If username of email already exists, throw error
         logging_1.default.error(NAMESPACE, "username already exists");
         throw ("Username or email already exists.");
     }
 });
-exports.create = create;
+exports.createAccount = createAccount;
+//Method to delete an account
 const deleteAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.debug(NAMESPACE, 'deleting account ', acc.username);
     return account.deleteAccountByUsername(acc);
 });
 exports.deleteAccount = deleteAccount;
-const getAccountTestingOnly = (acc) => {
-    if (acc.username != null) {
-        return account.getAccountByUsername(acc);
-    }
-    return account.getAllAccount();
-};
-exports.getAccountTestingOnly = getAccountTestingOnly;
+//Method to get an account
 const getAccount = (acc) => {
     if (acc.username != null) {
         return account.getAccountByUsername(acc);
     }
+    if (testflags_1.GETACCOUNTTESTINGMODE == true) {
+        return account.getAllAccount();
+    }
+    else {
+        throw (new Error("No username specified"));
+    }
     throw (new Error("No username specified"));
 };
 exports.getAccount = getAccount;
+//Method to get all doctors 
 const getAllDoctors = () => {
     return account.getAllDoctors();
 };

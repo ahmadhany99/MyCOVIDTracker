@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.retrieveSample = exports.register = void 0;
-const user_1 = require("../repositories/user");
+const template_1 = require("../repositories/template");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const NAMESPACE = 'user/service';
 const register = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,7 +35,7 @@ const register = (user) => __awaiter(void 0, void 0, void 0, function* () {
                 error: hashError
             });
         }
-        const userRecord = (0, user_1.create)(user, hash);
+        const userRecord = (0, template_1.create)(user, hash);
         return userRecord;
     });
     // Call to user repository
@@ -44,6 +44,6 @@ exports.register = register;
 const retrieveSample = () => {
     // Business Logic
     // Call Repo
-    return (0, user_1.retrieve)();
+    return (0, template_1.retrieve)();
 };
 exports.retrieveSample = retrieveSample;

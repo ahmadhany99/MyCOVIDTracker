@@ -36,87 +36,65 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = __importDefault(require("../config/logging"));
-const accountService = __importStar(require("../services/account"));
-const NAMESPACE = 'account/controller';
-const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, "Create account");
-    //  Data Transfer Object (DTO)
-    const accountDTO = req.body;
+const statusService = __importStar(require("../services/status"));
+const NAMESPACE = 'status/controller';
+const updateStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Updating Status");
+    const status = req.body;
     try {
-        //  Call to service layer
-        const result = yield accountService.createAccount(accountDTO);
-        // Return a response to client.
+        //call service layer to execute api call
+        const result = yield statusService.updateStatus(status);
         return res.status(200).json({
             status: 200,
-            message: "Account Created."
+            message: "Status Updated Successfully"
         });
     }
     catch (e) {
         return res.status(500).json(e);
     }
 });
-const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Login to account.');
-    //  Data Transfer Object (DTO)
-    const accountDTO = req.body;
-    //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
+const deleteStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Deleting Status");
+    const status = req.body;
     try {
-        if (!accountDTO.username || !accountDTO.password) {
-            return res.status(400).json({
-                status: 400,
-                message: "Missing username or password"
-            });
-        }
-        //  Call to service layer
-        const result = yield accountService.login(accountDTO);
-        // Return a response to client.
-        return res.json(result);
+        //call service layer to execute api call
+        const result = yield statusService.deleteStatus(status);
+        return res.status(200).json({
+            status: 200,
+            message: "Status Deleted Successfully"
+        });
     }
     catch (e) {
         return res.status(500).json(e);
     }
 });
-const getAccount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Retrieving Account from Database');
-    //  Data Transfer Object (DTO)
-    const accountDTO = req.body;
+const getStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Fetching Status");
+    const status = req.body;
     try {
-        //  Call to service layer
-        const result = yield accountService.getAccount(accountDTO);
-        // Return a response to client.
-        return res.json(result);
+        //call service layer to execute api call
+        const result = yield statusService.getStatus(status);
+        return res.status(200).json(JSON.parse(JSON.stringify(result)));
     }
     catch (e) {
         return res.status(500).json(e);
     }
 });
-const getAllDoctors = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Retrieving Account from Database');
+const getAllStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Fetching All Status");
+    const status = req.body;
     try {
-        //  Call to service layer
-        const result = yield accountService.getAllDoctors();
-        // Return a response to client.
-        return res.json(result);
+        //call service layer to execute api call
+        const result = yield statusService.getAllStatus(status);
+        return res.status(200).json(JSON.parse(JSON.stringify(result)));
     }
     catch (e) {
         return res.status(500).json(e);
-    }
-});
-const deleteAccount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Deleting Account');
-    const accountDTO = req.body;
-    try {
-        const result = yield accountService.deleteAccount(accountDTO);
-        return res.json(result);
-    }
-    catch (err) {
-        return res.status(500).json(err);
     }
 });
 exports.default = {
-    register,
-    login,
-    getAccount,
-    deleteAccount,
-    getAllDoctors
+    updateStatus,
+    deleteStatus,
+    getStatus,
+    getAllStatus
 };

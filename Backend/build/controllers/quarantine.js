@@ -36,56 +36,75 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = __importDefault(require("../config/logging"));
-const appointmentService = __importStar(require("../services/appointment"));
-const NAMESPACE = 'Appointment';
-const createAppointment = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Create Appointment');
-    //  Data Transfer Object (DTO)
-    const appointmentDTO = req.body;
+const quarantineService = __importStar(require("../services/quarantine"));
+const NAMESPACE = 'Quarantine';
+/**
+   * Executes the inputStartTime function from services/quarantine passing the quarantine model
+   * as parameter
+   * Returns status of 200 if done successfully
+   */
+const inputStartTime = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Entering Start Time');
+    const quarantineDTO = req.body;
+    const patientDTO = req.body;
     try {
-        const result = yield appointmentService.createAppointment(appointmentDTO);
-        // Return a response to client.
+        const result = yield quarantineService.inputStartTime(quarantineDTO, patientDTO);
+        //Return a response to the client.
         return res.status(200).json({
             status: 200,
-            message: "Appointment Created."
+            message: "Start date time has been entered successfully"
         });
     }
     catch (err) {
         return res.status(500).json(err);
     }
 });
-const updateAppointment = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Create Appointment');
-    //  Data Transfer Object (DTO)
-    const appointmentDTO = req.body;
+/**
+   * Executes the calculateDaysLeft function from services/quarantine passing the quarantine model
+   * as parameter
+   * Returns status of 200 if done successfully and a custom message
+   * Otherwise, catches the error and returns status of 500
+   */
+const calculateDaysLeft = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Calculating days left to quarantine');
+    const quarantineDTO = req.body;
+    const patientDTO = req.body;
     try {
-        const result = yield appointmentService.updateAppointment(appointmentDTO);
-        // Return a response to client.
+        const result = yield quarantineService.calculateDaysLeft(quarantineDTO, patientDTO);
+        //Return a response to the client.
         return res.status(200).json({
             status: 200,
-            message: "Appointment Updated."
+            message: "The number of days left to the quarantine has been updated"
         });
     }
     catch (err) {
         return res.status(500).json(err);
     }
 });
-const getAppointments = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Retrieving Appointments from Database');
-    //  Data Transfer Object (DTO)
-    const appointmentDTO = req.body;
+/**
+   * Executes the getRemainingDays function from services/quarantine passing the quarantine model
+   * as parameter
+   * Returns the result as a json
+   */
+const getRemainingDays = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Getting days left to quarantine');
+    const quarantineDTO = req.body;
+    const patientDTO = req.body;
     try {
-        //  Call to service layer
-        const result = yield appointmentService.getAppointments(appointmentDTO);
-        // Return a response to client.
+        const result = yield quarantineService.getRemainingDays(quarantineDTO, patientDTO);
         return res.json(result);
+        //Return a response to the client.
+        return res.status(200).json({
+            status: 200,
+            message: "Getting the days left to quarantine"
+        });
     }
-    catch (e) {
-        return res.status(500).json(e);
+    catch (err) {
+        return res.status(500).json(err);
     }
 });
 exports.default = {
-    createAppointment,
-    getAppointments,
-    updateAppointment
+    inputStartTime,
+    calculateDaysLeft,
+    getRemainingDays
 };
