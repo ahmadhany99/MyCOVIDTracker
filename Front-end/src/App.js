@@ -8,14 +8,14 @@ import MessagePage from "./components/pages/Messages.js";
 import StatusPage from "./components/pages/Status.js";
 import CalendarPage from "./components/pages/Calendar.js";
 import Layout from "./components/layout/Layout.js";
-import Banner from './components/layout/Banner';
+import Banner from "./components/layout/Banner";
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/
   return (
     <div>
       <Layout>
-        <Banner/>
+        <Banner />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUpPage />} />
