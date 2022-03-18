@@ -1,0 +1,19 @@
+{
+  "name": "mainpackage",
+  "version": "1.0.0",
+  "description": "SOEN390 ...",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && npm run start\" \"cd Front-end && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmadhany99/SOEN390.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmadhany99/SOEN390/issues"
+  },
+  "homepage": "https://github.com/ahmadhany99/SOEN390#readme"
+}

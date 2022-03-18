@@ -8,15 +8,14 @@ const NAMESPACE = 'quarantine/test';
 //     expect(myString).toEqual('HelloWorld');
 // })
 
-test('testing the input of start time', () =>{
-    try{
-        axios.get('localhost:1337/api/quarantine/getRemainingDays',
-            {params: {
-                 "patientID": 8
-            },
-
+test('testing the input of start time', () => {
+    try {
+        axios.get('localhost:1337/api/quarantine/getRemainingDays', {
+            params: {
+                patientID: 8
+            }
         });
-    } catch(err) {
+    } catch (err) {
         logging.error(NAMESPACE, 'inputting Start time test failed', err);
     }
-})
+});
