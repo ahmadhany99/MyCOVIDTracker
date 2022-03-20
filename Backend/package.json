@@ -7,7 +7,8 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "start": "node build/Server.js",
-    "postinstall": "tsc"
+    "postinstall": "tsc",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

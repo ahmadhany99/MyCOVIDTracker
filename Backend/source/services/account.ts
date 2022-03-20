@@ -21,6 +21,12 @@ const NAMESPACE = 'account/service';
 
 // Login Account service
 const login = async (acc: loginDTO) => {
+        //check if user exists
+        var exists = await account.checkIfUsernameExists(acc.username);
+        if (exists[0] == undefined) {
+                return false;
+        }
+
         var data = await account.getPasswordByUsername(loginDTOToAccountModel(acc));
         logging.debug(NAMESPACE, "this pw = ", acc.password);
         logging.debug(NAMESPACE, "stored pw = ", data[0].password);
@@ -35,8 +41,8 @@ const login = async (acc: loginDTO) => {
 // Create Account service
 const createAccount = async (acc: accountModel) => {
         //Check if the username or email already exists in the database
-        var username = await account.checkIfUsernameExists(acc);
-        var email = await account.checkIfEmailExists(acc);
+        var username = await account.checkIfUsernameExists(acc.username);
+        var email = await account.checkIfEmailExists(acc.email);
         if(username[0] == undefined && email[0] == undefined){
                 bcryptjs.hash(acc.password, 10)
                 .then((hash: any) => {

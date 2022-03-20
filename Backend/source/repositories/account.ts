@@ -42,14 +42,14 @@ const getPasswordByUsername = (account: accountModel) => {
 }
 
 //Get all the accounts from database with a passed username to verify if an account with this username already exists
-const checkIfUsernameExists = (account: accountModel) => {
-    const query = `SELECT * FROM account WHERE username="${account.username}"`;
+const checkIfUsernameExists = (username: string) => {
+    const query = `SELECT * FROM account WHERE username="${username}"`;
     return queryDatabase(query) as unknown as accountModel[];
 }
 
 //Get all the accounts from database with a passed email to verify if an account with this email already exists
-const checkIfEmailExists = (account: accountModel) => {
-    const query = `SELECT * FROM account WHERE email="${account.email}"`;
+const checkIfEmailExists = (email: string) => {
+    const query = `SELECT * FROM account WHERE email="${email}"`;
     return queryDatabase(query) as unknown as accountModel[];
 }
 
