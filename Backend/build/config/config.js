@@ -8,7 +8,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 
 const MYSQL_USER = process.env.MYSQL_HOST || 'root';
-console.info("MYSQL HOST****: "+ process.env.MYSQL_HOST);
 const MYSQL_PASSWORD = process.env.MYSQL_HOST || 'soen390';
 const MYSQL_HOST = process.env.MYSQL_HOST || '35.223.223.15';
 const MYSQL_DATABASE = process.env.MYSQL_HOST || 'soen390';
