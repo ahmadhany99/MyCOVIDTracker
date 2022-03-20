@@ -10,7 +10,7 @@ const NAMESPACE = 'quarantine/test';
 
 test('testing the input of start time', () => {
     try {
-        axios.get('localhost:1337/api/quarantine/getRemainingDays', {
+        axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/quarantine/getRemainingDays', {
             params: {
                 patientID: 8
             }
