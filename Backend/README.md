@@ -28,7 +28,7 @@ run 'nodemon source/server.ts' from the Backend\ directory
 |3. Software Architecture Document (SAD)         |[SAD](https://onedrive.live.com/edit.aspx?resid=24E44FED4DE29290!127635&ithint=file%2cdocx&wdLOR=cE23BF4F7-DC33-45D7-8092-5B9C08C689D0&authkey=!ALvoQ1ATMqdebok) <br> [Viewpoints](https://docs.google.com/document/d/141-sKeF1fhYgcpItkO8x6FpbBK9v4EHno8PujWkCae4/edit)
 |4. Risk Assessment & Risk Management Plan (RMP) |[RMP](https://docs.google.com/spreadsheets/d/19pll7K4vfft5RpWc3XY_mr_mzK3Kgz0W/edit?usp=sharing&ouid=100065792280865296979&rtpof=true&sd=true)
 |5. UI prototypes for Sprint #2 user stories     | [UIP](https://docs.google.com/document/d/1uBESrofI35jFGL3LGNSbbG86htb_SX91NCIj1kRFRq8/edit?usp=sharing)
-|6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1U0KxoS2rs6KsZzzbmEmhgOBPQjwYIcvrWPOFbWAgWvM/edit?usp=sharing)
+|6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1fAbSfHkD02Vpo1PR5BOb2GjjUOXwF3dXkvfmESFn3SA/edit?usp=sharing)
 |7. Running prototype                            |
 |8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/1H8JICzKLXaSyhRE0D3rl2DCiasXhYU3WP7lSid5yX7I/edit#)
 
