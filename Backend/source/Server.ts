@@ -45,14 +45,14 @@ router.use((req, res, next) => {
 /** Routes go here */
 router.use('/api', userRoutes);
 router.use('/api', accountRoutes);
-router.use('/api',quarantineRoutes)
+router.use('/api', quarantineRoutes);
 router.use('/api', statusRoutes);
 router.use('/api', appointmentRoutes);
 router.use('/api', flaggingRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
-    const error = new Error('Not found');
+    const error = new Error('Not found2');
 
     res.status(404).json({
         message: error.message

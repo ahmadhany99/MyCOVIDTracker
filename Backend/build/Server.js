@@ -48,7 +48,7 @@ router.use('/api', appointment_1.default);
 router.use('/api', flagging_1.default);
 /** Error handling */
 router.use((req, res, next) => {
-    const error = new Error('Not found');
+    const error = new Error('Not found2');
     res.status(404).json({
         message: error.message
     });
