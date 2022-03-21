@@ -91,10 +91,17 @@ const getAllDoctors = () => {
         return account.getAllDoctors();
 }
 
+const getAllPatients = () => {
+
+        return account.getAllPatients();
+}
+
+
 export {
         login,
         createAccount,
         getAccount,
         deleteAccount,
-        getAllDoctors
+        getAllDoctors,
+        getAllPatients
 };
