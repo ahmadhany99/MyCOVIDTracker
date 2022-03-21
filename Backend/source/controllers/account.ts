@@ -36,7 +36,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
 
     //  Data Transfer Object (DTO)
-    const accountDTO: accountModel = req.body;
+    const accountDTO: loginDTO = req.body;
 
     //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try {
@@ -81,12 +81,29 @@ const getAccount = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const getAllDoctors = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, 'Retrieving Account from Database');
+    logging.info(NAMESPACE, 'Retrieving Doctors from Database');
 
     try {
 
         //  Call to service layer
         const result = await accountService.getAllDoctors();
+
+        // Return a response to client.
+        return res.json(result);
+
+    } catch (e) {
+        return res.status(500).json(e);
+    }
+
+}
+
+const getAllPatients = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Retrieving Patients from Database');
+
+    try {
+
+        //  Call to service layer
+        const result = await accountService.getAllPatients();
 
         // Return a response to client.
         return res.json(result);
@@ -118,5 +135,6 @@ export default {
     login,
     getAccount,
     deleteAccount,
-    getAllDoctors
+    getAllDoctors,
+    getAllPatients
 };
