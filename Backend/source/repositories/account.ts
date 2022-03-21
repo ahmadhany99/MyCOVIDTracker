@@ -35,6 +35,12 @@ const getAllDoctors = () => {
     return queryDatabase(query);
 }
 
+// Get all patients from db. A patient is an account with 0 as a typeId
+const getAllPatients = () => {
+    const query = `SELECT * FROM account WHERE typeId=0`;
+    return queryDatabase(query);
+}
+
 //Get the password of the account based on a passeed username
 const getPasswordByUsername = (account: accountModel) => {
     const query = `SELECT password FROM account WHERE username="${account.username}"`;
@@ -68,7 +74,8 @@ export {
     deleteAccountByUsername,
     checkIfUsernameExists,
     checkIfEmailExists,
-    getAllDoctors
+    getAllDoctors,
+    getAllPatients
 };
 
 

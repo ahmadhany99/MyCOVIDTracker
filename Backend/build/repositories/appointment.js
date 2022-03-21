@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAppointment = exports.getAppointments = exports.createAppointment = void 0;
+exports.checkIfAppointmentExists = exports.updateAppointment = exports.getAppointments = exports.createAppointment = void 0;
 const DatabaseServices_1 = require("../DatabaseServices");
 const NAMESPACE = 'account/repository';
 //Create an appointment in table appointment with the passed appointmentModel
@@ -21,3 +21,9 @@ const updateAppointment = (appointment) => {
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
 exports.updateAppointment = updateAppointment;
+//Check if appointment already exists in database
+const checkIfAppointmentExists = (appointment) => {
+    const query = `SELECT * FROM appointment WHERE patientID="${appointment.appointmentID}" `;
+    return (0, DatabaseServices_1.queryDatabase)(query);
+};
+exports.checkIfAppointmentExists = checkIfAppointmentExists;
