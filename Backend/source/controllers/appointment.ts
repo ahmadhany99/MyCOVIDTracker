@@ -18,11 +18,12 @@ const createAppointment = async (req: Request, res: Response, next: NextFunction
     try {
         const result = await appointmentService.createAppointment(appointmentDTO);
 
-                // Return a response to client.
-                return res.status(200).json({
-                    status: 200,
-                    message: "Appointment Created."
-                })
+                            // Return a response to client.
+                            return res.status(200).json({
+                                status: 200,
+                                message: "Appointment Created."
+                            })
+        
     }
     catch (err) {
         return res.status(500).json(err);
@@ -39,11 +40,18 @@ const updateAppointment = async (req: Request, res: Response, next: NextFunction
     try {
         const result = await appointmentService.updateAppointment(appointmentDTO);
 
+        if(!result){
+                    // Return a response to client.
+                    return res.json({
+                        message: "Appointment doesn't exists."
+                    })
+        }else{
                 // Return a response to client.
                 return res.status(200).json({
                     status: 200,
                     message: "Appointment Updated."
                 })
+        }
     }
     catch (err) {
         return res.status(500).json(err);

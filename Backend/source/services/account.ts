@@ -14,12 +14,20 @@ import * as account from "../repositories/account";
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
 import { GETACCOUNTTESTINGMODE } from "../testflags";
-
+import { loginDTO } from "../models/loginDTO";
+import { loginDTOToAccountModel } from "../functions/loginToAccountModel";
 
 const NAMESPACE = 'account/service';
 
-const login = async (acc: accountModel) => {
-        var data = await account.getPasswordByUsername(acc);
+// Login Account service
+const login = async (acc: loginDTO) => {
+        //check if user exists
+        var exists = await account.checkIfUsernameExists(acc.username);
+        if (exists[0] == undefined) {
+                return false;
+        }
+
+        var data = await account.getPasswordByUsername(loginDTOToAccountModel(acc));
         logging.debug(NAMESPACE, "this pw = ", acc.password);
         logging.debug(NAMESPACE, "stored pw = ", data[0].password);
         const result = await bcryptjs.compare(acc.password, data[0].password).then((isEqual: boolean) => {
@@ -30,12 +38,11 @@ const login = async (acc: accountModel) => {
         return result;
 }
 
-
-
+// Create Account service
 const createAccount = async (acc: accountModel) => {
         //Check if the username or email already exists in the database
-        var username = await account.checkIfUsernameExists(acc);
-        var email = await account.checkIfEmailExists(acc);
+        var username = await account.checkIfUsernameExists(acc.username);
+        var email = await account.checkIfEmailExists(acc.email);
         if(username[0] == undefined && email[0] == undefined){
                 bcryptjs.hash(acc.password, 10)
                 .then((hash: any) => {
@@ -59,15 +66,13 @@ const createAccount = async (acc: accountModel) => {
         }
 }
 
-//Method to delete an account
+//Delete Account Service
 const deleteAccount = async (acc: accountModel) => {
         logging.debug(NAMESPACE, 'deleting account ', acc.username);
         return account.deleteAccountByUsername(acc);
 }
 
-
-
-//Method to get an account
+//Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = (acc: accountModel) => {
         if (acc.username != null) {
                 return account.getAccountByUsername(acc);
@@ -78,20 +83,25 @@ const getAccount = (acc: accountModel) => {
         else {
                 throw (new Error("No username specified"));
         }
-
-        throw (new Error("No username specified"));    
 }
 
-//Method to get all doctors 
+//Fetch Doctor Service (#TODO should not be in account, we should have a separate db for doctors)
 const getAllDoctors = () => {
 
         return account.getAllDoctors();
 }
+
+const getAllPatients = () => {
+
+        return account.getAllPatients();
+}
+
 
 export {
         login,
         createAccount,
         getAccount,
         deleteAccount,
-        getAllDoctors
+        getAllDoctors,
+        getAllPatients
 };

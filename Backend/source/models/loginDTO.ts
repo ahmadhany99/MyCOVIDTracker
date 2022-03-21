@@ -1,5 +1,5 @@
 export type loginDTO =
 {
-    password: string,
-    salt: string
+    username: string,
+    password: string
 }
