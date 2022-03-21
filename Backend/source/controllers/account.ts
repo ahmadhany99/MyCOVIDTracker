@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import * as accountService from '../services/account';
 import { accountModel } from '../models/account';
-import { userModel } from '../models/user';
+import { logintDTO } from '../models/loginDTO';
 import signJWT from '../functions/signJWT';
 
 
