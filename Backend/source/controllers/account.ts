@@ -36,7 +36,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
 
     //  Data Transfer Object (DTO)
-    const accountDTO: accountModel = req.body;
+    const accountDTO: loginDTO = req.body;
 
     //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try {
