@@ -1,10 +1,25 @@
 .clock {
-    display: flex;
-    justify-content: space-around;
-    font-family: sans-serif;
-    text-align: center;
-  }
-  
-  .time {
-    font-size: 32px;
-  }
+  display: flex;
+  justify-content: space-around;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.time {
+  font-size: 32px;
+}
+.notQ {
+  border: 15px solid #51c4d3;
+  width: 200px;
+  height: 200px;
+  border-radius: 5pxs;
+  margin: auto auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.startButton {
+  margin: auto auto;
+  background-color: #51c4d3;
+}
