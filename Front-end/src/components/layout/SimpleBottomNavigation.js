@@ -19,7 +19,7 @@ export default function SimpleBottomNavigation() {
         }}
       >
         <BottomNavigationAction
-          label="Home"
+          label="Dashboard"
           icon={<HomeOutlinedIcon />}
           href="/dashboard"
         />

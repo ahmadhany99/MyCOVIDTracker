@@ -7,7 +7,7 @@ import classes from "./Dashboard.module.css";
 function DashboardPage() {
   return (
     <section className={classes.dashboard}>
-      <h2 className={classes.hello}>Hi, Team 13!</h2>
+      <h2 className={classes.hello}>Hello There!</h2>
       <div className={classes.status_box}>
         <h2>
           Have you updated

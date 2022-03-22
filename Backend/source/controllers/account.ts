@@ -32,7 +32,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     //  Data Transfer Object (DTO)
     const accountDTO: loginDTO = req.body;
-
     //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try {
         if (!accountDTO.username || !accountDTO.password) {
@@ -46,7 +45,17 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         const result = await accountService.login(accountDTO);
 
         // Return a response to client.
-        return res.json(result);
+        if (result == true) {
+            return res.status(200).json({
+                status: 200,
+                message: 'Log in successfully'
+            });
+        } else {
+            return res.status(400).json({
+                status: 400,
+                message: 'Incorrect password or username'
+            });
+        }
     } catch (e) {
         return res.status(500).json(e);
     }

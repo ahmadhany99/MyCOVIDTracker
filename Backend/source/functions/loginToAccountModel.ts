@@ -1,7 +1,7 @@
-import { accountModel } from "../models/account";
-import { loginDTO } from "../models/loginDTO";
+import { accountModel } from '../models/account';
+import { loginDTO } from '../models/loginDTO';
 
-export function loginDTOToAccountModel (accDTO: loginDTO) {
+export function loginDTOToAccountModel(accDTO: loginDTO) {
     const accModel: accountModel = {
         accountId: NaN,
         username: accDTO.username,
@@ -12,6 +12,6 @@ export function loginDTOToAccountModel (accDTO: loginDTO) {
         email: '',
         typeId: NaN,
         languageId: NaN
-    }
+    };
     return accModel;
-};
+}

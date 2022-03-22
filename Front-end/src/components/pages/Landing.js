@@ -21,7 +21,7 @@ function Landing() {
       <p>
         Keeping track of your status made <br /> easier with myCOVIDtracker
       </p>
-      <Link to="/signup">
+      <Link to="/account/createAccount">
         <Button variant="contained" className={classes.start_cta}>
           Get Started
         </Button>
