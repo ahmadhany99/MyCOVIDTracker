@@ -48,12 +48,14 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         if (result == true) {
             return res.status(200).json({
                 status: 200,
-                message: 'Log in successfully'
+                message: 'Log in successfully',
+                user: accountDTO.username
             });
         } else {
             return res.status(400).json({
                 status: 400,
-                message: 'Incorrect password or username'
+                message: 'Incorrect password or username',
+                user: accountDTO.username
             });
         }
     } catch (e) {

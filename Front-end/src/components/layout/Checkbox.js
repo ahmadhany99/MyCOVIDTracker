@@ -10,8 +10,28 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import classes from "./Checkbox.module.css";
 import { Link } from "react-router-dom";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Cookies from "js-cookie";
 
 export default function CheckboxListSecondary() {
+  const submitStatus = () => {
+    Axios.post(
+      "https://tranquil-wildwood-60713.herokuapp.com/api/status/updateStatus",
+      {
+        uid: 8,
+        report: checked,
+      }
+    )
+      .then((response) => {
+        console.log(response);
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.error(error.response);
+      });
+  };
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -24,96 +44,91 @@ export default function CheckboxListSecondary() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const [checked, setChecked] = React.useState([1]);
+  const navigate = useNavigate();
+  const [checked, setChecked] = React.useState([]);
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
+  const handleToggle = (event) => () => {
+    const currentIndex = checked.indexOf(event);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(event);
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     setChecked(newChecked);
   };
 
-  const statusArr = [
-    "What is your body temperature?",
-    "Do you have a fever?",
-    "Do you have a headache?",
-    "Are you having dry coughs?",
-    "Experiencing fatigue?",
-    "Loss of taste/smell?",
-    "Have a sore throat?",
+  var checkedItems = checked.length
+    ? checked.reduce((total, item) => {
+        return total + ", " + item;
+      })
+    : "";
+
+  const statusArray = [
+    {
+      question: "Do you have a fever?",
+      answer: "Fever",
+    },
+    {
+      question: "Do you have a headache?",
+      answer: "Headache",
+    },
+    {
+      question: "Are you having dry coughs?",
+      answer: "Dry coughs",
+    },
+    {
+      question: "Experiencing fatigue?",
+      answer: "Fatigue",
+    },
+    {
+      question: "Loss of taste?",
+      answer: "Loss of taste",
+    },
+    {
+      question: "Loss of smell?",
+      answer: "Loss of smell",
+    },
+    {
+      question: "Have a sore throat?",
+      answer: "Sore throat",
+    },
   ];
 
   return (
     <section>
       <List dense sx={{ width: "100%" }}>
-        {statusArr.map((value) => {
+        {statusArray.map((value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;
 
-          if (value === "What is your body temperature?") {
-            return (
-              <ListItem
-                key={value}
-                secondaryAction={
-                  <FormControl
-                    sx={{ width: "7ch", backgroundColor: "white" }}
-                    variant="outlined"
-                  >
-                    <OutlinedInput
-                      id="outlined-adornment-weight"
-                      value={values.weight}
-                      onChange={handleChange("weight")}
-                      endAdornment={
-                        <InputAdornment position="end">&#176;C</InputAdornment>
-                      }
-                      aria-describedby="outlined-weight-helper-text"
-                      inputProps={{
-                        "aria-label": "weight",
-                      }}
-                    />
-                  </FormControl>
-                }
-                disablePadding
-                className={classes.question}
-              >
-                <ListItemButton>
-                  <ListItemText id={labelId} primary={`${value}`} />
-                </ListItemButton>
-              </ListItem>
-            );
-          } else {
-            return (
-              <ListItem
-                key={value}
-                secondaryAction={
-                  <Checkbox
-                    edge="end"
-                    onChange={handleToggle(value)}
-                    checked={checked.indexOf(value) !== -1}
-                    inputProps={{ "aria-labelledby": labelId }}
-                  />
-                }
-                disablePadding
-                className={classes.question}
-              >
-                <ListItemButton>
-                  <ListItemText id={labelId} primary={`${value}`} />
-                </ListItemButton>
-              </ListItem>
-            );
-          }
+          return (
+            <ListItem
+              key={value.question}
+              secondaryAction={
+                <Checkbox
+                  edge="end"
+                  onChange={handleToggle(value.answer)}
+                  checked={checked.indexOf(value.answer) !== -1}
+                  inputProps={{ "aria-labelledby": labelId }}
+                />
+              }
+              disablePadding
+              className={classes.question}
+            >
+              <ListItemButton>
+                <ListItemText id={labelId} primary={`${value.question}`} />
+              </ListItemButton>
+            </ListItem>
+          );
         })}
       </List>
       <Link to="/profile">
-        <div className={classes.submit} position="up">
+        <div className={classes.submit} position="up" onClick={submitStatus}>
           Confirm
         </div>
       </Link>
+      <div>{checkedItems}</div>
     </section>
   );
 }

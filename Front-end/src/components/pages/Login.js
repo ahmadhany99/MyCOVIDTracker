@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import * as Axios from "axios";
+import Cookies from "js-cookie";
 import {
   Box,
   Button,
@@ -15,6 +16,24 @@ import {
   Typography,
 } from "@mui/material";
 
+const fetchPosts = async () => {
+  try {
+    const response = await Axios.post(
+      "http://localhost:1337/api/account/getAccount",
+      {
+        username: Cookies.get("username"),
+      }
+    );
+    console.log(response.data[0]);
+    const data = response.data[0];
+    console.log("accountID" + data[0]);
+    Cookies.set("accountID", data.accountID);
+    Cookies.set("lastName", data.lastName);
+    Cookies.set("firstName", data.firstName);
+  } catch (err) {
+    console.log(err.response.data);
+  }
+};
 function Login() {
   const loginUser = () => {
     Axios.post("http://localhost:1337/api/account/login", {
@@ -24,6 +43,8 @@ function Login() {
       .then((response) => {
         console.log(response);
         navigate("/dashboard");
+        Cookies.set("username", usernameLog);
+        fetchPosts();
       })
       .catch((error) => {
         console.error(error.response);
