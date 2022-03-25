@@ -14,20 +14,18 @@ import * as account from "../repositories/account";
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
 import { GETACCOUNTTESTINGMODE } from "../testflags";
-import { loginDTO } from "../models/loginDTO";
-import { loginDTOToAccountModel } from "../functions/loginToAccountModel";
 
 const NAMESPACE = 'account/service';
 
 // Login Account service
-const login = async (acc: loginDTO) => {
+const loginAccount = async (acc: accountModel) => {
         //check if user exists
-        var exists = await account.checkIfUsernameExists(acc.username);
+        var exists = await account.getAccountByUsername(acc.username);
         if (exists[0] == undefined) {
-                return false;
+                throw new Error("Account does not exist");
         }
 
-        var data = await account.getPasswordByUsername(loginDTOToAccountModel(acc));
+        var data = await account.getPasswordByUsername(acc.username);
         logging.debug(NAMESPACE, "this pw = ", acc.password);
         logging.debug(NAMESPACE, "stored pw = ", data[0].password);
         const result = await bcryptjs.compare(acc.password, data[0].password).then((isEqual: boolean) => {
@@ -41,12 +39,19 @@ const login = async (acc: loginDTO) => {
 // Create Account service
 const createAccount = async (acc: accountModel) => {
         //Check if the username or email already exists in the database
-        var username = await account.checkIfUsernameExists(acc.username);
-        var email = await account.checkIfEmailExists(acc.email);
-        if(username[0] == undefined && email[0] == undefined){
+        var emailexists = await account.getAccountByEmail(acc.email);
+        var unameexists = await account.getAccountByUsername(acc.email);
+        if (emailexists[0] != undefined){
+                logging.error(NAMESPACE, "email already exists in db");
+                throw new Error("email in use")
+        } else if (unameexists[0] != undefined){ 
+                logging.error(NAMESPACE, "username already exists in db");
+                throw new Error("username in use");
+        } else {
                 bcryptjs.hash(acc.password, 10)
                 .then((hash: any) => {
-                        account.createAccount(acc, hash, '10')
+                        acc.password = hash;
+                        account.createAccountPatient(acc)
                         .then(() => {
                                 logging.debug(NAMESPACE, "new account added successfully");
                         })
@@ -58,47 +63,45 @@ const createAccount = async (acc: accountModel) => {
                 .catch((error) => {
                         logging.error(NAMESPACE, "error while hashing password");
                         throw (error);
-                })              
-        }else{    
-                //If username of email already exists, throw error
-                logging.error(NAMESPACE, "username already exists");
-                throw ("Username or email already exists.")
-        }
+                })
+        }  
 }
 
 //Delete Account Service
 const deleteAccount = async (acc: accountModel) => {
+        const exists = await account.getAccountByUsername(acc.username);
+        logging.debug(NAMESPACE, "", exists);
+        if (exists[0] == undefined) {
+                throw new Error("account does not exist")
+        }
         logging.debug(NAMESPACE, 'deleting account ', acc.username);
-        return account.deleteAccountByUsername(acc);
+        return account.deleteAccountByUsername(acc.username);
 }
 
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = (acc: accountModel) => {
         if (acc.username != null) {
-                return account.getAccountByUsername(acc);
+                return account.getAccountByUsername(acc.username);
         }
         if (GETACCOUNTTESTINGMODE == true) {
                 return account.getAllAccount();
         }
         else {
-                throw (new Error("No username specified"));
+                return [];
         }
 }
 
-//Fetch Doctor Service (#TODO should not be in account, we should have a separate db for doctors)
+//#TODO should not be in account, we should have a separate db for doctors)
 const getAllDoctors = () => {
-
-        return account.getAllDoctors();
+        return account.getAccountByTypeDoctor();
 }
 
 const getAllPatients = () => {
-
-        return account.getAllPatients();
+        return account.getAccountByTypePatient();
 }
 
-
 export {
-        login,
+        loginAccount,
         createAccount,
         getAccount,
         deleteAccount,

@@ -1,12 +1,15 @@
+import internal from "stream"
+
 export type accountModel = 
 {
-    accountId : number,
-    username: string,
-    password: string,
-    lastname: string,
-    firstname: string,
+    accountID?: number,
     email: string,
-    typeId : number,
-    cellPhone: string,
-    languageId : number
+    password: string,
+
+    username?: string,
+    firstname?: string,
+    lastname?: string,
+    userType?: number,
+    language?: number,
+    cellPhone?: string
 }

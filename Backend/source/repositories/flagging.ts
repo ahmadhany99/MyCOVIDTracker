@@ -1,6 +1,5 @@
 import { flaggingModel } from '../models/flagging';
 import { queryDatabase } from '../DatabaseServices';
-import { loginDTO } from '../models/loginDTO';
 import logging from '../config/logging';
 
 const NAMESPACE = 'flagging/repository';

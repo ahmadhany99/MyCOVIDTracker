@@ -1,6 +1,5 @@
 import { appointmentModel } from '../models/appointment';
 import { queryDatabase } from '../DatabaseServices';
-import { loginDTO } from '../models/loginDTO';
 import logging from '../config/logging';
 
 const NAMESPACE = 'account/repository';

@@ -8,9 +8,7 @@
 import { quarantine } from '../models/quarantine';
 import {patient} from '../models/patient'
 import { queryDatabase } from '../DatabaseServices';
-import { loginDTO } from '../models/loginDTO';
 import logging from '../config/logging';
-import account from '../controllers/account';
 
 const NAMESPACE = 'quarantine/repository';
 
@@ -23,7 +21,7 @@ const inputStartTime = (quarantine: quarantine ) =>{
     const query = `INSERT INTO quarantine VALUES ("${quarantine.patientID}","${quarantine.inQuarantine}", "${quarantine.startTime}",
      "${quarantine.endDate}",null)`;
       logging.debug(NAMESPACE, "query:", query);
-    return queryDatabase(query) as unknown as loginDTO[];
+    return queryDatabase(query) as unknown;
 }
 
 /**
@@ -34,7 +32,7 @@ const calculateDaysLeft = (quarantine: quarantine ) =>{
     const query = `UPDATE quarantine SET quarantine.daysLeft = DATEDIFF(quarantine.endDate, quarantine.startTime) WHERE quarantine.patientID =
     "${quarantine.patientID}"`;
     logging.debug(NAMESPACE, "query:", query);
-    return queryDatabase(query) as unknown as loginDTO[];
+    return queryDatabase(query) as unknown;
 }
 
 /**
@@ -44,7 +42,7 @@ const calculateDaysLeft = (quarantine: quarantine ) =>{
 const getRemainingDays = (quarantine: quarantine ) =>{
     const query = `SELECT (quarantine.daysLeft* 86400) FROM quarantine WHERE quarantine.patientID =  "${quarantine.patientID}"`;
       logging.debug(NAMESPACE, "query:", query);
-    return queryDatabase(query) as unknown as loginDTO[];
+    return queryDatabase(query) as unknown;
 }
 
 //Selects everything from the patient table given a patientID
@@ -52,7 +50,7 @@ const getRemainingDays = (quarantine: quarantine ) =>{
 const checkIfPatientExists = (patient : patient) =>{
     const query = `SELECT * FROM patient WHERE patientID = "${patient.patientID}"`;
       logging.debug(NAMESPACE, "query:", query);
-    return queryDatabase(query) as unknown as loginDTO[];
+    return queryDatabase(query) as unknown as patient[];
 }
 
 
