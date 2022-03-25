@@ -25,8 +25,8 @@ const inputStartTime = async (qtModel : quarantine, patient: patientDTO) =>{
     if(patientID[0] != undefined){
      logging.debug(NAMESPACE, "Creating new entry for quarantine:");
      var quarantineInputTime = await qt.inputStartTime(qtModel);
-     return true;
-    //return qt.inputStartTime(qtModel);
+     //return true;
+    return qt.inputStartTime(qtModel);
     }
     //if patient does not exist, throw error
     else{
@@ -45,8 +45,8 @@ const calculateDaysLeft = async (qtModel: quarantine, patient: patientDTO) =>{
     if(patientID[0] != undefined){
      logging.debug(NAMESPACE, "editing entry for quarantine id:", qtModel.patientID);
      var quarantineUpdated = await qt.calculateDaysLeft(qtModel);
-     return true;
-     //return qt.calculateDaysLeft(qtModel);
+     //return true;
+     return qt.calculateDaysLeft(qtModel);
     }
     //if patient does not exist, throw error
      else{
@@ -64,8 +64,8 @@ const getRemainingDays = async (qtModel: quarantine, patient: patientDTO) =>{
       if(patientID[0] != undefined){
      logging.debug(NAMESPACE, "getting entry for quarantine daysLeft:", qtModel.daysLeft);
      var quarantineDays = await qt.getRemainingDays(qtModel);
-     return true;
-    //return qt.getRemainingDays(qtModel);
+     //return true;
+    return qt.getRemainingDays(qtModel);
       }
       //if patient does not exist, throw error
        else{
