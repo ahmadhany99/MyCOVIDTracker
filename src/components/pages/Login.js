@@ -5,44 +5,64 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import * as Axios from "axios";
+import Cookies from "js-cookie";
 import {
   Box,
   Button,
   Container,
   Grid,
+  responsiveFontSizes,
   TextField,
   Typography,
 } from "@mui/material";
 
+const fetchPosts = async () => {
+  try {
+    console.log("yooooo");
+    const response = await Axios.post(
+      "https://tranquil-wildwood-60713.herokuapp.com/api/account/getAccount",
+      {
+        username: Cookies.get("username"),
+      }
+    );
+    console.log(response.data[0]);
+    const data = response.data[0];
+    console.log("accountID" + data[0]);
+    Cookies.set("accountID", data.accountID);
+    Cookies.set("lastName", data.lastName);
+    Cookies.set("firstName", data.firstName);
+  } catch (err) {
+    console.log(err.response.data);
+  }
+};
 function Login() {
-  // const h = getAccountByUsernameAndPassword('','');
-
-  const handleSubmit = async (e) => {
-    try {
-      const response = await Axios.post(
-        "http://localhost:1337/api/account/login",
-        {
-          username: username,
-          password: password,
-        }
-      ).then((response) => {
-        if (response.data.message) {
-          setLoginStatus(response.data.message);
-
-        } else {
-          setLoginStatus(response.data[0]);
-        }
+  const loginUser = () => {
+    Axios.post(
+      "https://tranquil-wildwood-60713.herokuapp.com/api/account/login",
+      {
+        username: usernameLog,
+        password: passwordLog,
+      }
+    )
+      .then((response) => {
+        console.log(response);
+        Cookies.set("username", usernameLog);
+        fetchPosts();
+        setTimeout(() => {
+          console.log("this better work!");
+          navigate("/dashboard");
+        }, 300);
+      })
+      .catch((error) => {
+        console.error(error.response);
+        setError(error.response.data.message);
+        console.log("Error: " + usernameLog + " " + passwordLog);
       });
-    } catch (err) {
-      console.log(err.data);
-    }
   };
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [loginStatus, setLoginStatus] = useState("");
-
+  const [usernameLog, setUsername] = useState("");
+  const [passwordLog, setPassword] = useState("");
+  const [ErrorLog, setError] = useState("");
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -54,7 +74,6 @@ function Login() {
       password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: () => {
-      handleSubmit();
       navigate("/dashboard");
     },
   });
@@ -81,31 +100,36 @@ function Login() {
               </Typography>
             </Box>
             <TextField
-              error={Boolean(formik.touched.username && formik.errors.username)}
+              //error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.username && formik.errors.username}
+              //helperText={formik.touched.username && formik.errors.username}
               label="Username"
               margin="normal"
               name="username"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
               type="username"
-              value={formik.values.username}
+              value={usernameLog}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
+              //error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
-              helperText={formik.touched.password && formik.errors.password}
+              //helperText={formik.touched.password && formik.errors.password}
               label="Password"
               margin="normal"
               name="password"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               type="password"
-              value={formik.values.password}
+              value={passwordLog}
               variant="outlined"
             />
+            <h2>{ErrorLog}</h2>
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
@@ -114,12 +138,14 @@ function Login() {
                 size="large"
                 type="submit"
                 variant="contained"
+                onClick={loginUser}
               >
                 Log In Now
               </Button>
             </Box>
             <Typography color="textSecondary" variant="body2">
-              Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+              Don&apos;t have an account?{" "}
+              <Link to="/account/createAccount">Sign Up</Link>
             </Typography>
           </form>
         </Container>

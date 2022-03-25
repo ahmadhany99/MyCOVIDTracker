@@ -8,7 +8,8 @@ import MessagePage from "./components/pages/Messages.js";
 import StatusPage from "./components/pages/Status.js";
 import CalendarPage from "./components/pages/Calendar.js";
 import Layout from "./components/layout/Layout.js";
-import Banner from './components/layout/Banner';
+import Banner from "./components/layout/Banner";
+import PrivateRoute from "./components/pages/PrivateRoute.js";
 
 function App() {
   //domain:'/'  localhost:3000/
@@ -16,16 +17,51 @@ function App() {
   return (
     <div>
       <Layout>
-        <Banner/>
+        <Banner />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/messages" element={<MessagePage />} />
-          <Route path="/status" element={<StatusPage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/account/createAccount" element={<SignUpPage />} />
+          <Route path="/account/login" element={<LoginPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <PrivateRoute>
+                <MessagePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/status"
+            element={
+              <PrivateRoute>
+                <StatusPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <PrivateRoute>
+                <CalendarPage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Layout>
     </div>

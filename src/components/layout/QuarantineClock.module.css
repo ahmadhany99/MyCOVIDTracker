@@ -8,3 +8,19 @@
   .time {
     font-size: 32px;
   }
+
+.notQ{
+  border: 15px solid #51C4D3;
+  width: 200px;
+  height: 200px;
+  border-radius: 5pxs;
+  margin: auto auto;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.startButton{
+  margin: auto auto;
+  background-color: #51C4D3;
+}
