@@ -9,7 +9,7 @@ const NAMESPACE = 'quarantine/test';
 
 
 test('inputStartTime:success', async () => {
-    const quarantine: quarantine = {patientID:10, inQuarantine: 1, startTime: "2021-02-24" , endDate: "2021-02-28", daysLeft: 0 };
+    const quarantine: quarantine = {patientID:145, inQuarantine: 1, startTime: "2021-02-24" , endDate: "2021-02-28", daysLeft: 0 };
     const patient: patientDTO = {patientID: 10 }
     var result = await inputStartTime(quarantine, patient);
     logging.debug(NAMESPACE,"the result",result);
@@ -17,14 +17,14 @@ test('inputStartTime:success', async () => {
 });
 
 test('getRemainingDays:success', async () => {
-    const quarantine: quarantine = {patientID:7, inQuarantine: 1, startTime: "2021-02-24" , endDate: "2021-02-28", daysLeft: 0 };
+    const quarantine: quarantine = {patientID:145, inQuarantine: 1, startTime: "2021-02-24" , endDate: "2021-02-28", daysLeft: 0 };
     const patient: patientDTO = {patientID: 10 }
     var result = await getRemainingDays(quarantine, patient);
     expect(result).toBe(true);
 });
 
 test('calculateDaysLeft: success', async () => {
-    const quarantine: quarantine = {patientID:7, inQuarantine: 1, startTime: "2021-02-24" , endDate: "2021-02-28", daysLeft: 0 };
+    const quarantine: quarantine = {patientID:145, inQuarantine: 1, startTime: "2021-02-24" , endDate: "2021-02-28", daysLeft: 0 };
     const patient: patientDTO = {patientID: 10 }
     var result = await calculateDaysLeft(quarantine, patient);
     expect(result).toBe(true);
