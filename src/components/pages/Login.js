@@ -129,7 +129,7 @@ function Login() {
               value={passwordLog}
               variant="outlined"
             />
-            <h2>{ErrorLog}</h2>
+            <h5 style={{ color: "red" }}>{ErrorLog}</h5>
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"

@@ -207,7 +207,7 @@ const Register = () => {
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>{formik.errors.policy}</FormHelperText>
             )}
-            <h2 style={{ color: "red" }}>{ErrorLog}</h2>
+            <h5 style={{ color: "red" }}>{ErrorLog}</h5>
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
