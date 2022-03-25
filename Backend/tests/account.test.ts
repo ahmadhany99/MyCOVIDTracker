@@ -15,7 +15,7 @@ test('login:success', async () => {
 
 test('login:wrong password',async () => {
     const wronguser: accountModel = {
-        username: "test",
+        email: "test@gmail.com",
         password: "456"
     }
     var result = await accountService.loginAccount(wronguser);
@@ -24,9 +24,10 @@ test('login:wrong password',async () => {
 
 test('login:wrong user',async () => {
     const wronguser: accountModel = {
-        username: "wronguser",
+        email: "wronguser",
         password: "123"
     }
-    var result = await accountService.loginAccount(wronguser);
-    expect(result).toBe(false);
+    var result = await accountService.loginAccount(wronguser).catch((err) => {
+        expect(err.message).toBe("account does not exist");
+    })
 })
