@@ -44,13 +44,13 @@ const getAllAccount = () => {
 
 // Get all doctors from db. A doctor is an account with 2 as a typeId
 const getAccountByTypeDoctor = () => {
-    const query = `SELECT * FROM account WHERE typeId=2`;
+    const query = `SELECT * FROM account WHERE userType=2`;
     return queryDatabase(query) as unknown as accountModel[];
 }
 
 // Get all patients from db. A patient is an account with 1 as a typeId
 const getAccountByTypePatient = () => {
-    const query = `SELECT * FROM account WHERE typeId=1`;
+    const query = `SELECT * FROM account WHERE userType=1`;
     return queryDatabase(query) as unknown as accountModel[];
 }
 
