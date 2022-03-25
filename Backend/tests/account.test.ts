@@ -2,19 +2,18 @@ import axios from 'axios';
 import { Response } from 'express';
 import logging from '../source/config/logging';
 import { accountModel } from '../source/models/account';
-import { loginDTO } from '../source/models/loginDTO';
 import * as accountService from '../source/services/account';
 
 const NAMESPACE = 'account/test';
 
 test('register:success',async () => {
-    const testuser: accountModel = {email:'test@gmail.com', password: '123',username:'test', firstname:'Remi', lastname:'Do'};
+    const testuser: accountModel = {email:'test@gmail.com', password: '123', username:'test'};
     var result = await accountService.createAccount(testuser)
 })
 
 test('login:success', async () => {
-    const user: loginDTO = {username: 'doremi', password: '123'};
-    var result = await accountService.login(user);
+    const user: accountModel = {username: 'doremi', password: '123'};
+    var result = await accountService.loginAccount(user);
     expect(result).toBe(true);
 })
 

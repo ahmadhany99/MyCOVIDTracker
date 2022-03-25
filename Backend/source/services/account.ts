@@ -17,27 +17,17 @@ import { GETACCOUNTTESTINGMODE } from "../testflags";
 
 const NAMESPACE = 'account/service';
 
-// Login Account service
-const loginAccount = async (acc: accountModel) => {
-        //check if user exists
-        var exists = await account.getAccountByUsername(acc.username);
-        if (exists[0] == undefined) {
-                throw new Error("Account does not exist");
-        }
-
-        var data = await account.getPasswordByUsername(acc.username);
-        logging.debug(NAMESPACE, "this pw = ", acc.password);
-        logging.debug(NAMESPACE, "stored pw = ", data[0].password);
-        const result = await bcryptjs.compare(acc.password, data[0].password).then((isEqual: boolean) => {
-                logging.debug(NAMESPACE, "isEqual = ", isEqual);
-                return isEqual;
-        })
-        logging.debug(NAMESPACE, "result = ", result);
-        return result;
-}
-
 // Create Account service
 const createAccount = async (acc: accountModel) => {
+        if (acc.email == undefined || acc.email == null || acc.email == "") {
+                throw new Error("email is null")
+        }
+        if (acc.username == undefined || acc.username == null || acc.username == "") {
+                throw new Error("username is null")
+        }
+        if (acc.password == undefined || acc.password == null || acc.password == "") {
+                throw new Error("password is null")
+        }
         //Check if the username or email already exists in the database
         var emailexists = await account.getAccountByEmail(acc.email);
         var unameexists = await account.getAccountByUsername(acc.email);
@@ -48,7 +38,7 @@ const createAccount = async (acc: accountModel) => {
                 logging.error(NAMESPACE, "username already exists in db");
                 throw new Error("username in use");
         } else {
-                bcryptjs.hash(acc.password, 10)
+                bcryptjs.hash(""+acc.password, 10)
                 .then((hash: any) => {
                         acc.password = hash;
                         account.createAccountPatient(acc)
@@ -65,6 +55,31 @@ const createAccount = async (acc: accountModel) => {
                         throw (error);
                 })
         }  
+}
+
+// Login Account service
+const loginAccount = async (acc: accountModel) => {
+        if (acc.username == undefined || acc.username == null || acc.username == "") {
+                throw new Error("username is null")
+        }
+        if (acc.password == undefined || acc.password == null || acc.password == "") {
+                throw new Error("password is null")
+        }
+        //check if user exists
+        var exists = await account.getAccountByUsername(acc.username);
+        if (exists[0] == undefined) {
+                throw new Error("account does not exist");
+        }
+
+        var stored = await account.getPasswordByUsername(acc.username);
+        logging.debug(NAMESPACE, "this pw = ", acc.password);
+        logging.debug(NAMESPACE, "stored pw = ", stored[0].password);
+        const result = await bcryptjs.compare(""+acc.password, ""+stored[0].password).then((isEqual: boolean) => {
+                logging.debug(NAMESPACE, "isEqual = ", isEqual);
+                return isEqual;
+        })
+        logging.debug(NAMESPACE, "result = ", result);
+        return result;
 }
 
 //Delete Account Service

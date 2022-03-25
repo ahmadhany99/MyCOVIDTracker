@@ -9,8 +9,6 @@ const NAMESPACE = 'account/controller';
 const register = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, "Create account");
 
-    logging.debug(NAMESPACE, "req body: ", req.body);
-    //  Data Transfer Object (DTO)
     const accountDTO: accountModel = req.body;
 
     try {
@@ -27,7 +25,22 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
         const err = e as Error;
 
         logging.error(NAMESPACE, err.message);
-        if (err.message == "email in use") {
+        if (err.message == "email is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "Email needs to have a value"
+            })
+        } else if (err.message == "username is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "Username needs to have a value"
+            })
+        } else if (err.message == "password is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "Password needs to have a value"
+            })
+        } else if (err.message == "email in use") {
             return res.status(409).json({
                 status: 409,
                 message: "An account using this email already exists"
@@ -50,21 +63,8 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 const login = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Login to account.');
 
-    //  Data Transfer Object (DTO)
     const accountDTO: accountModel = req.body;
-    if (!accountDTO.username) {
-        return res.status(400).json({
-            status: 400,
-            message: "username needs to have a value"
-        })
-    } else if (!accountDTO.password) {
-        return res.status(400).json({
-            status: 400,
-            message: "password needs to have a value"
-        })
-    }
 
-    //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try {
         //  Call to service layer
         const result = await accountService.loginAccount(accountDTO);
@@ -78,7 +78,17 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     } catch (e) {
         const err = e as Error;
-        if (err.message == "account does not exist") {
+        if (err.message == "username is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "username needs to have a value"
+            })
+        } else if (err.message == "password is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "password needs to have a value"
+            })
+        } else if (err.message == "account does not exist") {
             return res.status(404).json({
                 status: 404,
                 message: "No Account found for username "+accountDTO.username
