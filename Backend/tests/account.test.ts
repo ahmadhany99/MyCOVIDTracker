@@ -1,3 +1,4 @@
+import { fail } from 'assert';
 import axios from 'axios';
 import { Response } from 'express';
 import logging from '../source/config/logging';
@@ -6,10 +7,19 @@ import * as accountService from '../source/services/account';
 
 const NAMESPACE = 'account/test';
 
-const testuser: accountModel = {email:'test@gmail.com', password: '123', username:'test'};
+const tester: accountModel = {email:'test@gmail.com', password: '123', username:'test'};
+const tester2: accountModel = {email:"hello@world.com", password:"wehaveliftoff!"}
 
+beforeAll( () => {
+    accountService.deleteAccount(tester2);
+})
+
+afterAll( () => {
+    accountService.deleteAccount(tester2);
+    logging.info(NAMESPACE, "ALL ACCOUNT TESTS ARE FINISHED");
+})
 test('login:success', async () => {
-    var result = await accountService.loginAccount(testuser);
+    var result = await accountService.loginAccount(tester);
     expect(result).toBe(true);
 })
 
@@ -27,7 +37,19 @@ test('login:wrong user',async () => {
         email: "wronguser",
         password: "123"
     }
-    var result = await accountService.loginAccount(wronguser).catch((err) => {
+    await accountService.loginAccount(wronguser).catch((err) => {
         expect(err.message).toBe("account does not exist");
+    })
+})
+
+test('register:account exists', async ()=> {
+    await accountService.createAccount(tester).catch((err) => {
+        expect(err.message).toBe("email in use");
+    })
+})
+
+test('register:create', async () => {
+    await accountService.createAccount(tester2).catch((err) => {
+        fail(err.message);
     })
 })

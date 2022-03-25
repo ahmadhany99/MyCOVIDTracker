@@ -182,17 +182,10 @@ const deleteAccount = async (req: Request, res: Response, next: NextFunction) =>
 
     } catch (e) {
         const err = e as Error;
-        if (err.message == "account does not exist") {
-            return res.status(404).json({
-                status: 404,
-                message: "No Account found for email "+accountDTO.email
-            })
-        } else {
-            return res.status(500).json({
-                status: 500,
-                message: err.message
-            });
-        }
+        return res.status(500).json({
+            status: 500,
+            message: err.message
+        });
         
     }
 }

@@ -76,21 +76,20 @@ const loginAccount = async (acc: accountModel) => {
 
 //Delete Account Service
 const deleteAccount = async (acc: accountModel) => {
-        const exists = await account.getAccountByEmail(acc.email);
-        logging.debug(NAMESPACE, "", exists);
-        if (exists[0] == undefined) {
-                throw new Error("account does not exist")
-        }
         logging.debug(NAMESPACE, 'deleting account for ', acc.email);
-        return account.deleteAccountByID(exists[0].accountID);
+        
+        const exists = await account.getAccountByEmail(acc.email);
+        if (exists[0] != undefined) {
+                return account.deleteAccountByID(exists[0].accountID);
+        }
 }
 
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = (acc: accountModel) => {
-        if (acc.email != null) {
+        if (acc.email != undefined || acc.email != null || acc.email != "") {
                 return account.getAccountByEmail(acc.email);
         }
-        if (GETACCOUNTTESTINGMODE == true) {
+        if (GETACCOUNTTESTINGMODE) {
                 return account.getAllAccount();
         }
         else {
