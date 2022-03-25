@@ -30,11 +30,6 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
                 status: 400,
                 message: "Email needs to have a value"
             })
-        } else if (err.message == "username is null") {
-            return res.status(400).json({
-                status: 400,
-                message: "Username needs to have a value"
-            })
         } else if (err.message == "password is null") {
             return res.status(400).json({
                 status: 400,
@@ -44,11 +39,6 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
             return res.status(409).json({
                 status: 409,
                 message: "An account using this email already exists"
-            })
-        } else if (err.message == "username in use") {
-            return res.status(409).json({
-                status: 409,
-                message: "An account using this username already exists"
             })
         } else {
             return res.status(500).json({
@@ -77,10 +67,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     } catch (e) {
         const err = e as Error;
-        if (err.message == "username is null") {
+        if (err.message == "email is null") {
             return res.status(400).json({
                 status: 400,
-                message: "username needs to have a value"
+                message: "email needs to have a value"
             })
         } else if (err.message == "password is null") {
             return res.status(400).json({
@@ -90,7 +80,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         } else if (err.message == "account does not exist") {
             return res.status(404).json({
                 status: 404,
-                message: "No Account found for username "+accountDTO.username
+                message: "No Account found for email "+accountDTO.email
             })
         } else {
             return res.status(500).json({
@@ -192,17 +182,10 @@ const deleteAccount = async (req: Request, res: Response, next: NextFunction) =>
 
     } catch (e) {
         const err = e as Error;
-        if (err.message == "account does not exist") {
-            return res.status(404).json({
-                status: 404,
-                message: "No Account found for username "+accountDTO.username
-            })
-        } else {
-            return res.status(500).json({
-                status: 500,
-                message: err.message
-            });
-        }
+        return res.status(500).json({
+            status: 500,
+            message: err.message
+        });
         
     }
 }
