@@ -1,5 +1,10 @@
 # COVID-19 Tracking App
-SOEN390 ... 
+SOEN390 ...
+
+# Demo
+
+- For patients, please scan it with your camera ![frame (1)](https://user-images.githubusercontent.com/55549554/160152502-b2b47c8f-dd3f-4ae0-99b7-a1c8e97c6254.png)
+- [For doctors/health offical, please click it](https://soen390admin.netlify.app/)
 
 # Team 13 - members:
 |name                     |github id    |student id
