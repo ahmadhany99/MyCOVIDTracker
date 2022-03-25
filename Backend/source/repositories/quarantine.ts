@@ -6,7 +6,7 @@
  */
 
 import { quarantine } from '../models/quarantine';
-import {patient} from '../models/patient'
+import {patientDTO} from '../models/patientDTO'
 import { queryDatabase } from '../DatabaseServices';
 import { loginDTO } from '../models/loginDTO';
 import logging from '../config/logging';
@@ -34,7 +34,7 @@ const calculateDaysLeft = (quarantine: quarantine ) =>{
     const query = `UPDATE quarantine SET quarantine.daysLeft = DATEDIFF(quarantine.endDate, quarantine.startTime) WHERE quarantine.patientID =
     "${quarantine.patientID}"`;
     logging.debug(NAMESPACE, "query:", query);
-    return queryDatabase(query) as unknown as loginDTO[];
+    return queryDatabase(query);
 }
 
 /**
@@ -42,14 +42,14 @@ const calculateDaysLeft = (quarantine: quarantine ) =>{
    * PatientID must exist in the patient table before running the following query
    */
 const getRemainingDays = (quarantine: quarantine ) =>{
-    const query = `SELECT (quarantine.daysLeft* 86400) FROM quarantine WHERE quarantine.patientID =  "${quarantine.patientID}"`;
+    const query = `SELECT (quarantine.daysLeft* 86400) as daysLeft FROM quarantine WHERE quarantine.patientID =  "${quarantine.patientID}"`;
       logging.debug(NAMESPACE, "query:", query);
     return queryDatabase(query) as unknown as loginDTO[];
 }
 
 //Selects everything from the patient table given a patientID
 //This query is essentially to check if the patient exists
-const checkIfPatientExists = (patient : patient) =>{
+const checkIfPatientExists = (patient : patientDTO) =>{
     const query = `SELECT * FROM patient WHERE patientID = "${patient.patientID}"`;
       logging.debug(NAMESPACE, "query:", query);
     return queryDatabase(query) as unknown as loginDTO[];

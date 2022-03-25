@@ -23,12 +23,16 @@ const updateAppointment = (appointment: appointmentModel) => {
     return queryDatabase(query);
 }
 
+//Check if appointment already exists in database
+const checkIfAppointmentExists = (appointment: appointmentModel) => {   
+    const query = `SELECT * FROM appointment WHERE appointmentID="${appointment.appointmentID}" `;
+    return queryDatabase(query) as unknown as appointmentModel[];
+}
 
 
 export {
     createAppointment,
     getAppointments,
-    updateAppointment
+    updateAppointment,
+    checkIfAppointmentExists
 };
-
-

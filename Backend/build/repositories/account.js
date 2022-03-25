@@ -40,14 +40,14 @@ const getPasswordByUsername = (account) => {
 };
 exports.getPasswordByUsername = getPasswordByUsername;
 //Get all the accounts from database with a passed username to verify if an account with this username already exists
-const checkIfUsernameExists = (account) => {
-    const query = `SELECT * FROM account WHERE username="${account.username}"`;
+const checkIfUsernameExists = (username) => {
+    const query = `SELECT * FROM account WHERE username="${username}"`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
 exports.checkIfUsernameExists = checkIfUsernameExists;
 //Get all the accounts from database with a passed email to verify if an account with this email already exists
-const checkIfEmailExists = (account) => {
-    const query = `SELECT * FROM account WHERE email="${account.email}"`;
+const checkIfEmailExists = (email) => {
+    const query = `SELECT * FROM account WHERE email="${email}"`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
 exports.checkIfEmailExists = checkIfEmailExists;

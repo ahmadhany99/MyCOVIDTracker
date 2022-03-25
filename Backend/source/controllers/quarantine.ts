@@ -21,11 +21,11 @@ const NAMESPACE = 'Quarantine';
 const inputStartTime = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Entering Start Time');
 
-    const quarantineDTO: quarantine = req.body;
-    const patientDTO : patient = req.body;
+    const quarantine: quarantine = req.body;
+    const patient : patient = req.body;
 
     try{
-        const result = await quarantineService.inputStartTime(quarantineDTO, patientDTO);
+        const result = await quarantineService.inputStartTime(quarantine, patient);
 
             //Return a response to the client.
             return res.status(200).json({

@@ -45,10 +45,10 @@ const NAMESPACE = 'Quarantine';
    */
 const inputStartTime = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, 'Entering Start Time');
-    const quarantineDTO = req.body;
-    const patientDTO = req.body;
+    const quarantine = req.body;
+    const patient = req.body;
     try {
-        const result = yield quarantineService.inputStartTime(quarantineDTO, patientDTO);
+        const result = yield quarantineService.inputStartTime(quarantine, patient);
         //Return a response to the client.
         return res.status(200).json({
             status: 200,

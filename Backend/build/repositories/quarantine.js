@@ -41,7 +41,7 @@ exports.calculateDaysLeft = calculateDaysLeft;
    * PatientID must exist in the patient table before running the following query
    */
 const getRemainingDays = (quarantine) => {
-    const query = `SELECT (quarantine.daysLeft* 86400) FROM quarantine WHERE quarantine.patientID =  "${quarantine.patientID}"`;
+    const query = `SELECT (quarantine.daysLeft* 86400) as daysLeft FROM quarantine WHERE quarantine.patientID =  "${quarantine.patientID}"`;
     logging_1.default.debug(NAMESPACE, "query:", query);
     return (0, DatabaseServices_1.queryDatabase)(query);
 };

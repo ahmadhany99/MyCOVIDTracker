@@ -50,9 +50,16 @@ const account = __importStar(require("../repositories/account"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const logging_1 = __importDefault(require("../config/logging"));
 const testflags_1 = require("../testflags");
+const loginToAccountModel_1 = require("../functions/loginToAccountModel");
 const NAMESPACE = 'account/service';
+// Login Account service
 const login = (acc) => __awaiter(void 0, void 0, void 0, function* () {
-    var data = yield account.getPasswordByUsername(acc);
+    //check if user exists
+    var exists = yield account.checkIfUsernameExists(acc.username);
+    if (exists[0] == undefined) {
+        return false;
+    }
+    var data = yield account.getPasswordByUsername((0, loginToAccountModel_1.loginDTOToAccountModel)(acc));
     logging_1.default.debug(NAMESPACE, "this pw = ", acc.password);
     logging_1.default.debug(NAMESPACE, "stored pw = ", data[0].password);
     const result = yield bcryptjs_1.default.compare(acc.password, data[0].password).then((isEqual) => {
@@ -63,10 +70,11 @@ const login = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 exports.login = login;
+// Create Account service
 const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     //Check if the username or email already exists in the database
-    var username = yield account.checkIfUsernameExists(acc);
-    var email = yield account.checkIfEmailExists(acc);
+    var username = yield account.checkIfUsernameExists(acc.username);
+    var email = yield account.checkIfEmailExists(acc.email);
     if (username[0] == undefined && email[0] == undefined) {
         bcryptjs_1.default.hash(acc.password, 10)
             .then((hash) => {
@@ -91,13 +99,13 @@ const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.createAccount = createAccount;
-//Method to delete an account
+//Delete Account Service
 const deleteAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.debug(NAMESPACE, 'deleting account ', acc.username);
     return account.deleteAccountByUsername(acc);
 });
 exports.deleteAccount = deleteAccount;
-//Method to get an account
+//Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = (acc) => {
     if (acc.username != null) {
         return account.getAccountByUsername(acc);
@@ -108,10 +116,9 @@ const getAccount = (acc) => {
     else {
         throw (new Error("No username specified"));
     }
-    throw (new Error("No username specified"));
 };
 exports.getAccount = getAccount;
-//Method to get all doctors 
+//Fetch Doctor Service (#TODO should not be in account, we should have a separate db for doctors)
 const getAllDoctors = () => {
     return account.getAllDoctors();
 };
