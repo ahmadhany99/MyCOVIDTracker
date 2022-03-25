@@ -77,10 +77,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     } catch (e) {
         const err = e as Error;
-        if (err.message == "username is null") {
+        if (err.message == "email is null") {
             return res.status(400).json({
                 status: 400,
-                message: "username needs to have a value"
+                message: "email needs to have a value"
             })
         } else if (err.message == "password is null") {
             return res.status(400).json({
@@ -90,7 +90,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         } else if (err.message == "account does not exist") {
             return res.status(404).json({
                 status: 404,
-                message: "No Account found for username "+accountDTO.username
+                message: "No Account found for username "+accountDTO.email
             })
         } else {
             return res.status(500).json({
@@ -195,7 +195,7 @@ const deleteAccount = async (req: Request, res: Response, next: NextFunction) =>
         if (err.message == "account does not exist") {
             return res.status(404).json({
                 status: 404,
-                message: "No Account found for username "+accountDTO.username
+                message: "No Account found for username "+accountDTO.email
             })
         } else {
             return res.status(500).json({

@@ -6,14 +6,14 @@ const NAMESPACE = 'account/repository';
 
 //Create an account in table account with the passed accountModel, account will be a Patient (type=1)
 const createAccountPatient = (account: accountModel) => {
-    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.username}", "${account.firstname}", "${account.lastname}", 1, 1, null)`;
+    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.email}", "${account.firstname}", "${account.lastname}", 1, 1, null)`;
     logging.debug(NAMESPACE, query);
     return queryDatabase(query);
 }
 
 //Create an account in table account with the passed accountModel
 const createAccountAdmin = (account: accountModel) => {
-    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.username}", "${account.firstname}", "${account.lastname}", "${account.userType}", 1, null)`;
+    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.email}", "${account.firstname}", "${account.lastname}", "${account.userType}", 1, null)`;
     logging.debug(NAMESPACE, query);
     return queryDatabase(query);
 }
@@ -54,15 +54,9 @@ const getAccountByTypePatient = () => {
     return queryDatabase(query) as unknown as accountModel[];
 }
 
-//Get the password of the account based on a passeed username
-const getPasswordByUsername = (username: string|undefined) => {
-    const query = `SELECT password FROM account WHERE username="${username}"`;
-    return queryDatabase(query) as unknown as accountModel[];
-}
-
 //Delete account from table account
-const deleteAccountByUsername = (username: string|undefined) => {
-    const query = `DELETE FROM account WHERE username="${username}"`;
+const deleteAccountByID = (id: number|undefined) => {
+    const query = `DELETE FROM account WHERE accountID="${id}"`;
     return queryDatabase(query);
 }
 
@@ -73,8 +67,7 @@ export {
     getAccountByID,
     getAccountByUsername,
     getAllAccount,
-    getPasswordByUsername,
-    deleteAccountByUsername,
+    deleteAccountByID,
     getAccountByTypeDoctor,
     getAccountByTypePatient
 };

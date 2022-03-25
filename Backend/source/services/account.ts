@@ -22,7 +22,7 @@ const createAccount = async (acc: accountModel) => {
         if (acc.email == undefined || acc.email == null || acc.email == "") {
                 throw new Error("email is null")
         }
-        if (acc.username == undefined || acc.username == null || acc.username == "") {
+        if (acc.email == undefined || acc.email == null || acc.email == "") {
                 throw new Error("username is null")
         }
         if (acc.password == undefined || acc.password == null || acc.password == "") {
@@ -59,22 +59,21 @@ const createAccount = async (acc: accountModel) => {
 
 // Login Account service
 const loginAccount = async (acc: accountModel) => {
-        if (acc.username == undefined || acc.username == null || acc.username == "") {
-                throw new Error("username is null")
+        if (acc.email == undefined || acc.email == null || acc.email == "") {
+                throw new Error("email is null")
         }
         if (acc.password == undefined || acc.password == null || acc.password == "") {
                 throw new Error("password is null")
         }
         //check if user exists
-        var exists = await account.getAccountByUsername(acc.username);
+        var exists = await account.getAccountByEmail(acc.email);
         if (exists[0] == undefined) {
                 throw new Error("account does not exist");
         }
 
-        var stored = await account.getPasswordByUsername(acc.username);
         logging.debug(NAMESPACE, "this pw = ", acc.password);
-        logging.debug(NAMESPACE, "stored pw = ", stored[0].password);
-        const result = await bcryptjs.compare(""+acc.password, ""+stored[0].password).then((isEqual: boolean) => {
+        logging.debug(NAMESPACE, "stored pw = ", exists[0].password);
+        const result = await bcryptjs.compare(""+acc.password, ""+exists[0].password).then((isEqual: boolean) => {
                 logging.debug(NAMESPACE, "isEqual = ", isEqual);
                 return isEqual;
         })
@@ -84,19 +83,19 @@ const loginAccount = async (acc: accountModel) => {
 
 //Delete Account Service
 const deleteAccount = async (acc: accountModel) => {
-        const exists = await account.getAccountByUsername(acc.username);
+        const exists = await account.getAccountByEmail(acc.email);
         logging.debug(NAMESPACE, "", exists);
         if (exists[0] == undefined) {
                 throw new Error("account does not exist")
         }
-        logging.debug(NAMESPACE, 'deleting account ', acc.username);
-        return account.deleteAccountByUsername(acc.username);
+        logging.debug(NAMESPACE, 'deleting account for ', acc.email);
+        return account.deleteAccountByID(exists[0].accountID);
 }
 
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = (acc: accountModel) => {
-        if (acc.username != null) {
-                return account.getAccountByUsername(acc.username);
+        if (acc.email != null) {
+                return account.getAccountByUsername(acc.email);
         }
         if (GETACCOUNTTESTINGMODE == true) {
                 return account.getAllAccount();
