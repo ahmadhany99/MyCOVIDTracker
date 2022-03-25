@@ -9,8 +9,8 @@
         - Directly interact with database
 */
 
-import { accountModel } from "../models/account";
-import * as account from "../repositories/account";
+import { accountModel } from '../models/account';
+import * as account from '../repositories/account';
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
 import { GETACCOUNTTESTINGMODE } from "../testflags";

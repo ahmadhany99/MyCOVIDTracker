@@ -13,8 +13,36 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Axios from "axios";
+import { useState } from "react";
 
 const Register = () => {
+  const registerUser = () => {
+    Axios.post("http://localhost:1337/api/account/createAccount", {
+      username: usernameReg,
+      password: passwordReg,
+      typeId: 0,
+      firstname: firstNameReg,
+      lastname: lastNameReg,
+      email: emailReg,
+    })
+      .then((response) => {
+        console.log(response);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        console.error(error.response);
+        setErrorReg(error.response.data);
+      });
+  };
+
+  const [usernameReg, setUsernameReg] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
+  const [emailReg, setEmailReg] = useState("");
+  const [firstNameReg, setfirstNameReg] = useState("");
+  const [lastNameReg, setlastNameReg] = useState("");
+  const [ErrorReg, setErrorReg] = useState("");
+
   let navigate = useNavigate();
   const router = useRouter();
   const formik = useFormik({
@@ -22,7 +50,7 @@ const Register = () => {
       email: "",
       firstName: "",
       lastName: "",
-      // profession: "",
+      username: "",
       password: "",
       password2: "",
       policy: false,
@@ -34,10 +62,10 @@ const Register = () => {
         .required("Email is required"),
       firstName: Yup.string().max(255).required("First name is required"),
       lastName: Yup.string().max(255).required("Last name is required"),
-      //profession: Yup.boolean().required("Profession is required"),
+      username: Yup.string().max(255).required("Username is required"),
       password: Yup.string().max(255).required("Password is required"),
       password2: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .oneOf([passwordReg, null], "Passwords must match")
         .required("Password is requiired"),
       policy: Yup.boolean().oneOf([true], "This field must be checked"),
     }),
@@ -65,55 +93,77 @@ const Register = () => {
               </Typography>
             </Box>
             <TextField
-              error={Boolean(
-                formik.touched.firstName && formik.errors.firstName
-              )}
+              //error={Boolean(
+              //  formik.touched.firstName && formik.errors.firstName
+              //)}
               fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
+              //helperText={formik.touched.firstName && formik.errors.firstName}
               label="First Name"
               margin="normal"
               name="firstName"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.firstName}
+              onChange={(e) => {
+                setfirstNameReg(e.target.value);
+              }}
+              value={firstNameReg}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+              //error={Boolean(formik.touched.lastName && formik.errors.lastName)}
               fullWidth
-              helperText={formik.touched.lastName && formik.errors.lastName}
+              //helperText={formik.touched.lastName && formik.errors.lastName}
               label="Last Name"
               margin="normal"
               name="lastName"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.lastName}
+              onChange={(e) => {
+                setlastNameReg(e.target.value);
+              }}
+              value={lastNameReg}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
+              //error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
+              //helperText={formik.touched.username && formik.errors.username}
+              label="Username"
+              margin="normal"
+              name="username"
+              onBlur={formik.handleBlur}
+              onChange={(e) => {
+                setUsernameReg(e.target.value);
+              }}
+              value={usernameReg}
+              variant="outlined"
+            />
+            <TextField
+              // error={Boolean(formik.touched.email && formik.errors.email)}
+              fullWidth
+              //helperText={formik.touched.email && formik.errors.email}
               label="Email Address"
               margin="normal"
               name="email"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                setEmailReg(e.target.value);
+              }}
               type="email"
-              value={formik.values.email}
+              value={emailReg}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
+              //error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
-              helperText={formik.touched.password && formik.errors.password}
+              //helperText={formik.touched.password && formik.errors.password}
               label="Password"
               margin="normal"
               name="password"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                setPasswordReg(e.target.value);
+              }}
               type="password"
-              value={formik.values.password}
+              value={passwordReg}
               variant="outlined"
             />
             <TextField
@@ -155,6 +205,8 @@ const Register = () => {
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>{formik.errors.policy}</FormHelperText>
             )}
+
+            <h2 color="primary">{ErrorReg}</h2>
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
@@ -163,12 +215,13 @@ const Register = () => {
                 size="large"
                 type="submit"
                 variant="contained"
+                onClick={registerUser}
               >
                 Sign Up Now
               </Button>
             </Box>
             <Typography color="textSecondary" variant="body2">
-              Have an account? <L to="/login">Log In</L>
+              Have an account? <L to="/account/login">Log In</L>
             </Typography>
           </form>
         </Container>

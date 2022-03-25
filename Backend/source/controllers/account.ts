@@ -7,7 +7,7 @@ import signJWT from '../functions/signJWT';
 const NAMESPACE = 'account/controller';
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, "Create account");
+    logging.info(NAMESPACE, 'Create account');
 
     const accountDTO: accountModel = req.body;
 
@@ -57,8 +57,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
             })
         }
     }
-
-}
+};
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Login to account.');
@@ -100,8 +99,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             })
         }
     }
-
-}
+};
 
 const getAccount = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Retrieving Account from Database');
@@ -131,7 +129,6 @@ const getAccount = async (req: Request, res: Response, next: NextFunction) => {
 const getAllPatients = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Retrieving Account from Database');
 
-    //  Data Transfer Object (DTO)
     const accountDTO: accountModel = req.body;
 
     try {
@@ -181,7 +178,6 @@ const getAllDoctors = async (req: Request, res: Response, next: NextFunction) =>
 const deleteAccount = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Deleting Account from Database');
 
-    //  Data Transfer Object (DTO)
     const accountDTO: accountModel = req.body;
 
     try {
