@@ -22,21 +22,14 @@ const createAccount = async (acc: accountModel) => {
         if (acc.email == undefined || acc.email == null || acc.email == "") {
                 throw new Error("email is null")
         }
-        if (acc.email == undefined || acc.email == null || acc.email == "") {
-                throw new Error("username is null")
-        }
         if (acc.password == undefined || acc.password == null || acc.password == "") {
                 throw new Error("password is null")
         }
-        //Check if the username or email already exists in the database
+        //Check if the email already exists in the database
         var emailexists = await account.getAccountByEmail(acc.email);
-        var unameexists = await account.getAccountByUsername(acc.email);
         if (emailexists[0] != undefined){
                 logging.error(NAMESPACE, "email already exists in db");
                 throw new Error("email in use")
-        } else if (unameexists[0] != undefined){ 
-                logging.error(NAMESPACE, "username already exists in db");
-                throw new Error("username in use");
         } else {
                 bcryptjs.hash(""+acc.password, 10)
                 .then((hash: any) => {
@@ -95,7 +88,7 @@ const deleteAccount = async (acc: accountModel) => {
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = (acc: accountModel) => {
         if (acc.email != null) {
-                return account.getAccountByUsername(acc.email);
+                return account.getAccountByEmail(acc.email);
         }
         if (GETACCOUNTTESTINGMODE == true) {
                 return account.getAllAccount();

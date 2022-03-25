@@ -30,12 +30,6 @@ const getAccountByEmail = (email: string|undefined) => {
     return queryDatabase(query) as unknown as accountModel[];
 }
 
-//Get an account from table account based on a passeed username
-const getAccountByUsername = (username: string|undefined) => {   
-    const query = `SELECT * FROM account WHERE username="${username}" `;
-    return queryDatabase(query) as unknown as accountModel[];
-}
-
 //Get all accounts from table account
 const getAllAccount = () => {
     const query = `SELECT * FROM account`;
@@ -65,7 +59,6 @@ export {
     createAccountAdmin,
     getAccountByEmail,
     getAccountByID,
-    getAccountByUsername,
     getAllAccount,
     deleteAccountByID,
     getAccountByTypeDoctor,
