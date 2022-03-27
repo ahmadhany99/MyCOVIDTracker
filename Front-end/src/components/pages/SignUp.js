@@ -21,7 +21,6 @@ const Register = () => {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/createAccount",
       {
-        username: usernameReg,
         password: passwordReg,
         typeId: 0,
         firstname: firstNameReg,
@@ -35,11 +34,10 @@ const Register = () => {
       })
       .catch((error) => {
         console.error(error.response);
-        setError(error.response.data);
+        setError(error.response.data.message);
       });
   };
 
-  const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [firstNameReg, setfirstNameReg] = useState("");
@@ -52,7 +50,6 @@ const Register = () => {
       email: "",
       firstName: "",
       lastName: "",
-      username: "",
       password: "",
       password2: "",
       policy: false,
@@ -64,7 +61,6 @@ const Register = () => {
         .required("Email is required"),
       firstName: Yup.string().max(255).required("First name is required"),
       lastName: Yup.string().max(255).required("Last name is required"),
-      username: Yup.string().max(255).required("Username is required"),
       password: Yup.string().max(255).required("Password is required"),
       password2: Yup.string()
         .oneOf([passwordReg, null], "Passwords must match")
@@ -122,20 +118,6 @@ const Register = () => {
                 setlastNameReg(e.target.value);
               }}
               value={lastNameReg}
-              variant="outlined"
-            />
-            <TextField
-              //error={Boolean(formik.touched.username && formik.errors.username)}
-              fullWidth
-              //helperText={formik.touched.username && formik.errors.username}
-              label="Username"
-              margin="normal"
-              name="username"
-              onBlur={formik.handleBlur}
-              onChange={(e) => {
-                setUsernameReg(e.target.value);
-              }}
-              value={usernameReg}
               variant="outlined"
             />
             <TextField

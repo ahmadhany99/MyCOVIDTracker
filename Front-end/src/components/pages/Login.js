@@ -18,21 +18,20 @@ import {
 
 const fetchPosts = async () => {
   try {
-    console.log("yooooo");
     const response = await Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/getAccount",
       {
-        username: Cookies.get("username"),
+        email: Cookies.get("email"),
       }
     );
-    console.log(response.data[0]);
-    const data = response.data[0];
-    console.log("accountID" + data[0]);
-    Cookies.set("accountID", data.accountID);
-    Cookies.set("lastName", data.lastName);
-    Cookies.set("firstName", data.firstName);
+    console.log(response);
+    //const data = response.data[0];
+   // console.log("getting data from response: " + response.data.result[0].firstName);
+    Cookies.set("accountID", response.data.result[0].accountID);
+    Cookies.set("lastName", response.data.result[0].lastName);
+    Cookies.set("firstName", response.data.result[0].firstName);
   } catch (err) {
-    console.log(err.response.data);
+    console.log(err.response);
   }
 };
 function Login() {
@@ -40,13 +39,13 @@ function Login() {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/login",
       {
-        username: usernameLog,
+        email: emailLog,
         password: passwordLog,
       }
     )
       .then((response) => {
         console.log(response);
-        Cookies.set("username", usernameLog);
+        Cookies.set("email", emailLog);
         fetchPosts();
         setTimeout(() => {
           console.log("this better work!");
@@ -56,21 +55,21 @@ function Login() {
       .catch((error) => {
         console.error(error.response);
         setError(error.response.data.message);
-        console.log("Error: " + usernameLog + " " + passwordLog);
+        console.log("Error: " + emailLog + " " + passwordLog);
       });
   };
 
-  const [usernameLog, setUsername] = useState("");
+  const [emailLog, setEmail] = useState("");
   const [passwordLog, setPassword] = useState("");
   const [ErrorLog, setError] = useState("");
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().max(255).required("Username is required"),
+      email: Yup.string().max(255).required("Email is required"),
       password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: () => {
@@ -103,15 +102,15 @@ function Login() {
               //error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
               //helperText={formik.touched.username && formik.errors.username}
-              label="Username"
+              label="Email"
               margin="normal"
-              name="username"
+              name="email"
               onBlur={formik.handleBlur}
               onChange={(e) => {
-                setUsername(e.target.value);
+                setEmail(e.target.value);
               }}
-              type="username"
-              value={usernameLog}
+              type="email"
+              value={emailLog}
               variant="outlined"
             />
             <TextField

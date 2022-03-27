@@ -14,7 +14,7 @@ const PrivateRoute = ({
     redirectPath = '/',
     children,
   }) => {
-    const user = Cookies.get("username");
+    const user = Cookies.get("email");
     if (!user) {
       return <Navigate to={redirectPath} replace />;
     }
