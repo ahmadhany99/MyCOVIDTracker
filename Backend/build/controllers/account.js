@@ -39,8 +39,7 @@ const logging_1 = __importDefault(require("../config/logging"));
 const accountService = __importStar(require("../services/account"));
 const NAMESPACE = 'account/controller';
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, "Create account");
-    //  Data Transfer Object (DTO)
+    logging_1.default.info(NAMESPACE, 'Create account');
     const accountDTO = req.body;
     try {
         //  Call to service layer
@@ -48,32 +47,77 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         // Return a response to client.
         return res.status(200).json({
             status: 200,
-            message: "Account Created."
+            message: "Account created successfully"
         });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        logging_1.default.error(NAMESPACE, err.message);
+        if (err.message == "email is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "Email needs to have a value"
+            });
+        }
+        else if (err.message == "password is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "Password needs to have a value"
+            });
+        }
+        else if (err.message == "email in use") {
+            return res.status(409).json({
+                status: 409,
+                message: "An account using this email already exists"
+            });
+        }
+        else {
+            return res.status(500).json({
+                status: 500,
+                message: err.message
+            });
+        }
     }
 });
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, 'Login to account.');
-    //  Data Transfer Object (DTO)
     const accountDTO = req.body;
-    //  Todo: Insert middleware isUserValid = validators.user(reqBody) instead of following
     try {
-        if (!accountDTO.username || !accountDTO.password) {
-            return res.status(400).json({
-                status: 400,
-                message: "Missing username or password"
-            });
-        }
         //  Call to service layer
-        const result = yield accountService.login(accountDTO);
+        const result = yield accountService.loginAccount(accountDTO);
         // Return a response to client.
-        return res.json(result);
+        return res.status(200).json({
+            status: 200,
+            message: "login successful",
+            passwordIsCorrect: result
+        });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        if (err.message == "email is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "email needs to have a value"
+            });
+        }
+        else if (err.message == "password is null") {
+            return res.status(400).json({
+                status: 400,
+                message: "password needs to have a value"
+            });
+        }
+        else if (err.message == "account does not exist") {
+            return res.status(404).json({
+                status: 404,
+                message: "No Account found for email " + accountDTO.email
+            });
+        }
+        else {
+            return res.status(500).json({
+                status: 500,
+                message: err.message
+            });
+        }
     }
 });
 const getAccount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -84,33 +128,78 @@ const getAccount = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         //  Call to service layer
         const result = yield accountService.getAccount(accountDTO);
         // Return a response to client.
-        return res.json(result);
+        return res.status(200).json({
+            status: 200,
+            result: result
+        });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        return res.status(500).json({
+            status: 500,
+            message: err.message
+        });
+    }
+});
+const getAllPatients = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Retrieving Account from Database');
+    const accountDTO = req.body;
+    try {
+        //  Call to service layer
+        const result = yield accountService.getAllPatients();
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            result: result
+        });
+    }
+    catch (e) {
+        const err = e;
+        return res.status(500).json({
+            status: 500,
+            message: err.message
+        });
     }
 });
 const getAllDoctors = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, 'Retrieving Account from Database');
+    //  Data Transfer Object (DTO)
+    const accountDTO = req.body;
     try {
         //  Call to service layer
         const result = yield accountService.getAllDoctors();
         // Return a response to client.
-        return res.json(result);
+        return res.status(200).json({
+            status: 200,
+            result: result
+        });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        return res.status(500).json({
+            status: 500,
+            message: err.message
+        });
     }
 });
 const deleteAccount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Deleting Account');
+    logging_1.default.info(NAMESPACE, 'Deleting Account from Database');
     const accountDTO = req.body;
     try {
+        //  Call to service layer
         const result = yield accountService.deleteAccount(accountDTO);
-        return res.json(result);
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            result: "Account has been deleted"
+        });
     }
-    catch (err) {
-        return res.status(500).json(err);
+    catch (e) {
+        const err = e;
+        return res.status(500).json({
+            status: 500,
+            message: err.message
+        });
     }
 });
 exports.default = {
@@ -118,5 +207,6 @@ exports.default = {
     login,
     getAccount,
     deleteAccount,
-    getAllDoctors
+    getAllDoctors,
+    getAllPatients
 };

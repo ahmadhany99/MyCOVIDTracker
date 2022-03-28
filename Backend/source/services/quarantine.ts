@@ -19,59 +19,68 @@ const NAMESPACE = 'quarantine/service';
 /**
    * Returns the operation of inputStartTime from repositories/quarantine with quarantine model as the parameter
    */
-const inputStartTime = async (qtModel : quarantine, patient: patient) =>{
+const inputStartDate = async (qtModel : quarantine) =>{
     //Checks if the patient already exists in the patient table in database
-    var patientID = await qt.checkIfPatientExists(patient);
+    var patientID = await qt.checkIfPatientExists(qtModel);
     if(patientID[0] != undefined){
      logging.debug(NAMESPACE, "Creating new entry for quarantine:");
-    return qt.inputStartTime(qtModel);
+    return qt.inputStartDate(qtModel);
     }
     //if patient does not exist, throw error
     else{
-        logging.error(NAMESPACE, "The patient does not exist");
-        throw("Error: The patient does not exist");
+        logging.error(NAMESPACE, "This patient is not in quarantine");
+        throw("Error: This patient is not in quarantine");
     }
 }
 
-/**
-   * Returns the operation of calculateDaysLeft from repositories/quarantine with quarantine model as the parameter
-   */
-const calculateDaysLeft = async (qtModel: quarantine, patient: patient) =>{
+const inputEndDate = async (qtModel : quarantine) =>{
     //Checks if the patient already exists in the patient table in database
-    var patientID = await qt.checkIfPatientExists(patient);
+    var patientID = await qt.checkIfPatientExists(qtModel);
     if(patientID[0] != undefined){
-     logging.debug(NAMESPACE, "editing entry for quarantine id:", qtModel.patientID);
-    return qt.calculateDaysLeft(qtModel);
+     logging.debug(NAMESPACE, "Creating new entry for quarantine:");
+    return qt.inputEndDate(qtModel);
     }
     //if patient does not exist, throw error
-     else{
-        logging.error(NAMESPACE, "The patient does not exist");
-        throw("The patient does not exist");
+    else{
+        logging.error(NAMESPACE, "This patient is not in quarantine");
+        throw("Error: This patient is not in quarantine");
     }
 }
+
 
 /**
    * Returns the operation of getRemainingDays from repositories/quarantine with quarantine model as the parameter
    */
-const getRemainingDays = async (qtModel: quarantine, patient: patient) =>{
+const getRemainingDays = async (qtModel: quarantine) =>{
     //Checks if the patient already exists in the patient table in database
-     var patientID = await qt.checkIfPatientExists(patient);
+     var patientID = await qt.checkIfPatientExists(qtModel);
       if(patientID[0] != undefined){
      logging.debug(NAMESPACE, "getting entry for quarantine daysLeft:", qtModel.daysLeft);
     return qt.getRemainingDays(qtModel);
       }
       //if patient does not exist, throw error
        else{
-        logging.error(NAMESPACE, "The patient does not exist");
-        throw("The patient does not exist");
+        logging.error(NAMESPACE, "This patient is not in quarantine");
+        throw("This patient is not in quarantine");
+    }
+}
+
+const setQuarantineTrue = async (patient: patient) => {
+         var patientID = await qt.checkIfPatientExistsInPatient(patient);
+         if(patientID[0] != undefined){
+        return qt.setQuarantineTrue(patient);
+      }
+       else{
+        logging.error(NAMESPACE, "This patient is not in patient table");
+        throw("This patient does not exist");
     }
 }
 
 
 
-
 export{
-    inputStartTime, 
-    calculateDaysLeft,
-    getRemainingDays
+    inputStartDate, 
+    inputEndDate,
+    getRemainingDays,
+    setQuarantineTrue
 };

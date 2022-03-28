@@ -7,7 +7,7 @@ export type quarantine =
 {
     patientID : number,
     inQuarantine: boolean,
-    startTime: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
     daysLeft : number
 }

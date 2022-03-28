@@ -9,6 +9,7 @@ import quarantineRoutes from './routes/quarantine';
 import statusRoutes from './routes/status';
 import appointmentRoutes from './routes/appointment';
 import flaggingRoutes from './routes/flagging';
+import patientRoutes from './routes/patient';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -49,6 +50,7 @@ router.use('/api', quarantineRoutes);
 router.use('/api', statusRoutes);
 router.use('/api', appointmentRoutes);
 router.use('/api', flaggingRoutes);
+router.use('/api', patientRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
