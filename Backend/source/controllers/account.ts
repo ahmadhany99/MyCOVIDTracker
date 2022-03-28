@@ -59,11 +59,18 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         const result = await accountService.loginAccount(accountDTO);
 
         // Return a response to client.
-        return res.status(200).json({
-            status: 200,
-            message: "login successful",
-            passwordIsCorrect: result
-        })
+        if (result) {
+            return res.status(200).json({
+                status: 200,
+                message: "login successful",
+            })
+        } else {
+            return res.status(403).json({
+                status: 403,
+                message: "login failed, wrong username or password"
+            })
+        }
+        
 
     } catch (e) {
         const err = e as Error;

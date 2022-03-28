@@ -1,6 +1,4 @@
 import { fail } from 'assert';
-import axios from 'axios';
-import { Response } from 'express';
 import logging from '../source/config/logging';
 import { accountModel } from '../source/models/account';
 import * as accountService from '../source/services/account';
@@ -15,6 +13,7 @@ beforeAll( () => {
 })
 
 afterAll( () => {
+    setTimeout('',5000);
     accountService.deleteAccount(tester2);
     logging.info(NAMESPACE, "ALL ACCOUNT TESTS ARE FINISHED");
 })
