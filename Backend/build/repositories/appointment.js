@@ -23,7 +23,7 @@ const updateAppointment = (appointment) => {
 exports.updateAppointment = updateAppointment;
 //Check if appointment already exists in database
 const checkIfAppointmentExists = (appointment) => {
-    const query = `SELECT * FROM appointment WHERE patientID="${appointment.appointmentID}" `;
+    const query = `SELECT * FROM appointment WHERE appointmentID="${appointment.appointmentID}" `;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
 exports.checkIfAppointmentExists = checkIfAppointmentExists;

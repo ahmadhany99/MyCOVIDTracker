@@ -45,40 +45,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllDoctors = exports.deleteAccount = exports.getAccount = exports.createAccount = exports.login = void 0;
+exports.getAllPatients = exports.getAllDoctors = exports.deleteAccount = exports.getAccount = exports.createAccount = exports.loginAccount = void 0;
 const account = __importStar(require("../repositories/account"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const logging_1 = __importDefault(require("../config/logging"));
 const testflags_1 = require("../testflags");
-const loginToAccountModel_1 = require("../functions/loginToAccountModel");
 const NAMESPACE = 'account/service';
-// Login Account service
-const login = (acc) => __awaiter(void 0, void 0, void 0, function* () {
-    //check if user exists
-    var exists = yield account.checkIfUsernameExists(acc.username);
-    if (exists[0] == undefined) {
-        return false;
-    }
-    var data = yield account.getPasswordByUsername((0, loginToAccountModel_1.loginDTOToAccountModel)(acc));
-    logging_1.default.debug(NAMESPACE, "this pw = ", acc.password);
-    logging_1.default.debug(NAMESPACE, "stored pw = ", data[0].password);
-    const result = yield bcryptjs_1.default.compare(acc.password, data[0].password).then((isEqual) => {
-        logging_1.default.debug(NAMESPACE, "isEqual = ", isEqual);
-        return isEqual;
-    });
-    logging_1.default.debug(NAMESPACE, "result = ", result);
-    return result;
-});
-exports.login = login;
 // Create Account service
 const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
-    //Check if the username or email already exists in the database
-    var username = yield account.checkIfUsernameExists(acc.username);
-    var email = yield account.checkIfEmailExists(acc.email);
-    if (username[0] == undefined && email[0] == undefined) {
-        bcryptjs_1.default.hash(acc.password, 10)
+    if (acc.email == undefined || acc.email == null || acc.email == "") {
+        throw new Error("email is null");
+    }
+    if (acc.password == undefined || acc.password == null || acc.password == "") {
+        throw new Error("password is null");
+    }
+    //Check if the email already exists in the database
+    var emailexists = yield account.getAccountByEmail(acc.email);
+    if (emailexists[0] != undefined) {
+        logging_1.default.error(NAMESPACE, "email already exists in db");
+        throw new Error("email in use");
+    }
+    else {
+        bcryptjs_1.default.hash("" + acc.password, 10)
             .then((hash) => {
-            account.createAccount(acc, hash, '10')
+            acc.password = hash;
+            account.createAccountPatient(acc)
                 .then(() => {
                 logging_1.default.debug(NAMESPACE, "new account added successfully");
             })
@@ -92,34 +83,59 @@ const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
             throw (error);
         });
     }
-    else {
-        //If username of email already exists, throw error
-        logging_1.default.error(NAMESPACE, "username already exists");
-        throw ("Username or email already exists.");
-    }
 });
 exports.createAccount = createAccount;
+// Login Account service
+const loginAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
+    if (acc.email == undefined || acc.email == null || acc.email == "") {
+        throw new Error("email is null");
+    }
+    if (acc.password == undefined || acc.password == null || acc.password == "") {
+        throw new Error("password is null");
+    }
+    //check if user exists
+    var exists = yield account.getAccountByEmail(acc.email);
+    if (exists[0] == undefined) {
+        throw new Error("account does not exist");
+    }
+    logging_1.default.debug(NAMESPACE, "this pw = ", acc.password);
+    logging_1.default.debug(NAMESPACE, "stored pw = ", exists[0].password);
+    const result = yield bcryptjs_1.default.compare("" + acc.password, "" + exists[0].password).then((isEqual) => {
+        logging_1.default.debug(NAMESPACE, "isEqual = ", isEqual);
+        return isEqual;
+    });
+    logging_1.default.debug(NAMESPACE, "result = ", result);
+    return result;
+});
+exports.loginAccount = loginAccount;
 //Delete Account Service
 const deleteAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.debug(NAMESPACE, 'deleting account ', acc.username);
-    return account.deleteAccountByUsername(acc);
+    logging_1.default.debug(NAMESPACE, 'deleting account for ', acc.email);
+    const exists = yield account.getAccountByEmail(acc.email);
+    if (exists[0] != undefined) {
+        return account.deleteAccountByID(exists[0].accountID);
+    }
 });
 exports.deleteAccount = deleteAccount;
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = (acc) => {
-    if (acc.username != null) {
-        return account.getAccountByUsername(acc);
+    if (acc.email != undefined || acc.email != null || acc.email != "") {
+        return account.getAccountByEmail(acc.email);
     }
-    if (testflags_1.GETACCOUNTTESTINGMODE == true) {
+    if (testflags_1.GETACCOUNTTESTINGMODE) {
         return account.getAllAccount();
     }
     else {
-        throw (new Error("No username specified"));
+        return [];
     }
 };
 exports.getAccount = getAccount;
-//Fetch Doctor Service (#TODO should not be in account, we should have a separate db for doctors)
+//#TODO should not be in account, we should have a separate db for doctors)
 const getAllDoctors = () => {
-    return account.getAllDoctors();
+    return account.getAccountByTypeDoctor();
 };
 exports.getAllDoctors = getAllDoctors;
+const getAllPatients = () => {
+    return account.getAccountByTypePatient();
+};
+exports.getAllPatients = getAllPatients;
