@@ -9,6 +9,7 @@ import { quarantine } from '../models/quarantine';
 import {patient} from '../models/patient'
 import { queryDatabase } from '../DatabaseServices';
 import logging from '../config/logging';
+import quarantineController from '../controllers/quarantine';
 
 const NAMESPACE = 'quarantine/repository';
 
@@ -17,21 +18,16 @@ const NAMESPACE = 'quarantine/repository';
    * The value for the column daysleft is null
    * PatientID must exist in the patient table before running the following query
    */
-const inputStartTime = (quarantine: quarantine ) =>{
-    const query = `INSERT INTO quarantine VALUES ("${quarantine.patientID}","${quarantine.inQuarantine}", "${quarantine.startTime}",
-     "${quarantine.endDate}",null)`;
+const inputStartDate = (quarantine: quarantine ) =>{
+    const query = `UPDATE quarantine SET quarantine.startDate = '${quarantine.startDate}' WHERE quarantine.patientID = '${quarantine.patientID}'`;
       logging.debug(NAMESPACE, "query:", query);
     return queryDatabase(query) as unknown;
 }
 
-/**
-   * Updates the quarantine table by finding the date diff between startDate and endDate and adding to daysLeft column
-   *PatientID must exist in the patient table before running the following query
-   */
-const calculateDaysLeft = (quarantine: quarantine ) =>{
-    const query = `UPDATE quarantine SET quarantine.daysLeft = DATEDIFF(quarantine.endDate, quarantine.startTime) WHERE quarantine.patientID =
-    "${quarantine.patientID}"`;
-    logging.debug(NAMESPACE, "query:", query);
+
+const inputEndDate = (quarantine: quarantine ) =>{
+    const query = `UPDATE quarantine SET quarantine.endDate = "${quarantine.endDate}" WHERE quarantine.patientID = "${quarantine.patientID}"`;
+      logging.debug(NAMESPACE, "query:", query);
     return queryDatabase(query) as unknown;
 }
 
@@ -40,23 +36,39 @@ const calculateDaysLeft = (quarantine: quarantine ) =>{
    * PatientID must exist in the patient table before running the following query
    */
 const getRemainingDays = (quarantine: quarantine ) =>{
-    const query = `SELECT (quarantine.daysLeft* 86400) FROM quarantine WHERE quarantine.patientID =  "${quarantine.patientID}"`;
+    const query = `SELECT daysLeft FROM quarantine WHERE quarantine.patientID =  "${quarantine.patientID}"`;
       logging.debug(NAMESPACE, "query:", query);
     return queryDatabase(query) as unknown;
 }
 
 //Selects everything from the patient table given a patientID
 //This query is essentially to check if the patient exists
-const checkIfPatientExists = (patient : patient) =>{
+const checkIfPatientExists = (quarantine : quarantine) =>{
+    const query = `SELECT * FROM quarantine WHERE quarantine.patientID = "${quarantine.patientID}"`;
+      logging.debug(NAMESPACE, "query:", query);
+    return queryDatabase(query) as unknown as patient[];
+}
+
+const checkIfPatientExistsInPatient = (patient : patient) =>{
     const query = `SELECT * FROM patient WHERE patientID = "${patient.patientID}"`;
       logging.debug(NAMESPACE, "query:", query);
     return queryDatabase(query) as unknown as patient[];
 }
 
+const setQuarantineTrue = (patient : patient) =>{
+    const query = `UPDATE patient SET isQuarantined = 1 WHERE patientID = '${patient.patientID}'`;
+      logging.debug(NAMESPACE, "query:", query);
+    return queryDatabase(query) as unknown as patient[];
+}
+
+
+
 
 export{
-    inputStartTime,
-    calculateDaysLeft,
+    inputStartDate,
+    inputEndDate,
     getRemainingDays,
-    checkIfPatientExists
+    checkIfPatientExists,
+    checkIfPatientExistsInPatient,
+    setQuarantineTrue
 };
