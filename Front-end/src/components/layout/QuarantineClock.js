@@ -60,9 +60,7 @@ export default function QuarantineClock() {
       <div className={classes.notQ}>
         <Button
           className={classes.startButton}
-          onClick={() => {
-            setQuarantineTimer(true);
-          }}
+          onClick={()=>{setQuarantineTimer(true)}}
         >
           Start Timer!
         </Button>

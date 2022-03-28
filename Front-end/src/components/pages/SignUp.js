@@ -18,31 +18,31 @@ import { useState } from "react";
 
 const Register = () => {
   const registerUser = () => {
-    Axios.post("http://localhost:1337/api/account/createAccount", {
-      username: usernameReg,
-      password: passwordReg,
-      typeId: 0,
-      firstname: firstNameReg,
-      lastname: lastNameReg,
-      email: emailReg,
-    })
+    Axios.post(
+      "https://tranquil-wildwood-60713.herokuapp.com/api/account/createAccount",
+      {
+        password: passwordReg,
+        typeId: 0,
+        firstname: firstNameReg,
+        lastname: lastNameReg,
+        email: emailReg,
+      }
+    )
       .then((response) => {
         console.log(response);
         navigate("/dashboard");
       })
       .catch((error) => {
         console.error(error.response);
-        setErrorReg(error.response.data);
+        setError(error.response.data.message);
       });
   };
 
-  const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [firstNameReg, setfirstNameReg] = useState("");
   const [lastNameReg, setlastNameReg] = useState("");
-  const [ErrorReg, setErrorReg] = useState("");
-
+  const [ErrorLog, setError] = useState("");
   let navigate = useNavigate();
   const router = useRouter();
   const formik = useFormik({
@@ -50,7 +50,6 @@ const Register = () => {
       email: "",
       firstName: "",
       lastName: "",
-      username: "",
       password: "",
       password2: "",
       policy: false,
@@ -62,7 +61,6 @@ const Register = () => {
         .required("Email is required"),
       firstName: Yup.string().max(255).required("First name is required"),
       lastName: Yup.string().max(255).required("Last name is required"),
-      username: Yup.string().max(255).required("Username is required"),
       password: Yup.string().max(255).required("Password is required"),
       password2: Yup.string()
         .oneOf([passwordReg, null], "Passwords must match")
@@ -120,20 +118,6 @@ const Register = () => {
                 setlastNameReg(e.target.value);
               }}
               value={lastNameReg}
-              variant="outlined"
-            />
-            <TextField
-              //error={Boolean(formik.touched.username && formik.errors.username)}
-              fullWidth
-              //helperText={formik.touched.username && formik.errors.username}
-              label="Username"
-              margin="normal"
-              name="username"
-              onBlur={formik.handleBlur}
-              onChange={(e) => {
-                setUsernameReg(e.target.value);
-              }}
-              value={usernameReg}
               variant="outlined"
             />
             <TextField
@@ -205,8 +189,7 @@ const Register = () => {
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>{formik.errors.policy}</FormHelperText>
             )}
-
-            <h2 color="primary">{ErrorReg}</h2>
+            <h5 style={{ color: "red" }}>{ErrorLog}</h5>
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"

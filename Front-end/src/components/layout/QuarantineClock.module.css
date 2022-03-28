@@ -1,25 +1,26 @@
 .clock {
-  display: flex;
-  justify-content: space-around;
-  font-family: sans-serif;
-  text-align: center;
-}
+    display: flex;
+    justify-content: space-around;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .time {
+    font-size: 32px;
+  }
 
-.time {
-  font-size: 32px;
-}
-.notQ {
-  border: 15px solid #51c4d3;
+.notQ{
+  border: 15px solid #51C4D3;
   width: 200px;
   height: 200px;
   border-radius: 5pxs;
   margin: auto auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
-.startButton {
+.startButton{
   margin: auto auto;
-  background-color: #51c4d3;
+  background-color: #51C4D3;
 }

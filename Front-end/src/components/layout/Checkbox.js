@@ -16,12 +16,13 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 
 export default function CheckboxListSecondary() {
+  
   const submitStatus = () => {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/status/updateStatus",
       {
         uid: 8,
-        report: checked,
+        report: checked
       }
     )
       .then((response) => {
@@ -47,9 +48,12 @@ export default function CheckboxListSecondary() {
   const navigate = useNavigate();
   const [checked, setChecked] = React.useState([]);
 
+
+
   const handleToggle = (event) => () => {
     const currentIndex = checked.indexOf(event);
     const newChecked = [...checked];
+
 
     if (currentIndex === -1) {
       newChecked.push(event);
@@ -60,10 +64,10 @@ export default function CheckboxListSecondary() {
   };
 
   var checkedItems = checked.length
-    ? checked.reduce((total, item) => {
-        return total + ", " + item;
-      })
-    : "";
+  ? checked.reduce((total, item) => {
+      return total + ", " + item;
+    })
+  : "";
 
   const statusArray = [
     {
@@ -102,25 +106,27 @@ export default function CheckboxListSecondary() {
         {statusArray.map((value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;
 
-          return (
-            <ListItem
-              key={value.question}
-              secondaryAction={
-                <Checkbox
-                  edge="end"
-                  onChange={handleToggle(value.answer)}
-                  checked={checked.indexOf(value.answer) !== -1}
-                  inputProps={{ "aria-labelledby": labelId }}
-                />
-              }
-              disablePadding
-              className={classes.question}
-            >
-              <ListItemButton>
-                <ListItemText id={labelId} primary={`${value.question}`} />
-              </ListItemButton>
-            </ListItem>
-          );
+          
+            return (
+              <ListItem
+                key={value.question}
+                secondaryAction={
+                  <Checkbox
+                    edge="end"
+                    onChange={handleToggle(value.answer)}
+                    checked={checked.indexOf(value.answer) !== -1}
+                    inputProps={{ "aria-labelledby": labelId }}
+                  />
+                }
+                disablePadding
+                className={classes.question}
+              >
+                <ListItemButton>
+                  <ListItemText id={labelId} primary={`${value.question}`} />
+                </ListItemButton>
+              </ListItem>
+            );
+          
         })}
       </List>
       <Link to="/profile">
