@@ -15,9 +15,14 @@ import {
 } from "@mui/material";
 import Axios from "axios";
 import { useState } from "react";
-import Banner from '../layout/Banner.js';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import classes from './AdminSignUp.module.css';
 
-const Register = () => {
+const AdminSignUp = () => {
   const registerUser = () => {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/createAccount",
@@ -88,7 +93,7 @@ const Register = () => {
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography color="textPrimary" variant="h4">
-                Sign Up
+                Admin Sign Up
               </Typography>
             </Box>
             <TextField
@@ -136,6 +141,30 @@ const Register = () => {
               value={emailReg}
               variant="outlined"
             />
+            <FormControl className={classes.professions}>
+              <FormLabel id="profession">Profession</FormLabel>
+              <RadioGroup
+                aria-labelledby="professions"
+                defaultValue="1"
+                name="radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="1"
+                  control={<Radio />}
+                  label="Doctor"
+                />
+                <FormControlLabel
+                  value="2"
+                  control={<Radio />}
+                  label="Health Official"
+                />
+                <FormControlLabel
+                  value="3"
+                  control={<Radio />}
+                  label="Immigration Officer"
+                />
+              </RadioGroup>
+            </FormControl>
             <TextField
               //error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
@@ -205,7 +234,7 @@ const Register = () => {
               </Button>
             </Box>
             <Typography color="textSecondary" variant="body2">
-              Have an account? <L to="/account/login">Log In</L>
+              Have an account? <L to="/admin/login">Log In</L>
             </Typography>
           </form>
         </Container>
@@ -214,4 +243,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default AdminSignUp;

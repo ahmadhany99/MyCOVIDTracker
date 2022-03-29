@@ -26,6 +26,12 @@ function Landing() {
           Get Started
         </Button>
       </Link>
+      <br></br>
+      <Link to="/admin">
+        <Button variant="contained" className={classes.start_cta}>
+          Not a patient?
+        </Button>
+      </Link>
     </Box>
   );
 }

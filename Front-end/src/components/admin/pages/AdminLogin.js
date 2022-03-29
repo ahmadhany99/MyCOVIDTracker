@@ -41,7 +41,7 @@ const fetchPosts = async () => {
     console.log(err.response);
   }
 };
-function Login() {
+function AdminLogin() {
   const loginUser = () => {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/login",
@@ -56,7 +56,7 @@ function Login() {
         fetchPosts();
         setTimeout(() => {
           console.log("this better work!");
-          navigate("/dashboard");
+          navigate("/admin/dashboard");
         }, 500);
       })
       .catch((error) => {
@@ -102,7 +102,7 @@ function Login() {
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography color="textPrimary" variant="h4">
-                Log in
+                Admin Log in
               </Typography>
             </Box>
             <TextField
@@ -151,7 +151,7 @@ function Login() {
             </Box>
             <Typography color="textSecondary" variant="body2">
               Don&apos;t have an account?{" "}
-              <Link to="/account/createAccount">Sign Up</Link>
+              <Link to="/admin/signup">Sign Up</Link>
             </Typography>
           </form>
         </Container>
@@ -160,4 +160,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;
