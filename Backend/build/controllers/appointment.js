@@ -60,11 +60,19 @@ const updateAppointment = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     const appointmentDTO = req.body;
     try {
         const result = yield appointmentService.updateAppointment(appointmentDTO);
-        // Return a response to client.
-        return res.status(200).json({
-            status: 200,
-            message: "Appointment Updated."
-        });
+        if (!result) {
+            // Return a response to client.
+            return res.json({
+                message: "Appointment doesn't exists."
+            });
+        }
+        else {
+            // Return a response to client.
+            return res.status(200).json({
+                status: 200,
+                message: "Appointment Updated."
+            });
+        }
     }
     catch (err) {
         return res.status(500).json(err);

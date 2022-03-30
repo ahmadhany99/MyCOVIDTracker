@@ -1,59 +1,59 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllDoctors = exports.checkIfEmailExists = exports.checkIfUsernameExists = exports.deleteAccountByUsername = exports.getPasswordByUsername = exports.getAllAccount = exports.getAccountByUsername = exports.getAccountByUsernameAndPassword = exports.createAccount = void 0;
+exports.getAccountByTypePatient = exports.getAccountByTypeDoctor = exports.deleteAccountByID = exports.getAllAccount = exports.getAccountByID = exports.getAccountByEmail = exports.createAccountAdmin = exports.createAccountPatient = void 0;
 const DatabaseServices_1 = require("../DatabaseServices");
+const logging_1 = __importDefault(require("../config/logging"));
 const NAMESPACE = 'account/repository';
-//Create an account in table account with the passed accountModel and a hashed password
-const createAccount = (account, hash, salt) => {
-    const query = `INSERT INTO account VALUES (accountID, "${account.lastname}", "${account.firstname}", "${account.email}", "${account.username}", "${hash}", 0, null, 0, "${salt}")`;
+//Create an account in table account with the passed accountModel, account will be a Patient (type=1)
+const createAccountPatient = (account) => {
+    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.email}", "${account.firstname}", "${account.lastname}", 1, 1, null)`;
+    logging_1.default.debug(NAMESPACE, query);
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
-exports.createAccount = createAccount;
-//Get an account from table account based on a passeed username and password
-const getAccountByUsernameAndPassword = (account) => {
-    const query = `SELECT * FROM account WHERE username="${account.username}" AND password="${account.password}" `;
+exports.createAccountPatient = createAccountPatient;
+//Create an account in table account with the passed accountModel
+const createAccountAdmin = (account) => {
+    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.email}", "${account.firstname}", "${account.lastname}", "${account.userType}", 1, null)`;
+    logging_1.default.debug(NAMESPACE, query);
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
-exports.getAccountByUsernameAndPassword = getAccountByUsernameAndPassword;
-//Get an account from table account based on a passeed username
-const getAccountByUsername = (account) => {
-    const query = `SELECT * FROM account WHERE username="${account.username}" `;
+exports.createAccountAdmin = createAccountAdmin;
+//Get an account from table account based on a passeed account id
+const getAccountByID = (uid) => {
+    const query = `SELECT * FROM account WHERE accountID="${uid}"`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
-exports.getAccountByUsername = getAccountByUsername;
+exports.getAccountByID = getAccountByID;
+//Get an account from table account based on a passeed email
+const getAccountByEmail = (email) => {
+    const query = `SELECT * FROM account WHERE email="${email}" `;
+    return (0, DatabaseServices_1.queryDatabase)(query);
+};
+exports.getAccountByEmail = getAccountByEmail;
 //Get all accounts from table account
 const getAllAccount = () => {
     const query = `SELECT * FROM account`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
 exports.getAllAccount = getAllAccount;
-// Get all doctors from db. A doctor is an account with 1 as a typeId
-const getAllDoctors = () => {
-    const query = `SELECT * FROM account WHERE typeId=1`;
+// Get all doctors from db. A doctor is an account with 2 as a typeId
+const getAccountByTypeDoctor = () => {
+    const query = `SELECT * FROM account WHERE userType=2`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
-exports.getAllDoctors = getAllDoctors;
-//Get the password of the account based on a passeed username
-const getPasswordByUsername = (account) => {
-    const query = `SELECT password FROM account WHERE username="${account.username}"`;
+exports.getAccountByTypeDoctor = getAccountByTypeDoctor;
+// Get all patients from db. A patient is an account with 1 as a typeId
+const getAccountByTypePatient = () => {
+    const query = `SELECT * FROM account WHERE userType=1`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
-exports.getPasswordByUsername = getPasswordByUsername;
-//Get all the accounts from database with a passed username to verify if an account with this username already exists
-const checkIfUsernameExists = (username) => {
-    const query = `SELECT * FROM account WHERE username="${username}"`;
-    return (0, DatabaseServices_1.queryDatabase)(query);
-};
-exports.checkIfUsernameExists = checkIfUsernameExists;
-//Get all the accounts from database with a passed email to verify if an account with this email already exists
-const checkIfEmailExists = (email) => {
-    const query = `SELECT * FROM account WHERE email="${email}"`;
-    return (0, DatabaseServices_1.queryDatabase)(query);
-};
-exports.checkIfEmailExists = checkIfEmailExists;
+exports.getAccountByTypePatient = getAccountByTypePatient;
 //Delete account from table account
-const deleteAccountByUsername = (account) => {
-    const query = `DELETE FROM account WHERE username="${account.username}"`;
+const deleteAccountByID = (id) => {
+    const query = `DELETE FROM account WHERE accountID="${id}"`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
-exports.deleteAccountByUsername = deleteAccountByUsername;
+exports.deleteAccountByID = deleteAccountByID;

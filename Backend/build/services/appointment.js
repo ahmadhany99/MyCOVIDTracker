@@ -49,11 +49,13 @@ exports.getAppointments = getAppointments;
 const updateAppointment = (app) => __awaiter(void 0, void 0, void 0, function* () {
     //Check if the appointment already exists in the database
     var appointmentExists = yield appointment.checkIfAppointmentExists(app);
+    //Throw an error if the appointment doesn't exist in the database 
     if (appointmentExists[0] == undefined) {
         return false;
     }
     else {
-        return appointment.updateAppointment(app);
+        var appointmentcreates = yield appointment.updateAppointment(app);
+        return true;
     }
 });
 exports.updateAppointment = updateAppointment;
