@@ -1,16 +1,33 @@
 import "./featuredInfo.css";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import axios from "axios";
+import { useState,useEffect } from "react";
 
 export default function FeaturedInfo() {
+  useEffect(() => {
+    const getallpatients = async () => {
+      try {
+
+        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/patient/countAllPatients')
+        console.log(response.data[0].countAllPatients)
+        setPatients(response.data[0].countAllPatients);
+      }catch(err){
+       console.log(err.response);
+      }
+    }
+    getallpatients()
+  },[])
+  const [patients, setPatients] = useState([]);
+
   return (
     <div className="featured">
       <div className="featuredItem">
         <span className="featuredTitle">Patients</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">1230</span>
+          <span className="featuredMoney">{patients}</span>
           <span className="featuredMoneyRate">
-            +150 <ArrowUpwardIcon  className="featuredIcon"/>
+           {patients}<ArrowUpwardIcon  className="featuredIcon"/>
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>

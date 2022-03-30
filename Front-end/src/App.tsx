@@ -17,7 +17,9 @@ import Home from "./components/admin/pages/home/Home.jsx";
 import Sidebar from './components/admin/components/sidebar/Sidebar.jsx';
 import AdminLanding from "./components/admin/pages/AdminLanding.js";
 import AdminPrivateRoute from "./components/admin/pages/AdminPrivateRoute.js";
-
+import UserList from "./components/admin/pages/patientList/PatientsList.jsx";
+import Status from "./components/admin/pages/StatusList/Status.jsx";
+import FlaggedPatients from "./components/admin/pages/FlagPatients/FlagPatients.jsx";
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/
@@ -32,6 +34,11 @@ function App() {
           <Route path="/admin/signup" element={<AdminSignUp />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLanding />} />
+<Route path="/admin/users" element={<><Sidebar/> <UserList /></>} />
+<Route path="/admin/status" element={<><Sidebar/> <Status /></>} />
+<Route path="/admin/flagged" element={<><Sidebar/> <FlaggedPatients /></>} />
+<Route path="/admin/dashboard" element={<><Sidebar/> <Home /></>} />
+
           <Route
             path="/dashboard"
             element={
