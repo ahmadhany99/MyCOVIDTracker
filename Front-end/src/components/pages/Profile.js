@@ -9,8 +9,6 @@ import Cookies from "js-cookie";
 
 const patientInfo = {
   name: "Victoria Robertson",
-  age: "26",
-  DOB: "02/12/1994",
   doctor: "Dr. Hamilton",
 };
 
@@ -29,9 +27,6 @@ function Profile() {
     <Box>
       <div className={classes.profileHeader}>
         <h2 className={classes.title}>Profile</h2>
-        <span className={classes.profile_pic_box}>
-          <AccountCircleOutlinedIcon className={classes.profile_pic} />
-        </span>
         <Link to="/">
           <Button onClick={logout}>Logout</Button>
         </Link>
@@ -40,8 +35,6 @@ function Profile() {
         <h2>
           {firstname} {lastname}
         </h2>
-        <p>Age: {patientInfo.age} years old</p>
-        <p>DOB: {patientInfo.DOB}</p>
         <p>Assigned to {patientInfo.doctor}</p>
       </div>
       <div className={classes.statusHeader}>

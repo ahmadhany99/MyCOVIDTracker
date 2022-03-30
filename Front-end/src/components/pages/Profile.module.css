@@ -3,7 +3,7 @@
   justify-content: space-around;
   background-color: #132c33;
   color: white;
-  height: 175px;
+  height: 90px;
   align-items: flex-start;
   margin-top: 0.5rem;
 }
@@ -23,17 +23,15 @@
   transform: translateY(100px);
 }
 
-.profile_pic {
-}
-
 .patient_info p {
   margin: 0;
-  text-align: left;
-  margin-left: 5rem;
+  text-align: center;
 }
 
 .patient_info h2 {
+  margin:1em 0 0 0 ;
   text-align: center;
+  
 }
 
 .statusHeader {

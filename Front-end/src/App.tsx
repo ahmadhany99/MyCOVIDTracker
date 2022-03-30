@@ -15,6 +15,9 @@ import AdminSignUp from "./components/admin/pages/AdminSignUp.js";
 import AdminLogin from "./components/admin/pages/AdminLogin.js";
 import Home from "./components/admin/pages/home/Home.jsx";
 import Sidebar from './components/admin/components/sidebar/Sidebar.jsx';
+import AdminLanding from "./components/admin/pages/AdminLanding.js";
+import AdminPrivateRoute from "./components/admin/pages/AdminPrivateRoute.js";
+
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/
@@ -28,13 +31,21 @@ function App() {
           <Route path="/account/login" element={<LoginPage />} />
           <Route path="/admin/signup" element={<AdminSignUp />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<><Sidebar/> <Home /></>} />
+          <Route path="/admin" element={<AdminLanding />} />
           <Route
             path="/dashboard"
             element={
               <PrivateRoute>
                 <DashboardPage />
               </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminPrivateRoute>
+                <Home />
+              </AdminPrivateRoute>
             }
           />
           <Route
