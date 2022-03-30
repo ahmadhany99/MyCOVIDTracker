@@ -27,7 +27,7 @@ test('login:wrong password',async () => {
         email: "test@gmail.com",
         password: "456"
     }
-    var result = await accountService.loginAccount(wronguser).catch();
+    var result = await accountService.loginAccount(wronguser);
     expect(result).toBe(false);
 })
 
