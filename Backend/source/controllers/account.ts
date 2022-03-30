@@ -52,7 +52,7 @@ const registerClient = async (req: Request, res: Response, next: NextFunction) =
 
     try {
         //  Call to service layer
-        const result = await accountService.createAccount(accountDTO);
+        await accountService.createAccount(accountDTO);
 
         // Return a response to client.
         return res.status(200).json({
@@ -105,7 +105,7 @@ const registerAdmin = async (req: Request, res: Response, next: NextFunction) =>
 
     try {
         //  Call to service layer
-        const result = await accountService.createAccountAdmin(accountDTO);
+        await accountService.createAccountAdmin(accountDTO);
 
         // Return a response to client.
         return res.status(200).json({
@@ -180,7 +180,7 @@ const deleteAccount = async (req: Request, res: Response, next: NextFunction) =>
 
     try {
         //  Call to service layer
-        const result = await accountService.deleteAccount(accountDTO);
+        await accountService.deleteAccount(accountDTO);
 
         // Return a response to client.
         return res.status(200).json({
