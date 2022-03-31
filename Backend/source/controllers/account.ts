@@ -190,10 +190,50 @@ const deleteAccount = async (req: Request, res: Response, next: NextFunction) =>
 
     } catch (e) {
         const err = e as Error;
-        return res.status(500).json({
-            status: 500,
-            message: err.message
+        logging.error(NAMESPACE, err.message);
+        return handleAccountError(err, res);
+        
+    }
+}
+
+const getPatients = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Get Doctor Accounts From Account Table');
+
+    try {
+        //  Call to service layer
+        const result = await accountService.getPatientAccounts();
+
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            result: result
         });
+
+    } catch (e) {
+        const err = e as Error;
+        logging.error(NAMESPACE, err.message);
+        return handleAccountError(err, res);
+        
+    }
+}
+
+const getDoctors = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Get Doctor Accounts From Account Table');
+
+    try {
+        //  Call to service layer
+        const result = await accountService.getDoctorAccounts();
+
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            result: result
+        });
+
+    } catch (e) {
+        const err = e as Error;
+        logging.error(NAMESPACE, err.message);
+        return handleAccountError(err, res);
         
     }
 }
@@ -204,5 +244,7 @@ export default {
     registerAdmin,
     loginAdmin,
     getAccount,
-    deleteAccount
+    deleteAccount,
+    getPatients,
+    getDoctors
 };

@@ -13,7 +13,7 @@ import { accountModel } from '../models/account';
 import * as accountdb from '../repositories/account';
 import bcryptjs from 'bcryptjs';
 import logging from "../config/logging";
-import { GETACCOUNTTESTINGMODE } from "../testflags";
+import { ACCOUNTTESTINGMODE } from "../testflags";
 
 const NAMESPACE = 'account/service';
 
@@ -155,7 +155,7 @@ const deleteAccount = async (acc: accountModel) => {
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
 const getAccount = async (acc: accountModel) => {
         //check if in testing mode
-        if (GETACCOUNTTESTINGMODE && acc.email == undefined) {
+        if (ACCOUNTTESTINGMODE && acc.email == undefined) {
                 return accountdb.getAllAccount();
         }
         else {
@@ -171,11 +171,21 @@ const getAccount = async (acc: accountModel) => {
         }
 }
 
+const getPatientAccounts = async () => {
+        return accountdb.getAccountByTypePatient();
+}
+
+const getDoctorAccounts = async () => {
+        return accountdb.getAccountByTypeDoctor();
+}
+
 export {
         loginAccount,
         loginAccountAdmin,
         createAccount,
         createAccountAdmin,
         getAccount,
+        getPatientAccounts,
+        getDoctorAccounts,
         deleteAccount
 };
