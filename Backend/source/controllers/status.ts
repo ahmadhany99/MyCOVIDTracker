@@ -75,7 +75,8 @@ const getStatus = async (req: Request, res: Response, next: NextFunction) => {
 
         return res.status(200).json({
             status: 200,
-            message: result
+            message: "success",
+            result: result
         });
 
     } catch (e) {
@@ -93,7 +94,8 @@ const getAllStatus = async (req: Request, res: Response, next: NextFunction) => 
 
         return res.status(200).json({
             status: 200,
-            message: result
+            message: "success",
+            result: result
         });
 
     } catch (e) {
@@ -111,7 +113,8 @@ const getStatusByPatient = async (req: Request, res: Response, next: NextFunctio
 
         return res.status(200).json({
             status: 200,
-            message: result
+            message: "Status issued by "+status.patientID,
+            result: result
         });
 
     } catch (e) {
@@ -129,7 +132,8 @@ const getStatusByDate = async (req: Request, res: Response, next: NextFunction) 
 
         return res.status(200).json({
             status: 200,
-            message: result
+            message: "Status issued on "+status.date,
+            result: result
         });
 
     } catch (e) {
