@@ -2,11 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import * as flaggingService from '../services/flagging';
 import { flaggingModel } from '../models/flagging';
-import signJWT from '../functions/signJWT';
-
 
 
 const NAMESPACE = 'Flagging';
+
 
 /**
    * Executes the flagPatient function from services/flagging passing the flagging model 
@@ -19,13 +18,13 @@ const flagPatient = async (req: Request, res: Response, next: NextFunction) => {
     const flaggingDTO: flaggingModel = req.body;
 
     try {
-        const result = await flaggingService.flagPatient(flaggingDTO);
+        await flaggingService.flagPatient(flaggingDTO);
 
-                // Return a response to client.
-                return res.status(200).json({
-                    status: 200,
-                    message: "Patient Flagged."
-                })
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            message: "Patient Flagged."
+        })
     }
     // returns error if deemed unsuccessful
     catch (err) {
@@ -45,13 +44,13 @@ const getFlaggedPatients = async (req: Request, res: Response, next: NextFunctio
     const flaggingDTO: flaggingModel = req.body;
 
     try {
-        const result = await flaggingService.getFlaggedPatients(flaggingDTO);
+        await flaggingService.getFlaggedPatients(flaggingDTO);
 
-                // Return a response to client.
-                return res.status(200).json({
-                    status: 200,
-                    message: "Flagged Patients Returned."
-                })
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            message: "Flagged Patients Returned."
+        })
     }
     // returns error if deemed unsuccessful
     catch (err) {

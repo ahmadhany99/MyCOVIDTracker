@@ -3,17 +3,15 @@ import logging from '../config/logging';
 import * as patientService from '../services/patient';
 import { patient } from '../models/patient';
 import { accountModel } from '../models/account';
-import signJWT from '../functions/signJWT';
-
 
 
 const NAMESPACE = 'Patient';
+
 
 const getPatient = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting a Patient info');
 
     const accountDTO: accountModel = req.body;
-    const patientDTO : patient = req.body;
 
     try {
         const result = await patientService.getPatient(accountDTO);
