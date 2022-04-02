@@ -13,7 +13,6 @@ router.post('/admin/register', accountController.registerAdmin);
 router.get('/account/get', accountController.getAccount);
 router.put('/account/get', accountController.getAccount);
 router.get('/account/get/patient', accountController.getPatients);
-router.get('/account/get/doctor', accountController.getDoctors);
 
 router.delete('/account/delete', accountController.deleteAccount);
 
