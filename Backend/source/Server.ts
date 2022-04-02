@@ -9,6 +9,7 @@ import statusRoutes from './routes/status';
 import appointmentRoutes from './routes/appointment';
 import flaggingRoutes from './routes/flagging';
 import patientRoutes from './routes/patient';
+import doctorRoutes from './routes/doctor';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -49,6 +50,7 @@ router.use('/api', statusRoutes);
 router.use('/api', appointmentRoutes);
 router.use('/api', flaggingRoutes);
 router.use('/api', patientRoutes);
+router.use('/api', doctorRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
