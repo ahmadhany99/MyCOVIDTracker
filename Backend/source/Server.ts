@@ -7,7 +7,6 @@ import accountRoutes from './routes/account';
 import quarantineRoutes from './routes/quarantine';
 import statusRoutes from './routes/status';
 import appointmentRoutes from './routes/appointment';
-import flaggingRoutes from './routes/flagging';
 import patientRoutes from './routes/patient';
 import doctorRoutes from './routes/doctor';
 
@@ -48,7 +47,6 @@ router.use('/api', accountRoutes);
 router.use('/api', quarantineRoutes);
 router.use('/api', statusRoutes);
 router.use('/api', appointmentRoutes);
-router.use('/api', flaggingRoutes);
 router.use('/api', patientRoutes);
 router.use('/api', doctorRoutes);
 
