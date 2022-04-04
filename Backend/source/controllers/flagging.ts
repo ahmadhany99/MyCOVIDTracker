@@ -44,8 +44,9 @@ const getFlaggedPatients = async (req: Request, res: Response, next: NextFunctio
     const flaggingDTO: flaggingModel = req.body;
 
     try {
-        await flaggingService.getFlaggedPatients(flaggingDTO);
+       const result = await flaggingService.getFlaggedPatients(flaggingDTO);
 
+         return res.json(result);
         // Return a response to client.
         return res.status(200).json({
             status: 200,
