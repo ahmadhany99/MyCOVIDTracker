@@ -25,9 +25,11 @@ const checkIfPatientExistsInPatient = (patient : patient) =>{
     return queryDatabase(query) as unknown as patient[];
 }
 
-// Get the patient's doctor (doctor id) given a patient ID
+// Get the patient's doctor (doctor id and name) given a patient ID
 const getDoctor = (patient: patient) => {
-    const query = `SELECT doctorID FROM patient WHERE patient.patientID = '${patient.patientID}'`;
+    const query = `SELECT doctor.doctorID, account.firstName, account.lastName
+    FROM patient, account, doctor
+    WHERE patient.doctorID = doctor.doctorID AND doctor.doctorID = account.accountID AND patient.patientID = '${patient.patientID}'`;
     return queryDatabase(query);
 }
 
