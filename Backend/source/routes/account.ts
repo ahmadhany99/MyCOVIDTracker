@@ -4,10 +4,10 @@ import accountController from '../controllers/account';
 const router = express.Router();
 
 router.put('/account/login', accountController.loginClient);
-router.put('/admin/login', accountController.loginAdmin);
+router.put('/account/admin/login', accountController.loginAdmin);
 
 router.post('/account/register', accountController.registerClient);
-router.post('/admin/register', accountController.registerAdmin);
+router.post('/account/admin/register', accountController.registerAdmin);
 
 //plz test and choose only one to use between get/put
 router.get('/account/get', accountController.getAccount);

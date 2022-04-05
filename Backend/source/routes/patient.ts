@@ -18,8 +18,8 @@ router.post('/patient/getPatient', patientController.getPatient);
 router.post('/patient/getDoctor', patientController.getDoctor);
 
 //flagging routes
-router.post('/patient/flagPatient', flaggingController.flagPatient);
-router.post('/patient/getFlaggedPatients', flaggingController.getFlaggedPatients);
+router.post('/patient/flag', flaggingController.flagPatient);
+router.post('/patient/getFlagged', flaggingController.getFlaggedPatients);
 
 
 export = router;
