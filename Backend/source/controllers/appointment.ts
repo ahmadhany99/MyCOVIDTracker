@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import * as appointmentService from '../services/appointment';
 import { appointmentModel } from '../models/appointment';
-import signJWT from '../functions/signJWT';
-
 
 
 const NAMESPACE = 'Appointment';
@@ -16,13 +14,13 @@ const createAppointment = async (req: Request, res: Response, next: NextFunction
     const appointmentDTO: appointmentModel = req.body;
 
     try {
-        const result = await appointmentService.createAppointment(appointmentDTO);
+        await appointmentService.createAppointment(appointmentDTO);
 
-                            // Return a response to client.
-                            return res.status(200).json({
-                                status: 200,
-                                message: "Appointment Created."
-                            })
+        // Return a response to client.
+        return res.status(200).json({
+            status: 200,
+            message: "Appointment Created."
+        })
         
     }
     catch (err) {

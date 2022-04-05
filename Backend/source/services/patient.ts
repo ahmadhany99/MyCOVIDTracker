@@ -13,10 +13,10 @@ const countAllPatients = (patient: patient) => {
 
 }
 
-const getPatient = async (account: accountModel) => {
-        var patientID = await patientRep.checkIfPatientExistsInPatient(account);
+const getPatient = async (patient: patient) => {
+        var patientID = await patientRep.checkIfPatientExistsInPatient(patient);
          if(patientID[0] != undefined){
-        return patientRep.getPatient(account);
+        return patientRep.getPatient(patient);
          }
           else{
         logging.error(NAMESPACE, "This patient is not in patient table");
@@ -26,7 +26,22 @@ const getPatient = async (account: accountModel) => {
 }
 
 
+const getDoctor = async (patient: patient) => {
+        var patientID = await patientRep.checkIfPatientExistsInPatient(patient);
+         if(patientID[0] != undefined){
+        return patientRep.getDoctor(patient);
+         }
+          else{
+        logging.error(NAMESPACE, "This patient is not in patient table");
+        throw("This patient does not exist");
+    }
+
+}
+
+
+
 export {
     getPatient,
-    countAllPatients
+    countAllPatients,
+    getDoctor
 };
