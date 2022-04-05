@@ -15,7 +15,7 @@ const patientInfo = {
 };
 
 const logout = () => {
-  Cookies.remove("username");
+  Cookies.remove("email");
   Cookies.remove("accountID");
   Cookies.remove("lastName");
   Cookies.remove("firstName");
