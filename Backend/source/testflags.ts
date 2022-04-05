@@ -1,2 +1,2 @@
-export const ACCOUNTTESTINGMODE = false;
-export const STATUSTESTINGMODE = false;
+export const GETACCOUNTTESTINGMODE = true;
+export const GETALLSTATUSTESTINGMODE = true;

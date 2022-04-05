@@ -5,34 +5,22 @@ import logging from '../config/logging';
 
 const NAMESPACE = 'patient/repository';
 
-
-// Get a patient's info given a patient ID
-const getPatient = (patient: patient) => {
-    const query = `SELECT * FROM patient WHERE patient.patientID = '${patient.patientID}'`;
+const getPatient = (account: accountModel) => {
+    const query = `SELECT patient.* FROM patient, account WHERE patient.patientID = account.accountID AND
+    account.firstName = '${account.firstname}' AND account.lastName = '${account.lastname}'`;
     return queryDatabase(query);
 }
 
-// Count all the patients from the patient table
 const countAllPatients = (patient: patient) => {
     const query = `SELECT COUNT(*) as countAllPatients FROM patient`;
     return queryDatabase(query);
 }
 
-// Check if the patient exists in the patient table given a patient ID
-const checkIfPatientExistsInPatient = (patient : patient) =>{
-    const query = `SELECT * FROM patient WHERE patientID = "${patient.patientID}"`;
+const checkIfPatientExistsInPatient = (account : accountModel) =>{
+    const query = `SELECT * FROM account WHERE account.firstName = "${account.firstname}" AND account.lastName = "${account.lastname}" `;
       logging.debug(NAMESPACE, "query:", query);
     return queryDatabase(query) as unknown as patient[];
 }
-
-// Get the patient's doctor (doctor id and name) given a patient ID
-const getDoctor = (patient: patient) => {
-    const query = `SELECT doctor.doctorID, account.firstName, account.lastName
-    FROM patient, account, doctor
-    WHERE patient.doctorID = doctor.doctorID AND doctor.doctorID = account.accountID AND patient.patientID = '${patient.patientID}'`;
-    return queryDatabase(query);
-}
-
 
 
 
@@ -41,6 +29,5 @@ const getDoctor = (patient: patient) => {
 export{
     getPatient,
     countAllPatients,
-    checkIfPatientExistsInPatient,
-    getDoctor
+    checkIfPatientExistsInPatient
 };

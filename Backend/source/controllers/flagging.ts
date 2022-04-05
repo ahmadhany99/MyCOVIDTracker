@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import * as flaggingService from '../services/flagging';
 import { flaggingModel } from '../models/flagging';
+import signJWT from '../functions/signJWT';
 
 const NAMESPACE = 'Flagging';
 
@@ -16,7 +17,7 @@ const flagPatient = async (req: Request, res: Response, next: NextFunction) => {
     const flaggingDTO: flaggingModel = req.body;
 
     try {
-        await flaggingService.flagPatient(flaggingDTO);
+        const result = await flaggingService.flagPatient(flaggingDTO);
 
         // Return a response to client.
         return res.status(200).json({
@@ -42,11 +43,11 @@ const getFlaggedPatients = async (req: Request, res: Response, next: NextFunctio
     try {
         const result = await flaggingService.getFlaggedPatients(flaggingDTO);
 
-        return res.json(result);
         // Return a response to client.
         return res.status(200).json({
             status: 200,
-            message: 'Flagged Patients Returned.'
+            message: 'Flagged Patients Returned.',
+            result: result
         });
     } catch (err) {
         // returns error if deemed unsuccessful

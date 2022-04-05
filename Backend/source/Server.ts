@@ -3,12 +3,13 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import logging from './config/logging';
 import config from './config/config';
+import userRoutes from './routes/template';
 import accountRoutes from './routes/account';
 import quarantineRoutes from './routes/quarantine';
 import statusRoutes from './routes/status';
 import appointmentRoutes from './routes/appointment';
+import flaggingRoutes from './routes/flagging';
 import patientRoutes from './routes/patient';
-import doctorRoutes from './routes/doctor';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -43,12 +44,13 @@ router.use((req, res, next) => {
 });
 
 /** Routes go here */
+router.use('/api', userRoutes);
 router.use('/api', accountRoutes);
 router.use('/api', quarantineRoutes);
 router.use('/api', statusRoutes);
 router.use('/api', appointmentRoutes);
+router.use('/api', flaggingRoutes);
 router.use('/api', patientRoutes);
-router.use('/api', doctorRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
