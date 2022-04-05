@@ -43,6 +43,22 @@ const checkIfDoctorExists = (doctorID : number) =>{
     return queryDatabase(query) as unknown as doctordb[];
 }
 
+// Change the doctor active status in table doctor
+const changeDoctorActiveStatus = (doctorModel: doctordb) => {
+
+    var query = `UPDATE doctor set IsActive=true WHERE doctor.doctorID = "${doctorModel.doctorID}"`;
+    if(!doctorModel.IsActive){
+        query = `UPDATE doctor set IsActive=false WHERE doctor.doctorID = "${doctorModel.doctorID}"`;
+    }
+    return queryDatabase(query);
+}
+
+// set the assign doctorID in table patient for a patient
+const assignDoctorToPatient = (patient: patient) => {
+    const query = `UPDATE patient set doctorID = "${patient.doctorID}" WHERE patient.patientID = "${patient.patientID}"`;
+    return queryDatabase(query);
+}
+
 export {
     
     getAccountByTypeDoctor,
@@ -50,7 +66,9 @@ export {
     getDoctorsNumberOfPatients,
     checkIfDoctorExists,
     getDoctorsPatientsInfo,
-    getDoctorsInfo
+    getDoctorsInfo,
+    changeDoctorActiveStatus,
+    assignDoctorToPatient
 
 };
 
