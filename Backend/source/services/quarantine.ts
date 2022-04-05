@@ -17,8 +17,8 @@ import { patient } from "../models/patient";
 const NAMESPACE = 'quarantine/service';
 
 /**
-   * Returns the operation of inputStartTime from repositories/quarantine with quarantine model as the parameter
-   */
+ * Returns the operation of inputStartTime from repositories/quarantine with quarantine model as the parameter
+ */
 const inputStartDate = async (qtModel : quarantine) =>{
     //Checks if the patient already exists in the patient table in database
     var patientID = await qt.checkIfPatientExists(qtModel);

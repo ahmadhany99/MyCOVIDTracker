@@ -8,14 +8,15 @@ const NAMESPACE = 'flagging/repository';
 const flagPatient = (flagging: flaggingModel) => {
     const query = `UPDATE patient SET isPrioritized = 1 WHERE patientID = '${flagging.patientID}'`;
     return queryDatabase(query);
-};
+}
 
 // Returns list of flagged patients where isPrioritized value is set to 1
-const getFlaggedPatients = (flagging: flaggingModel) => {
-    const query = `Select a.firstName, a.lastName from 
-patient p, account a 
-where p.patientid=a.accountid and p.isprioritized=1;`;
+const getFlaggedPatients = (flagging: flaggingModel) => {   
+    const query = `SELECT * FROM patient WHERE isPrioritized = 1`;
     return queryDatabase(query);
-};
+}
 
-export { flagPatient, getFlaggedPatients };
+export {
+    flagPatient,
+    getFlaggedPatients
+};
