@@ -149,7 +149,7 @@ const deleteAccount = async (acc: accountModel) => {
         if (exists[0] == undefined) {
                 throw new Error("account does not exist")
         }
-        return accountdb.deleteAccountByID(exists[0].accountID);
+        return accountdb.deleteAccountByEmail(exists[0].email);
 }
 
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
@@ -161,7 +161,7 @@ const getAccount = async (acc: accountModel) => {
         else {
                 const results = await accountdb.getAccountByEmail(acc.email);        
                 //check if email specified
-                if (acc.email != undefined || acc.email != null || acc.email != "") {
+                if (acc.email == undefined || acc.email == null || acc.email == "") {
                         throw new Error("email is null");
                 }
                 if (results[0] == undefined) {

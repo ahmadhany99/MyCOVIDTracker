@@ -86,8 +86,8 @@ const getAccountByTypePatient = () => {
 }
 
 //Delete account from table account
-const deleteAccountByID = (uid: number|undefined) => {
-    const query = `DELETE FROM account WHERE accountID="${uid}"`;
+const deleteAccountByEmail = (email: string|undefined) => {
+    const query = `DELETE FROM account WHERE email="${email}"`;
     return queryDatabase(query);
 }
 
@@ -109,7 +109,7 @@ export {
     getAccountByTypeDoctor,
     getAccountByTypePatient,
 
-    deleteAccountByID
+    deleteAccountByEmail
 };
 
 
