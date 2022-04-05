@@ -3,17 +3,13 @@ import statusController from '../controllers/status';
 
 const router = express.Router();
 
-router.post('/status/update', statusController.updateStatus);
-
-router.get('/status/get', statusController.getStatus);
-router.put('/status/get', statusController.getStatus);
-router.get('/status/get/all', statusController.getAllStatus);
-router.get('/status/get/all/user', statusController.getStatusByPatient);
-router.put('/status/get/all/user', statusController.getStatusByPatient);
-router.get('/status/get/all/date', statusController.getStatusByDate);
-router.put('/status/get/all/date', statusController.getStatusByDate);
-
-router.delete('/status/delete', statusController.deleteStatus);
-
+// update patient's status args: uid, date, report
+router.post('/status/updateStatus', statusController.updateStatus);
+// delete status args: uid, date
+router.post('/status/deleteStatus', statusController.deleteStatus);
+// get unique status args: uid, date
+router.get('/status/getStatus', statusController.getStatus);
+// gets all status for user args: uid
+router.get('/status/getAllStatus', statusController.getAllStatus);
 
 export = router;
