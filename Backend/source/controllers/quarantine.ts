@@ -8,7 +8,7 @@ import logging from '../config/logging';
 import * as quarantineService from '../services/quarantine';
 import { quarantine } from '../models/quarantine';
 import {patient} from '../models/patient';
-
+import signJWT from '../functions/signJWT';
 
 const NAMESPACE = 'Quarantine';
 
@@ -24,7 +24,7 @@ const inputStartDate = async (req: Request, res: Response, next: NextFunction) =
     const quarantineDTO: quarantine = req.body;
 
     try{
-        await quarantineService.inputStartDate(quarantineDTO);
+        const result = await quarantineService.inputStartDate(quarantineDTO);
 
             //Return a response to the client.
             return res.status(200).json({
@@ -43,7 +43,7 @@ const inputEndDate = async (req: Request, res: Response, next: NextFunction) => 
     const quarantineDTO: quarantine = req.body;
 
     try{
-        await quarantineService.inputEndDate(quarantineDTO);
+        const result = await quarantineService.inputEndDate(quarantineDTO);
 
             //Return a response to the client.
             return res.status(200).json({
@@ -69,12 +69,13 @@ const getRemainingDays = async (req: Request, res: Response, next: NextFunction)
     try{
         const result = await quarantineService.getRemainingDays(quarantineDTO);
 
-        //Return a response to the client.
-        return res.status(200).json({
-            status: 200,
-            message: "Getting the days left to quarantine",
-            daysRemaining: result
-        })
+         return res.json(result);
+
+            //Return a response to the client.
+            return res.status(200).json({
+                status: 200,
+                message: "Getting the days left to quarantine"
+            })
     }
     catch(err){
         return res.status(500).json(err);
@@ -88,7 +89,7 @@ const setQuarantineTrue = async (req: Request, res: Response, next: NextFunction
     const patientDTO : patient = req.body;
 
     try{
-        await quarantineService.setQuarantineTrue(patientDTO);
+        const result = await quarantineService.setQuarantineTrue(patientDTO);
 
 
             //Return a response to the client.
