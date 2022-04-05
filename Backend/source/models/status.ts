@@ -1,6 +1,6 @@
 export type statusModel = {
-    rid: number,
-    uid: number,
-    date: string,
-    report: string[]
+    statusID?: number,
+    patientID?: number,
+    date?: string,
+    report?: string[]
 }
