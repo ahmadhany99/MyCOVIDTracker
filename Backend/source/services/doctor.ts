@@ -67,12 +67,39 @@ const getDoctorsInfo = async (doctorModel: doctorModel) => {
 
 }
 
+const changeDoctorActiveStatus = async (doctorModel: doctorModel) => {
+        //Check if doctor exists before executing the query
+        var doctorID = await doctordb.checkIfDoctorExists(doctorModel.doctorID);
+         if(doctorID[0] != undefined){
+                return doctordb.changeDoctorActiveStatus(doctorModel);
+         }
+          else{
+        logging.error(NAMESPACE, "This doctor is not in doctor table");
+        throw("This doctor does not exist");
+    }
+
+}
+
+const assignDoctorToPatient = async ( patient: patient)  => {
+        //Check if doctor exists before executing the query
+        var doctorID = await doctordb.checkIfDoctorExists(patient.doctorID);
+         if(doctorID[0] != undefined){
+                return doctordb.assignDoctorToPatient(patient);
+         }
+          else{
+        logging.error(NAMESPACE, "This doctor is not in doctor table");
+        throw("This doctor does not exist");
+    }
+
+}
 export {
 
         getDoctorAccounts,
         getDoctorsCount,
         getDoctorsNumberOfPatients,
         getDoctorsPatientsInfo,
-        getDoctorsInfo
+        getDoctorsInfo,
+        changeDoctorActiveStatus,
+        assignDoctorToPatient
  
 };

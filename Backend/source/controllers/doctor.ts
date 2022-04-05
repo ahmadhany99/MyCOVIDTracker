@@ -132,11 +132,47 @@ const getDoctorsInfo = async (req: Request, res: Response, next: NextFunction) =
 
 }
 
+const changeDoctorActiveStatus = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Get doctors info');
+
+    const doctorModel: doctorModel = req.body;
+
+    try {
+        const result = await doctorService.changeDoctorActiveStatus(doctorModel);
+        return res.json(result);
+
+    }
+    // returns error if deemed unsuccessful
+    catch (err) {
+        return res.status(500).json(err);
+    }
+
+}
+
+const assignDoctorToPatient = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Get patients info');
+
+    const patient: patient = req.body;
+
+    try {
+        const result = await doctorService.assignDoctorToPatient(patient);
+        return res.json(result);
+
+    }
+    // returns error if deemed unsuccessful
+    catch (err) {
+        return res.status(500).json(err);
+    }
+
+}
+
 export default {
     handleAccountError,
     getDoctors,
     getDoctorsCount,
     getDoctorsNumberOfPatients,
     getDoctorsPatientsInfo,
-    getDoctorsInfo
+    getDoctorsInfo,
+    changeDoctorActiveStatus,
+    assignDoctorToPatient
 };
