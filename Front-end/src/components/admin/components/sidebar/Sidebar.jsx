@@ -16,11 +16,11 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
-            <Link to="/" className="link">
-            <li className="sidebarListItem active">
-              <LineStyle className="sidebarIcon" />
-              Home
-            </li>
+            <Link to="/admin/dashboard" className="link">
+              <li className="sidebarListItem active">
+                <LineStyle className="sidebarIcon" />
+                Home
+              </li>
             </Link>
           </ul>
         </div>
@@ -40,10 +40,10 @@ export default function Sidebar() {
               </li>
             </Link>
             <Link to="/admin/flagged" className="link">
-            <li className="sidebarListItem">
-              <PermIdentity className="sidebarIcon" />
-              Flagged Patients
-            </li>
+              <li className="sidebarListItem">
+                <PermIdentity className="sidebarIcon" />
+                Flagged Patients
+              </li>
             </Link>
             <li className="sidebarListItem">
               <BarChart className="sidebarIcon" />
@@ -61,8 +61,7 @@ export default function Sidebar() {
           </ul>
         </div>
         <div className="sidebarMenu">
-          <ul className="sidebarList">
-          </ul>
+          <ul className="sidebarList"></ul>
         </div>
       </div>
     </div>
