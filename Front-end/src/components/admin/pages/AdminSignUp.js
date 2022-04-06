@@ -25,7 +25,7 @@ import classes from "./AdminSignUp.module.css";
 const AdminSignUp = () => {
   const registerUser = () => {
     Axios.post(
-      "https://tranquil-wildwood-60713.herokuapp.com/api/admin/register",
+      "https://tranquil-wildwood-60713.herokuapp.com/api/account/admin/register",
       {
         password: passwordReg,
         userType: 5, //needs to be changed

@@ -16,8 +16,8 @@ export default function FlaggedPatients() {
       try {
 
         const response = await axios.post('https://tranquil-wildwood-60713.herokuapp.com/api/patient/getFlagged')
-        console.log(response.data.result)
-        setPatients(response.data.result);
+        console.log(response.data)
+        setPatients(response.data);
       }catch(err){
        console.log(err.response);
       }
@@ -97,7 +97,7 @@ export default function FlaggedPatients() {
             <AccountCircleRoundedIcon fontSize="large"/>
               
             <span className="userDetails" value={values.accountID} onClick={()=> makeID(values.accountID)}>
-              <Link to="/profile"><span >  {values.lastName}, {values.firstName}</span></Link>  
+              <Link to="/profile"><span >  {values.patientID}: {values.lastName}, {values.firstName}</span></Link>  
             </span>
             {/* onclick=cookies.set() */}
             {/* //value={value.accountID} */}

@@ -18,8 +18,21 @@ export default function FeaturedInfo() {
     }
     getallpatients()
   },[])
-  const [patients, setPatients] = useState([]);
+  useEffect(() => {
+    const getallDoctors = async () => {
+      try {
 
+        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/doctor/getDoctorsCount')
+        console.log(response.data[0].DoctorsCount)
+        setDoctors(response.data[0].DoctorsCount);
+      }catch(err){
+       console.log(err.response);
+      }
+    }
+    getallDoctors()
+  },[])
+  const [patients, setPatients] = useState([]);
+  const [Doctors, setDoctors] = useState([]);
   return (
     <div className="featured">
       <div className="featuredItem">
@@ -33,11 +46,11 @@ export default function FeaturedInfo() {
         <span className="featuredSub">Compared to last month</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Hospitalizations</span>
+        <span className="featuredTitle">Doctors</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">326</span>
+          <span className="featuredMoney">{Doctors}</span>
           <span className="featuredMoneyRate">
-            +50 <ArrowDownwardIcon className="featuredIcon negative"/>
+            {Doctors} <ArrowUpwardIcon className="featuredIcon"/>
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>

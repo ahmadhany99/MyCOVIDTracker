@@ -43,10 +43,13 @@ const fetchPosts = async () => {
 };
 function AdminLogin() {
   const loginUser = () => {
-    Axios.put("https://tranquil-wildwood-60713.herokuapp.com/api/admin/login", {
-      email: emailLog,
-      password: passwordLog,
-    })
+    Axios.put(
+      "https://tranquil-wildwood-60713.herokuapp.com/api/account/admin/login",
+      {
+        email: emailLog,
+        password: passwordLog,
+      }
+    )
       .then((response) => {
         console.log(response);
         Cookies.set("email", emailLog);
