@@ -11,7 +11,9 @@ const flagPatient = (flagging) => {
 exports.flagPatient = flagPatient;
 // Returns list of flagged patients where isPrioritized value is set to 1
 const getFlaggedPatients = (flagging) => {
-    const query = `SELECT * FROM patient WHERE isPrioritized = 1`;
+    const query = `SELECT patient.*, account.firstName, account.lastName 
+    FROM patient, account
+    WHERE patient.patientID = account.accountID AND patient.isPrioritized = 1`;
     return (0, DatabaseServices_1.queryDatabase)(query);
 };
 exports.getFlaggedPatients = getFlaggedPatients;

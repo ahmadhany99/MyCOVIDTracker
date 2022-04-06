@@ -46,83 +46,97 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllStatus = exports.getStatus = exports.deleteStatus = exports.updateStatus = void 0;
-const db = __importStar(require("../repositories/status"));
+exports.getStatusByDate = exports.getStatusByPatient = exports.getAllStatus = exports.getStatus = exports.deleteStatus = exports.updateStatus = void 0;
+const statusDB = __importStar(require("../repositories/status"));
 const logging_1 = __importDefault(require("../config/logging"));
-const testflags_1 = require("../testflags");
 const NAMESPACE = 'status/service';
-const updateStatus = (status) => __awaiter(void 0, void 0, void 0, function* () {
+function today() {
+    return new Date().toISOString().slice(0, 10);
+}
+const updateStatus = (statusDTO) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, "Updating Status");
-    // throw error if uid not specified
-    if (status.uid == null) {
+    // verify patientID not null
+    if (statusDTO.patientID == undefined) {
         throw new Error("uid undefined");
     }
-    // use today's date if date not specified
-    // #TODO separate this into a separate function for reuse
-    if (status.date == null) {
-        status.date = new Date().toISOString().slice(0, 10);
+    // if date null set to today
+    if (statusDTO.date == undefined) {
+        //throw new Error("date undefined");
+        statusDTO.date = today();
     }
     // search for an existing status for specified user and date
-    db.getStatusByUserAndDate(status).then((result) => {
-        // if none found, create new
-        if (result[0] == null) {
-            logging_1.default.debug(NAMESPACE, "no existing status found for u:" + status.uid + " and date:" + status.date);
-            return db.createStatus(status);
-        }
-        // if existing status, edit existing
-        else {
-            logging_1.default.debug(NAMESPACE, "existing status found for u:" + status.uid + " and date:" + status.date + "\n", result);
-            return db.updateStatus(status);
-        }
-    });
+    const status = yield statusDB.getStatusByUserAndDate(statusDTO.patientID, statusDTO.date);
+    if (status[0] != undefined) {
+        logging_1.default.info(NAMESPACE, "existing status found, updating status");
+        return statusDB.updateStatus(status[0].statusID, statusDTO.report);
+    }
+    else {
+        logging_1.default.info(NAMESPACE, "creating new status entry");
+        return statusDB.createStatus(statusDTO);
+    }
 });
 exports.updateStatus = updateStatus;
-const deleteStatus = (status) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, "Deleting Status");
-    // throw error if uid not specified
-    if (status.uid == null) {
-        throw new Error("uid undefined");
-    }
-    // throw error if date not specified
-    if (status.date == null) {
-        throw new Error("date undefined");
-    }
-    logging_1.default.debug(NAMESPACE, "u:" + status.uid + ", d:" + status.date);
-    return db.deleteStatus(status);
-});
-exports.deleteStatus = deleteStatus;
-const getStatus = (status) => __awaiter(void 0, void 0, void 0, function* () {
+const getStatus = (statusDTO) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, "Fetching Status");
     // throw error if uid not specified
-    if (status.uid == null) {
+    if (statusDTO.patientID == undefined) {
         throw new Error("uid undefined");
     }
     // throw error if date not specified
-    if (status.date == null) {
+    if (statusDTO.date == undefined) {
         throw new Error("date undefined");
     }
-    const result = yield db.getStatusByUserAndDate(status);
+    const result = yield statusDB.getStatusByUserAndDate(statusDTO.patientID, statusDTO.date);
     logging_1.default.debug(NAMESPACE, "result: ", result);
+    if (result[0] == undefined) {
+        throw new Error("no status");
+    }
     return result;
 });
 exports.getStatus = getStatus;
-const getAllStatus = (status) => __awaiter(void 0, void 0, void 0, function* () {
-    // if no user specified in testing mode -> returns all statuses in db
-    if (status.uid == null && testflags_1.GETALLSTATUSTESTINGMODE == true) {
-        logging_1.default.info(NAMESPACE, "Fetching All Status in DB");
-        const result = yield db.getAllStatus();
-        logging_1.default.debug(NAMESPACE, "result: ", result);
-        return result;
-    }
-    else {
-        // throw error if uid not specified
-        if (status.uid == null) {
-            throw new Error("uid undefined");
-        }
-        logging_1.default.info(NAMESPACE, "Fetching All Status for u:" + status.uid);
-        const result = yield db.getStatusByUser(status);
-        logging_1.default.debug(NAMESPACE, "result: ", result);
-        return result;
-    }
+const getAllStatus = (statusDTO) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Fetching All Status in DB");
+    const result = yield statusDB.getAllStatus();
+    logging_1.default.debug(NAMESPACE, "result: ", result);
+    return result;
 });
 exports.getAllStatus = getAllStatus;
+const getStatusByPatient = (statusDTO) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Fetching All Status for User " + statusDTO.patientID);
+    // throw error if uid not specified
+    if (statusDTO.patientID == undefined) {
+        throw new Error("uid undefined");
+    }
+    // fetch status associated to user
+    const result = yield statusDB.getStatusByUser(statusDTO.patientID);
+    logging_1.default.debug(NAMESPACE, "result: ", result);
+    if (result[0] == undefined) {
+        throw new Error("no status");
+    }
+    return result;
+});
+exports.getStatusByPatient = getStatusByPatient;
+const getStatusByDate = (statusDTO) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Fetching All Status for User " + statusDTO.patientID);
+    // throw error if uid not specified
+    if (statusDTO.date == undefined) {
+        throw new Error("date undefined");
+    }
+    // fetch status associated to user
+    const result = yield statusDB.getStatusByDate(statusDTO.date);
+    logging_1.default.debug(NAMESPACE, "result: ", result);
+    if (result[0] == undefined) {
+        throw new Error("no status");
+    }
+    return result;
+});
+exports.getStatusByDate = getStatusByDate;
+const deleteStatus = (statusDTO) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Deleting Status");
+    const status = yield statusDB.getStatusByUserAndDate(statusDTO.patientID, statusDTO.date);
+    if (status[0] == undefined) {
+        throw new Error("no status");
+    }
+    statusDB.deleteStatus(status[0].statusID);
+});
+exports.deleteStatus = deleteStatus;
