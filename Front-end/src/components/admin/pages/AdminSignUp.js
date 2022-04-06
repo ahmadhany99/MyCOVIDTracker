@@ -15,20 +15,20 @@ import {
 } from "@mui/material";
 import Axios from "axios";
 import { useState } from "react";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import classes from './AdminSignUp.module.css';
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import classes from "./AdminSignUp.module.css";
 
 const AdminSignUp = () => {
   const registerUser = () => {
     Axios.post(
-      "https://tranquil-wildwood-60713.herokuapp.com/api/account/createAccount",
+      "https://tranquil-wildwood-60713.herokuapp.com/api/admin/register",
       {
         password: passwordReg,
-        typeId: 0,
+        userType: 5, //needs to be changed
         firstname: firstNameReg,
         lastname: lastNameReg,
         email: emailReg,
@@ -36,7 +36,7 @@ const AdminSignUp = () => {
     )
       .then((response) => {
         console.log(response);
-        navigate("/dashboard");
+        navigate("/admin/dashboard");
       })
       .catch((error) => {
         console.error(error.response);

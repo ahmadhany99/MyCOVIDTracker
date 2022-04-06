@@ -16,8 +16,8 @@ export default function Status() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/status/getAllStatus')
-        setData(response.data);
+        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/status/get/all')
+        setData(response.data.result);
       }catch(err){
   console.log(err.response.data);
       }
@@ -80,7 +80,7 @@ export default function Status() {
     <div className="userList">
      <div className="userHeader"><h1>Status </h1>
      
-     <h1>RID,UID,Report,Date</h1>
+     <h1>SID,PID,Date,Report</h1>
    
      </div>
         {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
@@ -90,7 +90,7 @@ export default function Status() {
             <AccountCircleRoundedIcon fontSize="large"/>
               
             <span className="userDetails">
-             <span >  {value.uid} : {value.rid} : {value.report} : {value.date}</span>
+             <span >  {value.statusID} : {value.patientID} : {value.date} : {value.report}</span>
             </span>
             <FlagOutlinedIcon font-size="large"/>
           </div>

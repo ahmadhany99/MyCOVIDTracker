@@ -15,7 +15,7 @@ export default function FlaggedPatients() {
     const fetchPosts = async () => {
       try {
 
-        const response = await axios.get('http://localhost:1337/api/flag/getFlaggedPatients')
+        const response = await axios.post('https://tranquil-wildwood-60713.herokuapp.com/api/patient/getFlagged')
         console.log(response.data.result)
         setPatients(response.data.result);
       }catch(err){

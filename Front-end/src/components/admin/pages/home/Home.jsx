@@ -7,11 +7,11 @@ import WidgetLg from "../../components/widgetLg/WidgetLg";
 
 import React, { useState } from 'react'
 import Axios from 'axios'
-
-
+import Cookies from "js-cookie"
 export default function Home() {
   return (
     <div className="home">
+      Hello {Cookies.get("firstName")}
       <FeaturedInfo />
       <Chart data={userData} title="Patients Analysis" grid dataKey="Active User"/>
       <div className="homeWidgets">

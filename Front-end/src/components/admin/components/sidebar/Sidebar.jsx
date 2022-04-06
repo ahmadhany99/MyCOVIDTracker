@@ -45,11 +45,14 @@ export default function Sidebar() {
                 Flagged Patients
               </li>
             </Link>
+            <Link to="/admin/doctors" className="link">
             <li className="sidebarListItem">
               <BarChart className="sidebarIcon" />
-              Reports
+              Doctors
             </li>
+            </Link>
           </ul>
+          
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Notifications</h3>

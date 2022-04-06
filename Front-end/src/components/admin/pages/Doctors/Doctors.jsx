@@ -1,4 +1,4 @@
-import "./userList.css";
+import "./Doctor.css";
 import { DeleteOutline } from "@mui/icons-material";
 import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
@@ -10,12 +10,12 @@ import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import Cookies from "js-cookie"
 
 
-export default function UserList() {
+export default function DoctorsList() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
 
-        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/account/get/patient')
+        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/doctor/getAllDoctors')
         console.log(response.data.result)
         setPatients(response.data.result);
       }catch(err){

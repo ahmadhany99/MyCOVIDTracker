@@ -20,6 +20,7 @@ import AdminPrivateRoute from "./components/admin/pages/AdminPrivateRoute.js";
 import UserList from "./components/admin/pages/patientList/PatientsList.jsx";
 import Status from "./components/admin/pages/StatusList/Status.jsx";
 import FlaggedPatients from "./components/admin/pages/FlagPatients/FlagPatients.jsx";
+import DoctorsList from "./components/admin/pages/Doctors/Doctors.jsx";
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/
@@ -38,6 +39,7 @@ function App() {
 <Route path="/admin/status" element={<><Sidebar/> <Status /></>} />
 <Route path="/admin/flagged" element={<><Sidebar/> <FlaggedPatients /></>} />
 <Route path="/admin/dashboard" element={<><Sidebar/> <Home /></>} />
+<Route path="/admin/doctors" element={<><Sidebar/> <DoctorsList /></>} />
 
           <Route
             path="/dashboard"
