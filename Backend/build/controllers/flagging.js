@@ -47,7 +47,7 @@ const flagPatient = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     logging_1.default.info(NAMESPACE, 'Flag Patient');
     const flaggingDTO = req.body;
     try {
-        const result = yield flaggingService.flagPatient(flaggingDTO);
+        yield flaggingService.flagPatient(flaggingDTO);
         // Return a response to client.
         return res.status(200).json({
             status: 200,
@@ -69,6 +69,7 @@ const getFlaggedPatients = (req, res, next) => __awaiter(void 0, void 0, void 0,
     const flaggingDTO = req.body;
     try {
         const result = yield flaggingService.getFlaggedPatients(flaggingDTO);
+        return res.json(result);
         // Return a response to client.
         return res.status(200).json({
             status: 200,

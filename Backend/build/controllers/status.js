@@ -38,63 +38,131 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = __importDefault(require("../config/logging"));
 const statusService = __importStar(require("../services/status"));
 const NAMESPACE = 'status/controller';
+function handleStatusError(error, res) {
+    if (error.message == "uid undefined") {
+        return res.status(400).json({
+            status: 400,
+            message: "patientID has to be assigned a value"
+        });
+    }
+    else if (error.message == "date undefined") {
+        return res.status(400).json({
+            status: 400,
+            message: "date has to be assigned a value"
+        });
+    }
+    else if (error.message == "no status") {
+        return res.status(404).json({
+            status: 404,
+            message: "status report does not exist"
+        });
+    }
+    else {
+        return res.status(500).json({
+            status: 500,
+            message: error.message
+        });
+    }
+}
 const updateStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, "Updating Status");
     const status = req.body;
     try {
-        //call service layer to execute api call
-        const result = yield statusService.updateStatus(status);
+        yield statusService.updateStatus(status);
         return res.status(200).json({
             status: 200,
             message: "Status Updated Successfully"
         });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        return handleStatusError(err, res);
     }
 });
 const deleteStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, "Deleting Status");
     const status = req.body;
     try {
-        //call service layer to execute api call
-        const result = yield statusService.deleteStatus(status);
+        yield statusService.deleteStatus(status);
         return res.status(200).json({
             status: 200,
             message: "Status Deleted Successfully"
         });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        return handleStatusError(err, res);
     }
 });
 const getStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, "Fetching Status");
     const status = req.body;
+    logging_1.default.info(NAMESPACE, "Fetching Status");
     try {
-        //call service layer to execute api call
         const result = yield statusService.getStatus(status);
-        return res.status(200).json(JSON.parse(JSON.stringify(result)));
+        return res.status(200).json({
+            status: 200,
+            message: "success",
+            result: result
+        });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        return handleStatusError(err, res);
     }
 });
 const getAllStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, "Fetching All Status");
     const status = req.body;
+    logging_1.default.info(NAMESPACE, "Fetching All Status");
     try {
-        //call service layer to execute api call
         const result = yield statusService.getAllStatus(status);
-        return res.status(200).json(JSON.parse(JSON.stringify(result)));
+        return res.status(200).json({
+            status: 200,
+            message: "success",
+            result: result
+        });
     }
     catch (e) {
-        return res.status(500).json(e);
+        const err = e;
+        return handleStatusError(err, res);
+    }
+});
+const getStatusByPatient = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const status = req.body;
+    logging_1.default.info(NAMESPACE, "Fetching All Status for Patient " + status.patientID);
+    try {
+        const result = yield statusService.getStatusByPatient(status);
+        return res.status(200).json({
+            status: 200,
+            message: "Status issued by " + status.patientID,
+            result: result
+        });
+    }
+    catch (e) {
+        const err = e;
+        return handleStatusError(err, res);
+    }
+});
+const getStatusByDate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, "Fetching All Status for Date");
+    const status = req.body;
+    try {
+        const result = yield statusService.getStatusByDate(status);
+        return res.status(200).json({
+            status: 200,
+            message: "Status issued on " + status.date,
+            result: result
+        });
+    }
+    catch (e) {
+        const err = e;
+        return handleStatusError(err, res);
     }
 });
 exports.default = {
     updateStatus,
     deleteStatus,
     getStatus,
-    getAllStatus
+    getAllStatus,
+    getStatusByPatient,
+    getStatusByDate
 };

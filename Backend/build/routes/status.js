@@ -5,12 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const express_1 = __importDefault(require("express"));
 const status_1 = __importDefault(require("../controllers/status"));
 const router = express_1.default.Router();
-// update patient's status args: uid, date, report
-router.post('/status/updateStatus', status_1.default.updateStatus);
-// delete status args: uid, date
-router.post('/status/deleteStatus', status_1.default.deleteStatus);
-// get unique status args: uid, date
-router.get('/status/getStatus', status_1.default.getStatus);
-// gets all status for user args: uid
-router.get('/status/getAllStatus', status_1.default.getAllStatus);
+router.post('/status/update', status_1.default.updateStatus);
+router.get('/status/get', status_1.default.getStatus);
+router.put('/status/get', status_1.default.getStatus);
+router.get('/status/get/all', status_1.default.getAllStatus);
+router.get('/status/get/all/user', status_1.default.getStatusByPatient);
+router.put('/status/get/all/user', status_1.default.getStatusByPatient);
+router.get('/status/get/all/date', status_1.default.getStatusByDate);
+router.put('/status/get/all/date', status_1.default.getStatusByDate);
+router.delete('/status/delete', status_1.default.deleteStatus);
 module.exports = router;

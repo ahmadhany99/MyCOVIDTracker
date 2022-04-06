@@ -45,14 +45,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPatients = exports.getAllDoctors = exports.deleteAccount = exports.getAccount = exports.createAccount = exports.loginAccount = void 0;
-const account = __importStar(require("../repositories/account"));
+exports.deleteAccount = exports.getDoctorAccounts = exports.getPatientAccounts = exports.getAccount = exports.createAccountAdmin = exports.createAccount = exports.loginAccountAdmin = exports.loginAccount = void 0;
+const accountdb = __importStar(require("../repositories/account"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const logging_1 = __importDefault(require("../config/logging"));
 const testflags_1 = require("../testflags");
 const NAMESPACE = 'account/service';
-// Create Account service
+// Create Account Service
 const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
+    // verify account obj has necessary fields
     if (acc.email == undefined || acc.email == null || acc.email == "") {
         throw new Error("email is null");
     }
@@ -60,16 +61,18 @@ const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error("password is null");
     }
     //Check if the email already exists in the database
-    var emailexists = yield account.getAccountByEmail(acc.email);
+    var emailexists = yield accountdb.getAccountByEmail(acc.email);
     if (emailexists[0] != undefined) {
-        logging_1.default.error(NAMESPACE, "email already exists in db");
-        throw new Error("email in use");
+        logging_1.default.error(NAMESPACE, "email already used by existing account in db");
+        throw new Error("account exist");
     }
     else {
+        // hash password
         bcryptjs_1.default.hash("" + acc.password, 10)
             .then((hash) => {
             acc.password = hash;
-            account.createAccountPatient(acc)
+            // create new account
+            accountdb.createAccount(acc)
                 .then(() => {
                 logging_1.default.debug(NAMESPACE, "new account added successfully");
             })
@@ -85,7 +88,47 @@ const createAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.createAccount = createAccount;
-// Login Account service
+// Create Account Service for Admin
+const createAccountAdmin = (acc) => __awaiter(void 0, void 0, void 0, function* () {
+    // verify account obj has necessary fields
+    if (acc.email == undefined || acc.email == null || acc.email == "") {
+        throw new Error("email is null");
+    }
+    if (acc.password == undefined || acc.password == null || acc.password == "") {
+        throw new Error("password is null");
+    }
+    if (acc.userType == undefined || acc.userType == null) {
+        throw new Error("type is null");
+    }
+    //Check if account already exists
+    var exists = yield accountdb.getAccountByEmail(acc.email);
+    if (exists[0] != undefined) {
+        logging_1.default.error(NAMESPACE, "email already exists in db");
+        throw new Error("account exist");
+    }
+    else {
+        //hash password
+        bcryptjs_1.default.hash("" + acc.password, 10)
+            .then((hash) => {
+            acc.password = hash;
+            //create account
+            accountdb.createAccountWithID(acc)
+                .then(() => {
+                logging_1.default.debug(NAMESPACE, "new account added successfully");
+            })
+                .catch((error) => {
+                logging_1.default.error(NAMESPACE, "error while creating account");
+                throw (error);
+            });
+        })
+            .catch((error) => {
+            logging_1.default.error(NAMESPACE, "error while hashing password");
+            throw (error);
+        });
+    }
+});
+exports.createAccountAdmin = createAccountAdmin;
+// Login Service
 const loginAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
     if (acc.email == undefined || acc.email == null || acc.email == "") {
         throw new Error("email is null");
@@ -94,48 +137,80 @@ const loginAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error("password is null");
     }
     //check if user exists
-    var exists = yield account.getAccountByEmail(acc.email);
+    var exists = yield accountdb.getAccountByEmail(acc.email);
     if (exists[0] == undefined) {
         throw new Error("account does not exist");
     }
-    logging_1.default.debug(NAMESPACE, "this pw = ", acc.password);
-    logging_1.default.debug(NAMESPACE, "stored pw = ", exists[0].password);
     const result = yield bcryptjs_1.default.compare("" + acc.password, "" + exists[0].password).then((isEqual) => {
-        logging_1.default.debug(NAMESPACE, "isEqual = ", isEqual);
+        logging_1.default.debug(NAMESPACE, "password is ", isEqual ? "true" : "false");
         return isEqual;
     });
     logging_1.default.debug(NAMESPACE, "result = ", result);
     return result;
 });
 exports.loginAccount = loginAccount;
+// Login Service for Admins
+const loginAccountAdmin = (acc) => __awaiter(void 0, void 0, void 0, function* () {
+    if (acc.email == undefined || acc.email == null || acc.email == "") {
+        throw new Error("email is null");
+    }
+    if (acc.password == undefined || acc.password == null || acc.password == "") {
+        throw new Error("password is null");
+    }
+    //check if user exists
+    var exists = yield accountdb.getAccountByEmail(acc.email);
+    if (exists[0] == undefined) {
+        throw new Error("account does not exist");
+    }
+    if (exists[0].userType == 1) {
+        throw new Error("account is not admin");
+    }
+    const result = yield bcryptjs_1.default.compare("" + acc.password, "" + exists[0].password).then((isEqual) => {
+        logging_1.default.debug(NAMESPACE, "password is right = ", isEqual);
+        return isEqual;
+    });
+    logging_1.default.debug(NAMESPACE, "result = ", result);
+    return result;
+});
+exports.loginAccountAdmin = loginAccountAdmin;
 //Delete Account Service
 const deleteAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.debug(NAMESPACE, 'deleting account for ', acc.email);
-    const exists = yield account.getAccountByEmail(acc.email);
-    if (exists[0] != undefined) {
-        return account.deleteAccountByID(exists[0].accountID);
+    //check if email specified
+    if (acc.email == undefined || acc.email == null || acc.email == "") {
+        throw new Error("email is null");
     }
+    //check if account exist
+    const exists = yield accountdb.getAccountByEmail(acc.email);
+    if (exists[0] == undefined) {
+        throw new Error("account does not exist");
+    }
+    return accountdb.deleteAccountByEmail(exists[0].email);
 });
 exports.deleteAccount = deleteAccount;
 //Fetch Account Service (#TODO why do we need this again aside from testing?)
-const getAccount = (acc) => {
-    if (acc.email != undefined || acc.email != null || acc.email != "") {
-        return account.getAccountByEmail(acc.email);
-    }
-    if (testflags_1.GETACCOUNTTESTINGMODE) {
-        return account.getAllAccount();
+const getAccount = (acc) => __awaiter(void 0, void 0, void 0, function* () {
+    //check if in testing mode
+    if (testflags_1.ACCOUNTTESTINGMODE && acc.email == undefined) {
+        return accountdb.getAllAccount();
     }
     else {
-        return [];
+        const results = yield accountdb.getAccountByEmail(acc.email);
+        //check if email specified
+        if (acc.email == undefined || acc.email == null || acc.email == "") {
+            throw new Error("email is null");
+        }
+        if (results[0] == undefined) {
+            throw new Error("account does not exist");
+        }
+        return results;
     }
-};
+});
 exports.getAccount = getAccount;
-//#TODO should not be in account, we should have a separate db for doctors)
-const getAllDoctors = () => {
-    return account.getAccountByTypeDoctor();
-};
-exports.getAllDoctors = getAllDoctors;
-const getAllPatients = () => {
-    return account.getAccountByTypePatient();
-};
-exports.getAllPatients = getAllPatients;
+const getPatientAccounts = () => __awaiter(void 0, void 0, void 0, function* () {
+    return accountdb.getAccountByTypePatient();
+});
+exports.getPatientAccounts = getPatientAccounts;
+const getDoctorAccounts = () => __awaiter(void 0, void 0, void 0, function* () {
+    return accountdb.getAccountByTypeDoctor();
+});
+exports.getDoctorAccounts = getDoctorAccounts;

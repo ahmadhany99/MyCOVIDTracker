@@ -43,12 +43,11 @@ const NAMESPACE = 'Quarantine';
    * as parameter
    * Returns status of 200 if done successfully
    */
-const inputStartTime = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const inputStartDate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, 'Entering Start Time');
     const quarantineDTO = req.body;
-    const patientDTO = req.body;
     try {
-        const result = yield quarantineService.inputStartTime(quarantineDTO, patientDTO);
+        yield quarantineService.inputStartDate(quarantineDTO);
         //Return a response to the client.
         return res.status(200).json({
             status: 200,
@@ -59,22 +58,15 @@ const inputStartTime = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         return res.status(500).json(err);
     }
 });
-/**
-   * Executes the calculateDaysLeft function from services/quarantine passing the quarantine model
-   * as parameter
-   * Returns status of 200 if done successfully and a custom message
-   * Otherwise, catches the error and returns status of 500
-   */
-const calculateDaysLeft = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    logging_1.default.info(NAMESPACE, 'Calculating days left to quarantine');
+const inputEndDate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Entering Start Time');
     const quarantineDTO = req.body;
-    const patientDTO = req.body;
     try {
-        const result = yield quarantineService.calculateDaysLeft(quarantineDTO, patientDTO);
+        yield quarantineService.inputEndDate(quarantineDTO);
         //Return a response to the client.
         return res.status(200).json({
             status: 200,
-            message: "The number of days left to the quarantine has been updated"
+            message: "Start date time has been entered successfully"
         });
     }
     catch (err) {
@@ -89,14 +81,29 @@ const calculateDaysLeft = (req, res, next) => __awaiter(void 0, void 0, void 0, 
 const getRemainingDays = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     logging_1.default.info(NAMESPACE, 'Getting days left to quarantine');
     const quarantineDTO = req.body;
-    const patientDTO = req.body;
     try {
-        const result = yield quarantineService.getRemainingDays(quarantineDTO, patientDTO);
-        return res.json(result);
+        const result = yield quarantineService.getRemainingDays(quarantineDTO);
         //Return a response to the client.
         return res.status(200).json({
             status: 200,
-            message: "Getting the days left to quarantine"
+            message: "Getting the days left to quarantine",
+            daysRemaining: result
+        });
+    }
+    catch (err) {
+        return res.status(500).json(err);
+    }
+});
+//Sets isQuarantined to true for the patient
+const setQuarantineTrue = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    logging_1.default.info(NAMESPACE, 'Setting isQuaratined to true for a Patient');
+    const patientDTO = req.body;
+    try {
+        yield quarantineService.setQuarantineTrue(patientDTO);
+        //Return a response to the client.
+        return res.status(200).json({
+            status: 200,
+            message: "Setting the isQuarantined to true"
         });
     }
     catch (err) {
@@ -104,7 +111,8 @@ const getRemainingDays = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.default = {
-    inputStartTime,
-    calculateDaysLeft,
-    getRemainingDays
+    inputStartDate,
+    inputEndDate,
+    getRemainingDays,
+    setQuarantineTrue
 };

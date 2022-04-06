@@ -43,7 +43,7 @@ const createAppointment = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     //  Data Transfer Object (DTO)
     const appointmentDTO = req.body;
     try {
-        const result = yield appointmentService.createAppointment(appointmentDTO);
+        yield appointmentService.createAppointment(appointmentDTO);
         // Return a response to client.
         return res.status(200).json({
             status: 200,
