@@ -20,30 +20,28 @@ var bcrypt = require("bcryptjs");
 
 const fetchPosts = async () => {
   try {
-    const response = await Axios.post(
-      "https://tranquil-wildwood-60713.herokuapp.com/api/account/getAccount",
+    const response = await Axios.put(
+      "https://tranquil-wildwood-60713.herokuapp.com/api/account/get",
       {
         email: Cookies.get("email"),
       }
     );
     console.log(response);
     //const data = response.data[0];
-    // console.log("getting data from response: " + response.data.result[0].firstName);
-
-    var accountIDhashed = bcrypt.hashSync(
-      '${response.data.result[0].accountID}',
-      10
+    console.log(
+      "getting data from response: " + response.data.result[0].firstName
     );
-    Cookies.set("accountID", accountIDhashed);
+
+    Cookies.set("accountID", response.data.result[0].accountID);
     Cookies.set("lastName", response.data.result[0].lastName);
     Cookies.set("firstName", response.data.result[0].firstName);
   } catch (err) {
-    console.log(err.response);
+    console.log(err);
   }
 };
 function Login() {
   const loginUser = () => {
-    Axios.post(
+    Axios.put(
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/login",
       {
         email: emailLog,

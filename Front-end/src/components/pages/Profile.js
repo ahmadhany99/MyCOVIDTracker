@@ -6,11 +6,8 @@ import StatusLog from "../layout/StatusLog";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-
-const patientInfo = {
-  name: "Victoria Robertson",
-  doctor: "Dr. Hamilton",
-};
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const logout = () => {
   Cookies.remove("email");
@@ -23,6 +20,25 @@ const firstname = Cookies.get("firstName");
 const lastname = Cookies.get("lastName");
 
 function Profile() {
+  const [doctor, setDoctor] = useState([]);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.put(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/getDoctor",
+          {
+            patientID: Cookies.get("accountID"),
+          }
+        );
+        console.log(response.data.result);
+        setDoctor(response.data.result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchPosts();
+  }, []);
+
   return (
     <Box>
       <div className={classes.profileHeader}>
@@ -35,7 +51,7 @@ function Profile() {
         <h2>
           {firstname} {lastname}
         </h2>
-        <p>Assigned to {patientInfo.doctor}</p>
+        <p>Assigned to Dr. {doctor}</p>
       </div>
       <div className={classes.statusHeader}>
         <h2>Status Backlog</h2>

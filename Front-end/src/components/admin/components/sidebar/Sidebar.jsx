@@ -8,6 +8,15 @@ import {
   ChatBubbleOutline,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import Cookies from "js-cookie";
+
+const logout = () => {
+  Cookies.remove("email");
+  Cookies.remove("accountID");
+  Cookies.remove("lastName");
+  Cookies.remove("firstName");
+};
 
 export default function Sidebar() {
   return (
@@ -46,13 +55,12 @@ export default function Sidebar() {
               </li>
             </Link>
             <Link to="/admin/doctors" className="link">
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Doctors
-            </li>
+              <li className="sidebarListItem">
+                <BarChart className="sidebarIcon" />
+                Doctors
+              </li>
             </Link>
           </ul>
-          
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Notifications</h3>
@@ -66,6 +74,9 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <ul className="sidebarList"></ul>
         </div>
+        <Link to="/">
+          <Button onClick={logout}>Logout</Button>
+        </Link>
       </div>
     </div>
   );

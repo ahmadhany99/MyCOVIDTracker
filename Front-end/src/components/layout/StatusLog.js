@@ -1,77 +1,45 @@
-
 import { Box } from "@mui/system";
 import classes from "./StatusLog.module.css";
-
-const statusLogArr = [
-  {
-    covid: "+",
-    date: "14/02/2022",
-    temperature: "38.5",
-    symptom1: "fatigue",
-    symptom2: "dry coughs",
-    symptom3: "high fever",
-    symptom4: "",
-  },
-  {
-    covid: "+",
-    date: "14/02/2022",
-    temperature: "38.5",
-    symptom1: "fatigue",
-    symptom2: "dry coughs",
-    symptom3: "high fever",
-    symptom4: "headache",
-  },
-  {
-    covid: "+",
-    date: "14/02/2022",
-    temperature: "38.5",
-    symptom1: "fatigue",
-    symptom2: "dry coughs",
-    symptom3: "high fever",
-    symptom4: "headache",
-  },
-  {
-    covid: "+",
-    date: "14/02/2022",
-    temperature: "38.5",
-    symptom1: "fatigue",
-    symptom2: "dry coughs",
-    symptom3: "high fever",
-    symptom4: "headache",
-  },
-  {
-    covid: "-",
-    date: "14/02/2022",
-    temperature: "38.5",
-    symptom1: "fatigue",
-    symptom2: "dry coughs",
-    symptom3: "high fever",
-    symptom4: "headache",
-  },
-];
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 function StatusLog() {
+  const [userLog, setUserLog] = useState([]);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.put(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/status/get/all/user",
+          {
+            patientID: Cookies.get("accountID"),
+          }
+        );
+        console.log(response.data.result[0]);
+        setUserLog(response.data.result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchPosts();
+  }, []);
+
   return (
     <Box>
-      {statusLogArr.map((value) => {
+      {userLog.map((value) => {
         return (
           <div className={classes.box}>
-            <div className={classes.status}>+</div>
             <div className={classes.right}>
               <p className={classes.date}>{value.date}</p>
-              <span>{value.temperature}&#176;C, </span>
-              <span>{value.symptom1}, </span>
-              <span>{value.symptom2}, </span>
-              <span>{value.symptom3}, </span>
-              <span>{value.symptom4} </span>
+              <span>{value.report}</span>
             </div>
-            <br/>
+            <br />
           </div>
         );
       })}
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
     </Box>
   );
 }

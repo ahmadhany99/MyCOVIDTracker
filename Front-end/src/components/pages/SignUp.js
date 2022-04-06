@@ -15,18 +15,18 @@ import {
 } from "@mui/material";
 import Axios from "axios";
 import { useState } from "react";
-import Banner from '../layout/Banner.js';
+import Banner from "../layout/Banner.js";
 
 const Register = () => {
   const registerUser = () => {
     Axios.post(
-      "https://tranquil-wildwood-60713.herokuapp.com/api/account/createAccount",
+      "https://tranquil-wildwood-60713.herokuapp.com/api/account/register",
       {
+        email: emailReg,
         password: passwordReg,
-        typeId: 0,
+        typeId: 1,
         firstname: firstNameReg,
         lastname: lastNameReg,
-        email: emailReg,
       }
     )
       .then((response) => {
