@@ -25,8 +25,9 @@ export default function CheckboxListSecondary() {
       }
     )
       .then((response) => {
-        console.log(response);
-        navigate("/profile");
+        setTimeout(() => {
+          navigate("/profile");
+        }, 1000);
       })
       .catch((error) => {
         console.error(error.response);

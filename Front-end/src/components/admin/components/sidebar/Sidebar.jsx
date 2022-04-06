@@ -74,7 +74,7 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <ul className="sidebarList"></ul>
         </div>
-        <Link to="/">
+        <Link to="/admin">
           <Button onClick={logout}>Logout</Button>
         </Link>
       </div>
