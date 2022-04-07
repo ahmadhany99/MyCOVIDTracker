@@ -28,7 +28,7 @@ const AdminSignUp = () => {
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/admin/register",
       {
         password: passwordReg,
-        userType: usertypereg, //needs to be changed
+        userType: usertypereg,
         firstname: firstNameReg,
         lastname: lastNameReg,
         email: emailReg,
