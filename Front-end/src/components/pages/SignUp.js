@@ -24,7 +24,7 @@ const Register = () => {
       {
         email: emailReg,
         password: passwordReg,
-        typeId: 1,
+        userType: 1,
         firstname: firstNameReg,
         lastname: lastNameReg,
       }
