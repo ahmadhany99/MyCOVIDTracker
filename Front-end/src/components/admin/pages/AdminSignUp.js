@@ -28,7 +28,7 @@ const AdminSignUp = () => {
       "https://tranquil-wildwood-60713.herokuapp.com/api/account/admin/register",
       {
         password: passwordReg,
-        userType: 5, //needs to be changed
+        userType: usertypereg, //needs to be changed
         firstname: firstNameReg,
         lastname: lastNameReg,
         email: emailReg,
@@ -36,7 +36,7 @@ const AdminSignUp = () => {
     )
       .then((response) => {
         console.log(response);
-        navigate("/admin/dashboard");
+        navigate("/");
       })
       .catch((error) => {
         console.error(error.response);
@@ -49,6 +49,7 @@ const AdminSignUp = () => {
   const [firstNameReg, setfirstNameReg] = useState("");
   const [lastNameReg, setlastNameReg] = useState("");
   const [ErrorLog, setError] = useState("");
+  const [usertypereg, setusertype] = useState("");
   let navigate = useNavigate();
   const router = useRouter();
   const formik = useFormik({
@@ -78,6 +79,9 @@ const AdminSignUp = () => {
     },
   });
 
+  const Defineusertype = (event) => {
+    setusertype(event.target.value);
+  };
   return (
     <>
       <Box
@@ -149,19 +153,22 @@ const AdminSignUp = () => {
                 name="radio-buttons-group"
               >
                 <FormControlLabel
-                  value="1"
-                  control={<Radio />}
-                  label="Doctor"
-                />
-                <FormControlLabel
                   value="2"
                   control={<Radio />}
-                  label="Health Official"
+                  label="Doctor"
+                  onChange={Defineusertype}
                 />
                 <FormControlLabel
                   value="3"
                   control={<Radio />}
+                  label="Health Official"
+                  onChange={Defineusertype}
+                />
+                <FormControlLabel
+                  value="4"
+                  control={<Radio />}
                   label="Immigration Officer"
+                  onChange={Defineusertype}
                 />
               </RadioGroup>
             </FormControl>

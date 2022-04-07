@@ -10,6 +10,7 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import Cookies from "js-cookie";
 import ToggleFlagged from "../../components/ToggleFlag";
 
+
 export default function UserList() {
   useEffect(() => {
     const fetchPosts = async () => {
@@ -132,11 +133,13 @@ export default function UserList() {
             </span>
             {/* onclick=cookies.set() */}
             {/* //value={value.accountID} */}
-            <ToggleFlagged
+           <button> <ToggleFlagged
               flagged={flagged}
               handleChangeFlagged={handleChangeFlagged}
               id={values.accountID}
             />
+            {console.log(flagged)}
+            </button>
           </div>
         );
       })}
