@@ -114,7 +114,6 @@ export default function DoctorsList() {
             </span>
             {/* onclick=cookies.set() */}
             {/* //value={value.accountID} */}
-            <FlagOutlinedIcon font-size="large" style={{color:"red"}}/>
           </div>
         )
       })}

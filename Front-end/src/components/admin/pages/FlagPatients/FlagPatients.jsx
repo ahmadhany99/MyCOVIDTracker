@@ -14,8 +14,8 @@ export default function FlaggedPatients() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.post(
-          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/getFlagged"
+        const response = await axios.get(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/get/flag"
         );
         console.log(response.data);
         setPatients(response.data);

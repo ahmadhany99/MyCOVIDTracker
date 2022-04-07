@@ -9,6 +9,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import Cookies from "js-cookie";
 import ToggleFlagged from "../../components/ToggleFlag";
+import { id } from "date-fns/locale";
 
 
 export default function UserList() {
@@ -18,7 +19,7 @@ export default function UserList() {
         const response = await axios.get(
           "https://tranquil-wildwood-60713.herokuapp.com/api/account/get/patient"
         );
-        console.log(response.data.result);
+        console.log(response.data.result[0].accountID);
         setPatients(response.data.result);
       } catch (err) {
         console.log(err.response);
@@ -99,12 +100,21 @@ export default function UserList() {
   };
   const [flag, setflag] = useState();
   const [flagged, setFlagged] = useState(false);
-
-  const handleChangeFlagged = () => {
+  var i=0
+  const handleChangeFlagged = (props) => {
+     for(i=0;i<patients.length;i++){
+     console.log(patients[1].accountID)
+     }
+     props++
+    console.log(patients[props].accountID)
     setFlagged((previousFlag) => {
       return !previousFlag;
     });
   };
+  const Defineusertype = (event) => {
+    setusertype(event.target.value);
+  };
+  const [usertypereg, setusertype] = useState("");
   return (
     <div className="userList">
       <div className="userHeader">
@@ -121,10 +131,8 @@ export default function UserList() {
 
             <span
               className="userDetails"
-              value={values.accountID}
-              onClick={() => makeID(values.accountID)}
             >
-              <Link to="/profile">
+              <Link to="/">
                 <span>
                   {" "}
                   {values.accountID} : {values.lastName}, {values.firstName}
@@ -133,9 +141,9 @@ export default function UserList() {
             </span>
             {/* onclick=cookies.set() */}
             {/* //value={value.accountID} */}
-           <button> <ToggleFlagged
+           <button  onClick={Defineusertype} value={i}> <ToggleFlagged
               flagged={flagged}
-              handleChangeFlagged={handleChangeFlagged}
+              handleChangeFlagged={()=>handleChangeFlagged(i)}
               id={values.accountID}
             />
             {console.log(flagged)}

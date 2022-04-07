@@ -92,7 +92,6 @@ export default function Status() {
             <span className="userDetails">
              <span >  {value.statusID} : {value.patientID} : {value.date} : {value.report}</span>
             </span>
-            <FlagOutlinedIcon font-size="large"/>
           </div>
         )
       })}

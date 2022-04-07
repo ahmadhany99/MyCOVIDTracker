@@ -9,7 +9,7 @@ export default function FeaturedInfo() {
     const getallpatients = async () => {
       try {
 
-        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/patient/countAllPatients')
+        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/patient/count')
         console.log(response.data[0].countAllPatients)
         setPatients(response.data[0].countAllPatients);
       }catch(err){
