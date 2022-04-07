@@ -18,7 +18,7 @@ router.get('/patient/get/covid', patientController.getCovidStatus);
 router.put('/patient/get/covid', patientController.getCovidStatus);
 router.get('/patient/count/covid', patientController.getAllCovidPos);
 
-router.put('/patient/set/covid', patientController.setCovidStatus);
+router.put('/patient/update/covid', patientController.setCovidStatus);
 
 //flagging routes
 router.get('/patient/get/flag', flaggingController.getFlaggedPatients);
