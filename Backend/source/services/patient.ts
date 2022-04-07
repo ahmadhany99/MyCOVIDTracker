@@ -38,10 +38,45 @@ const getDoctor = async (patient: patient) => {
 
 }
 
+const getCovidStatus = async (patient: patient) => {
+    var patientID = await patientRep.checkIfPatientExistsInPatient(patient);
+    if(patientID[0] == undefined) {
+        throw("Patient does not exist");
+    }
+    else {
+        const result = await patientRep.getCovidStatus(patient.patientID);
 
+        if (result[0].covidStatus.readInt8() == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
+const getAllCovidPos = async (patient: patient) => {
+    const result = await patientRep.getCovidPosCount(patient.patientID);
+    logging.debug(NAMESPACE, "result:", result[0].count);
+    return result[0].count;
+}
+
+const setCovidStatus = async (patient: patient) => {
+    var patientID = await patientRep.checkIfPatientExistsInPatient(patient);
+    if(patientID[0] == undefined) {
+        throw("Patient does not exist");
+    }
+    else {
+        return await patientRep.setCovidStatus(patient.patientID, patient.covidStatus);
+    }
+}
 
 export {
     getPatient,
     countAllPatients,
-    getDoctor
+    getDoctor,
+
+    getCovidStatus,
+    getAllCovidPos,
+    setCovidStatus
 };
