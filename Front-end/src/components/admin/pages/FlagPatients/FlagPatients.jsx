@@ -5,31 +5,32 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-import Cookies from "js-cookie"
-
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import FlagIcon from "@mui/icons-material/Flag";
+import Cookies from "js-cookie";
+import ToggleFlagged from "../../components/ToggleFlag";
 
 export default function FlaggedPatients() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-
-        const response = await axios.post('https://tranquil-wildwood-60713.herokuapp.com/api/patient/getFlagged')
-        console.log(response.data)
+        const response = await axios.post(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/getFlagged"
+        );
+        console.log(response.data);
         setPatients(response.data);
-      }catch(err){
-       console.log(err.response);
+      } catch (err) {
+        console.log(err.response);
       }
-    }
-    fetchPosts()
-  },[])
+    };
+    fetchPosts();
+  }, []);
   const [patients, setPatients] = useState([]);
 
   // const handleDelete = (accountID) => {
   //   setData(data.filter((item) => item.accountID !== accountID));
   // };
-  
+
   const columns = [
     { field: "accountID", headerName: "accountID", width: 90 },
     {
@@ -68,44 +69,62 @@ export default function FlaggedPatients() {
             </Link>
             <DeleteOutline
               className="userListDelete"
-             // onClick={() => handleDelete(params.row.accountID)}
+              // onClick={() => handleDelete(params.row.accountID)}
             />
           </>
         );
       },
     },
   ];
-  const makeID=props=>{
-    setTimeout(()=>{
-    Cookies.set("PatientID", props)
-    },10)
-  }
+  const makeID = (props) => {
+    setTimeout(() => {
+      Cookies.set("PatientID", props);
+    }, 10);
+  };
+
+  const [flagged, setFlagged] = useState(false);
+
+  const handleChangeFlagged = () => {
+    setFlagged((previousFlag) => {
+      return !previousFlag;
+    });
+  };
 
   return (
     <div className="userList">
-      <div className="userHeader"><h1>Patients </h1>
-     
-      <h1 >ID,firstName,lastName</h1>
-    
-    
+      <div className="userHeader">
+        <h1>Patients </h1>
+
+        <h1>ID,firstName,lastName</h1>
       </div>
-      
-        {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
+
+      {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
       {patients.map((values) => {
-        return(
+        return (
           <div className="userCard">
-            <AccountCircleRoundedIcon fontSize="large"/>
-              
-            <span className="userDetails" value={values.accountID} onClick={()=> makeID(values.accountID)}>
-              <Link to="/profile"><span >  {values.patientID}: {values.lastName}, {values.firstName}</span></Link>  
+            <AccountCircleRoundedIcon fontSize="large" />
+
+            <span
+              className="userDetails"
+              value={values.accountID}
+              onClick={() => makeID(values.accountID)}
+            >
+              <Link to="/profile">
+                <span>
+                  {" "}
+                  {values.patientID}: {values.lastName}, {values.firstName}
+                </span>
+              </Link>
             </span>
             {/* onclick=cookies.set() */}
             {/* //value={value.accountID} */}
-            <FlagOutlinedIcon font-size="large" style={{color:"red"}}/>
+            <ToggleFlagged
+              flagged={flagged}
+              handleChangeFlagged={handleChangeFlagged}
+            />
           </div>
-        )
+        );
       })}
-      
     </div>
   );
 }
