@@ -33,14 +33,28 @@ const getDoctor = (patient: patient) => {
     return queryDatabase(query);
 }
 
+const getCovidStatus = (patientID: number) => {
+    const query = `SELECT covidStatus FROM patient WHERE patientID = "${patientID}"`;
+    return queryDatabase(query);
+}
 
+const getCovidPosCount = (patientID: number) => {
+    const query = `SELECT count(*) FROM patient WHERE patientID = "${patientID}" AND covidStatus = 'True'`;
+    return queryDatabase(query);
+}
 
-
-
+const setCovidStatus = (patientID: number, covidStatus: boolean) => {
+    const query = `UPDATE patient SET covidStatus = '${covidStatus}' WHERE patientID = "${patientID}"`;
+    return queryDatabase(query);
+}
 
 export{
     getPatient,
     countAllPatients,
     checkIfPatientExistsInPatient,
-    getDoctor
+    getDoctor,
+
+    getCovidStatus,
+    getCovidPosCount,
+    setCovidStatus
 };

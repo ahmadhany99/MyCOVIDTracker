@@ -5,8 +5,8 @@ import { patient } from '../models/patient';
 import { accountModel } from '../models/account';
 
 
+const NAMESPACE = 'patient/controller';
 
-const NAMESPACE = 'Patient';
 
 const getPatient = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting a Patient info');
@@ -24,7 +24,6 @@ const getPatient = async (req: Request, res: Response, next: NextFunction) => {
     }
 
 }
-
 
 const countAllPatients = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Counting All Patients');
@@ -60,8 +59,64 @@ const getDoctor = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
+const getCovidStatus = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Getting patient covid status');
+
+    const patientDTO : patient = req.body;
+
+    try {
+        const result = await patientService.getCovidStatus(patientDTO);
+        return res.status(200).json(result);
+
+    }
+    // returns error if deemed unsuccessful
+    catch (err) {
+        return res.status(500).json(err);
+    }
+
+}
+
+const getAllCovidPos = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Getting count of all covid+ patients');
+
+    const patientDTO : patient = req.body;
+
+    try {
+        const result = await patientService.getAllCovidPos(patientDTO);
+        return res.status(200).json(result);
+
+    }
+    // returns error if deemed unsuccessful
+    catch (err) {
+        return res.status(500).json(err);
+    }
+
+}
+
+const setCovidStatus = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Setting patient covid status');
+
+    const patientDTO : patient = req.body;
+
+    try {
+        const result = await patientService.setCovidStatus(patientDTO);
+        return res.status(200).json(result);
+
+    }
+    // returns error if deemed unsuccessful
+    catch (err) {
+        return res.status(500).json(err);
+    }
+
+}
+
 export default{
     getPatient,
     countAllPatients,
-    getDoctor
+    
+    getDoctor,
+
+    getCovidStatus,
+    getAllCovidPos,
+    setCovidStatus
 };
