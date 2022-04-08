@@ -16,7 +16,7 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 
 export default function CheckboxListSecondary() {
-  const submitStatus = () => {
+  const submitStatus = async () => {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/status/update",
       {
@@ -27,7 +27,7 @@ export default function CheckboxListSecondary() {
       .then((response) => {
         setTimeout(() => {
           navigate("/profile");
-        }, 1000);
+        }, 2000);
       })
       .catch((error) => {
         console.error(error.response);

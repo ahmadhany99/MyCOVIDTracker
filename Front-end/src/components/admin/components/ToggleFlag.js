@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export default function ToggleFlagged({ flagged, handleChangeFlagged, id }) {
+  console.log(id);
   return (
     <>
       <div className="toggle-wrapper">
@@ -14,7 +15,6 @@ export default function ToggleFlagged({ flagged, handleChangeFlagged, id }) {
             className="active"
             fontSize="large"
             sx={{ color: "red" }}
-            alt="yellow star"
             onClick={() => handleChangeFlagged()}
           />
         ) : (
@@ -22,7 +22,6 @@ export default function ToggleFlagged({ flagged, handleChangeFlagged, id }) {
             className="inactive"
             fontSize="large"
             sx={{ color: "red" }}
-            alt="black and white star"
             onClick={() => handleChangeFlagged()}
           />
         )}

@@ -14,13 +14,15 @@ import PrivateRoute from "./components/pages/PrivateRoute.js";
 import AdminSignUp from "./components/admin/pages/AdminSignUp.js";
 import AdminLogin from "./components/admin/pages/AdminLogin.js";
 import Home from "./components/admin/pages/home/Home.jsx";
-import Sidebar from './components/admin/components/sidebar/Sidebar.jsx';
+import Sidebar from "./components/admin/components/sidebar/Sidebar.jsx";
 import AdminLanding from "./components/admin/pages/AdminLanding.js";
 import AdminPrivateRoute from "./components/admin/pages/AdminPrivateRoute.js";
 import UserList from "./components/admin/pages/patientList/PatientsList.jsx";
 import Status from "./components/admin/pages/StatusList/Status.jsx";
 import FlaggedPatients from "./components/admin/pages/FlagPatients/FlagPatients.jsx";
 import DoctorsList from "./components/admin/pages/Doctors/Doctors.jsx";
+import SimpleBottomNavigation from "./components/layout/SimpleBottomNavigation.js";
+import Assigning from "./components/admin/pages/DoctorPatientAssignment.js";
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/
@@ -35,11 +37,54 @@ function App() {
           <Route path="/admin/signup" element={<AdminSignUp />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLanding />} />
-<Route path="/admin/users" element={<><Sidebar/> <UserList /></>} />
-<Route path="/admin/status" element={<><Sidebar/> <Status /></>} />
-<Route path="/admin/flagged" element={<><Sidebar/> <FlaggedPatients /></>} />
-<Route path="/admin/dashboard" element={<><Sidebar/> <Home /></>} />
-<Route path="/admin/doctors" element={<><Sidebar/> <DoctorsList /></>} />
+          <Route
+            path="/admin/users"
+            element={
+              <>
+                <Sidebar /> <UserList />
+              </>
+            }
+          />
+          <Route
+            path="/admin/status"
+            element={
+              <>
+                <Sidebar /> <Status />
+              </>
+            }
+          />
+          <Route
+            path="/admin/flagged"
+            element={
+              <>
+                <Sidebar /> <FlaggedPatients />
+              </>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <>
+                <Sidebar /> <Home />
+              </>
+            }
+          />
+          <Route
+            path="/admin/doctors"
+            element={
+              <>
+                <Sidebar /> <DoctorsList />
+              </>
+            }
+          />
+          <Route
+            path="/admin/assign"
+            element={
+              <>
+                <Assigning />
+              </>
+            }
+          />
 
           <Route
             path="/dashboard"

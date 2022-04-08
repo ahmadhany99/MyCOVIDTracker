@@ -11,7 +11,6 @@ import Cookies from "js-cookie";
 import ToggleFlagged from "../../components/ToggleFlag";
 import { id } from "date-fns/locale";
 
-
 export default function UserList() {
   useEffect(() => {
     const fetchPosts = async () => {
@@ -100,17 +99,18 @@ export default function UserList() {
   };
   const [flag, setflag] = useState();
   const [flagged, setFlagged] = useState(false);
-  var i=0
+  var i = 0;
   const handleChangeFlagged = (props) => {
-     for(i=0;i<patients.length;i++){
-     console.log(patients[1].accountID)
-     }
-     props++
-    console.log(patients[props].accountID)
+    // for (i = 0; i < patients.length; i++) {
+    //   console.log(patients[i].accountID);
+    // }
+    // props++;
+    //console.log(props);
     setFlagged((previousFlag) => {
       return !previousFlag;
     });
   };
+
   const Defineusertype = (event) => {
     setusertype(event.target.value);
   };
@@ -129,9 +129,7 @@ export default function UserList() {
           <div className="userCard">
             <AccountCircleRoundedIcon fontSize="large" />
 
-            <span
-              className="userDetails"
-            >
+            <span className="userDetails">
               <Link to="/">
                 <span>
                   {" "}
@@ -141,12 +139,15 @@ export default function UserList() {
             </span>
             {/* onclick=cookies.set() */}
             {/* //value={value.accountID} */}
-           <button  onClick={Defineusertype} value={i}> <ToggleFlagged
-              flagged={flagged}
-              handleChangeFlagged={()=>handleChangeFlagged(i)}
-              id={values.accountID}
-            />
-            {console.log(flagged)}
+            <button>
+              <ToggleFlagged
+                flagged={flagged}
+                key={values.accountID}
+                onClick={() => {
+                  console.log("hello");
+                }}
+                id={values.accountID}
+              />
             </button>
           </div>
         );
