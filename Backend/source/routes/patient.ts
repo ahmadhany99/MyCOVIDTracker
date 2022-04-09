@@ -25,7 +25,7 @@ router.get('/patient/get/flag', flaggingController.getFlaggedPatients);
 router.put('/patient/get/flag', flaggingController.getFlaggedPatients);
 
 router.put('/patient/set/flag', flaggingController.flagPatient);
-router.put('/patient/set/unflag', flaggingController.unflagPatient);
+router.put('/patient/rem/flag', flaggingController.unflagPatient);
 
 //#TODO quarantine routes
 
