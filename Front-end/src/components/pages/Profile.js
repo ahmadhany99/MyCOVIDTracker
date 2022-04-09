@@ -12,23 +12,34 @@ import React from "react";
 
 const logout = () => {
   Cookies.remove("email");
-  Cookies.remove("accountID");
-  Cookies.remove("lastName");
-  Cookies.remove("firstName");
+  Cookies.remove("patientID");
+  Cookies.remove("patientLastName");
+  Cookies.remove("patientFirstName");
 };
 
-const firstname = Cookies.get("firstName");
-const lastname = Cookies.get("lastName");
+const leavePatient = () => {
+  Cookies.remove("patientID");
+  Cookies.remove("patientLastName");
+  Cookies.remove("patientFirstName");
+};
+const firstname = Cookies.get("patientFirstName");
+const lastname = Cookies.get("patientLastName");
 
 function Profile() {
   const [doctor, setDoctor] = useState([]);
   useEffect(() => {
+    if (Cookies.get("accountID") !== null) {
+      window.addEventListener("beforeunload", leavePatient);
+      return () => {
+        window.removeEventListener("beforeunload", leavePatient);
+      };
+    }
     const fetchPosts = async () => {
       try {
         const response = await axios.put(
           "https://tranquil-wildwood-60713.herokuapp.com/api/patient/getDoctor",
           {
-            patientID: Cookies.get("accountID"),
+            patientID: Cookies.get("patientID"),
           }
         );
         console.log(response.data.result);
@@ -40,6 +51,8 @@ function Profile() {
     fetchPosts();
   }, []);
 
+  const firstname = Cookies.get("patientFirstName");
+  const lastname = Cookies.get("patientLastName");
   return (
     <Box>
       <div className={classes.profileHeader}>

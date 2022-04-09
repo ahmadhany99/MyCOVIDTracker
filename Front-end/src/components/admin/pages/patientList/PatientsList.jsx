@@ -1,7 +1,7 @@
 import "./userList.css";
 import { DeleteOutline, PinDropSharp } from "@mui/icons-material";
 import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -62,8 +62,6 @@ export default function UserList() {
   const [patients, setPatients] = useState([]);
   const [priority, setPriority] = useState([]);
 
-  const [usertypereg, setusertype] = useState("");
-
   const toggleFlag = (event) => () => {
     try {
       console.log("flaggingggg " + event);
@@ -81,26 +79,41 @@ export default function UserList() {
 
   const [nbrOfPatients, setNbrOfPatients] = useState();
 
+  let navigate = useNavigate();
+
+  const [profile, setProfile] = useState();
+  const gotoProfile = (id, fname, lname) => () => {
+    Cookies.set("patientID", id);
+    Cookies.set("patientFirstName", fname);
+    Cookies.set("patientLastName", lname);
+    console.log(patients);
+    console.log(Cookies.get("patientID"));
+    setTimeout(navigate("/profile"), 5000);
+  };
+
   return (
     <div className="userList">
-      <div className="userHeader"></div>
+      <div className="userHeader">My Patients</div>
       {priority.map((values) => {
-        if (values.doctorID === Cookies.get("accountID")) {
+        if (values.doctorID !== Cookies.get("accountID")) {
           return (
             <div className="userCard">
               <AccountCircleRoundedIcon fontSize="large" />
 
-              <span
-                style={{ backgroundColor: "orange" }}
-                className="userDetails"
-              >
-                <Link to="/">
+              <span className="userDetails<">
+                <button
+                  onClick={gotoProfile(
+                    values.patientID,
+                    values.firstName,
+                    values.lastName
+                  )}
+                >
                   <span>
                     {values.patientID} : {values.lastName}, {values.firstName}
                   </span>
-                </Link>
+                </button>
               </span>
-              <Checkbox onChange={toggleFlag(values.accountID)} />
+              <Checkbox onChange={toggleFlag(values.patientID)} />
             </div>
           );
         }

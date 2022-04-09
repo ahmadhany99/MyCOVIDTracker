@@ -12,7 +12,7 @@ function StatusLog() {
         const response = await axios.put(
           "https://tranquil-wildwood-60713.herokuapp.com/api/status/get/all/user",
           {
-            patientID: Cookies.get("accountID"),
+            patientID: Cookies.get("patientID"),
           }
         );
         console.log(response.data.result[0]);
