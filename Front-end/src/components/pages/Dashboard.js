@@ -11,11 +11,11 @@ const username = Cookies.get("username");
 console.log(username);
 
 function DashboardPage(response) {
-
-
   return (
     <section className={classes.dashboard}>
-      <h2 className={classes.hello}>Hello, {Cookies.get("firstName")}</h2>
+      <h2 className={classes.hello}>
+        Hello, {Cookies.get("patientFirstName")}
+      </h2>
       <div className={classes.status_box}>
         <h2>
           Have you updated

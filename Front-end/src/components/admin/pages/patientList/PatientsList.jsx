@@ -19,7 +19,7 @@ export default function UserList() {
         const response = await axios.get(
           "https://tranquil-wildwood-60713.herokuapp.com/api/account/get/patient"
         );
-        console.log(response.data.result);
+        //console.log(response.data.result);
         setPatients(response.data.result);
       } catch (err) {
         console.log(err.response);
@@ -33,7 +33,7 @@ export default function UserList() {
             patientID: props,
           }
         );
-        console.log(response.data);
+        //console.log(response.data);
         setPriority(response.data);
       } catch (err) {
         console.log(err.response);
@@ -52,7 +52,7 @@ export default function UserList() {
       } catch (error) {
         console.log(error);
         setNbrOfPatients(0);
-        console.log(nbrOfPatients);
+        //console.log(nbrOfPatients);
       }
     };
     numberOfPatients();
@@ -86,8 +86,8 @@ export default function UserList() {
     Cookies.set("patientID", id);
     Cookies.set("patientFirstName", fname);
     Cookies.set("patientLastName", lname);
-    console.log(patients);
-    console.log(Cookies.get("patientID"));
+    //console.log(patients);
+    //console.log(Cookies.get("patientID"));
     setTimeout(navigate("/profile"), 5000);
   };
 

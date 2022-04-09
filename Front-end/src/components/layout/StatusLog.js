@@ -15,7 +15,7 @@ function StatusLog() {
             patientID: Cookies.get("patientID"),
           }
         );
-        console.log(response.data.result[0]);
+        //console.log(response.data.result[0]);
         setUserLog(response.data.result);
       } catch (err) {
         console.log(err);
@@ -27,10 +27,12 @@ function StatusLog() {
   return (
     <Box>
       {userLog.map((value) => {
+        const date = value.date;
+        const cutDate = date.substring(0, 10);
         return (
           <div className={classes.box}>
             <div className={classes.right}>
-              <p className={classes.date}>{value.date}</p>
+              <p className={classes.date}>{cutDate}</p>
               <span>{value.report}</span>
             </div>
             <br />
