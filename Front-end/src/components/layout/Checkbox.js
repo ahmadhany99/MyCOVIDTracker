@@ -20,7 +20,7 @@ export default function CheckboxListSecondary() {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/status/update",
       {
-        patientID: Cookies.get("accountID"),
+        patientID: Cookies.get("patientID"),
         report: checked,
       }
     )

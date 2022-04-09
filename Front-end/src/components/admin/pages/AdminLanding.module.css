@@ -12,15 +12,15 @@
   font-size: 50px;
 }
 
-.bg_photo{
+.bg_photo {
   opacity: 0.5;
   position: absolute;
   top: 150px;
   height: 75%;
 }
 
-.admin_landing_cta{
-  display:flex;
+.admin_landing_cta {
+  display: flex;
   justify-content: space-around;
   width: 100%;
 }
@@ -32,7 +32,7 @@
     margin: 0;
   }
 
-  p{
+  p {
     text-align: center;
   }
 

@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function WidgetLg() {
   useEffect(() => {
     const fetchTodaysDate = async () => {
-      console.log("hhhhh");
+      console.log(todaysDate);
       try {
         const response = await axios.put(
           "https://tranquil-wildwood-60713.herokuapp.com/api/status/get/all/date",
@@ -15,14 +15,14 @@ export default function WidgetLg() {
             date: todaysDate,
           }
         );
-        console.log("dddd" + response);
-        setTodaysReport(response);
+        console.log("dddd" + response.data.result[0].statusID);
+        setTodaysReport(response.data.result);
       } catch (error) {
         console.log("eji d" + error);
       }
-      fetchTodaysDate();
     };
-  });
+    fetchTodaysDate();
+  }, []);
 
   const Button = ({ type }) => {
     return <button className={"widgetLgButton " + type}>{type}</button>;
@@ -32,6 +32,7 @@ export default function WidgetLg() {
   console.log(todaysDate);
 
   const [todaysReport, setTodaysReport] = useState([]);
+  console.log("hello doc: " + todaysReport[0].report);
 
   return (
     <div className="widgetLg">
@@ -41,42 +42,17 @@ export default function WidgetLg() {
           <th className="widgetLgTh">Patient</th>
           <th className="widgetLgTh">Status</th>
         </tr>
-        <tr className="widgetLgTr">
-          <td className="widgetLgUser">
-            <span className="widgetLgName">Susan Carol</span>
-          </td>
-          <td className="widgetLgDate">Status</td>
-        </tr>
-        <tr className="widgetLgTr">
-          <td className="widgetLgUser">
-            <span className="widgetLgName">Susan Carol</span>
-          </td>
-          <td className="widgetLgDate">Status</td>
-        </tr>
-        <tr className="widgetLgTr">
-          <td className="widgetLgUser">
-            <span className="widgetLgName">Susan Carol</span>
-          </td>
-          <td className="widgetLgDate">Status</td>
-        </tr>
-        <tr className="widgetLgTr">
-          <td className="widgetLgUser">
-            <span className="widgetLgName">Susan Carol</span>
-          </td>
-          <td className="widgetLgDate">Status</td>
-        </tr>
-        <tr className="widgetLgTr">
-          <td className="widgetLgUser">
-            <span className="widgetLgName">Susan Carol</span>
-          </td>
-          <td className="widgetLgDate">Status</td>
-        </tr>
-        <tr className="widgetLgTr">
-          <td className="widgetLgUser">
-            <span className="widgetLgName">Susan Carol</span>
-          </td>
-          <td className="widgetLgDate">Status</td>
-        </tr>
+
+        {todaysReport.map((values) => {
+          return (
+            <tr className="widgetLgTr">
+              <td className="widgetLgUser">
+                <span className="widgetLgName">{values.patientID}</span>
+              </td>
+              <td className="widgetLgDate">{values.report}</td>
+            </tr>
+          );
+        })}
       </table>
     </div>
   );

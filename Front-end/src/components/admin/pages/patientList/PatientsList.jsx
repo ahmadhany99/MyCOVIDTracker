@@ -101,17 +101,16 @@ export default function UserList() {
               <AccountCircleRoundedIcon fontSize="large" />
 
               <span className="userDetails<">
-                <button
+                <p
+                  className="patientLink"
                   onClick={gotoProfile(
                     values.patientID,
                     values.firstName,
                     values.lastName
                   )}
                 >
-                  <span>
-                    {values.patientID} : {values.lastName}, {values.firstName}
-                  </span>
-                </button>
+                  {values.patientID} : {values.lastName}, {values.firstName}
+                </p>
               </span>
               <Checkbox onChange={toggleFlag(values.patientID)} />
             </div>
