@@ -12,6 +12,12 @@ const flagPatient = (app: flaggingModel) => {
 
 }
 
+const unflagPatient = (app: flaggingModel) => {
+
+        return flagging.unflagPatient(app);
+
+}
+
 const getFlaggedPatients = (app: flaggingModel) => {
 
         return flagging.getFlaggedPatients(app);
@@ -20,5 +26,6 @@ const getFlaggedPatients = (app: flaggingModel) => {
 
 export {
     flagPatient,
-    getFlaggedPatients
+    getFlaggedPatients,
+    unflagPatient
 };

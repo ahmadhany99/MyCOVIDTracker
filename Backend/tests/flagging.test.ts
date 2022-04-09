@@ -22,6 +22,20 @@ test('testing patient flagging', () => {
     }
 });
 
+// Tests to see if patient can be unflagged successfully
+test('testing patient unflagging', () => {
+    try {
+        axios.get('localhost:1337/api/flag/unflagPatient', {
+            params: {
+                patientID: 8
+            }
+        });
+        // Returns error if test is deemed unsuccessful
+    } catch (err) {
+        logging.error(NAMESPACE, 'patient unflagging test failed', err);
+    }
+});
+
 // Tests to see if list of flagged patients can be returned successfully
 test('testing returning of flagged patients', () => {
     try {

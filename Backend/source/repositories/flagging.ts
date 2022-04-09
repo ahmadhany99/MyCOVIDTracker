@@ -10,6 +10,12 @@ const flagPatient = (flagging: flaggingModel) => {
     return queryDatabase(query);
 }
 
+// When patient is unflagged, isPrioritized value in patient table of the database is set to 0
+const unflagPatient = (flagging: flaggingModel) => {
+    const query = `UPDATE patient SET isPrioritized = 0 WHERE patientID = '${flagging.patientID}'`;
+    return queryDatabase(query);
+}
+
 // Returns list of flagged patients where isPrioritized value is set to 1
 const getFlaggedPatients = (flagging: flaggingModel) => {   
     const query = `SELECT patient.*, account.firstName, account.lastName 
@@ -20,5 +26,6 @@ const getFlaggedPatients = (flagging: flaggingModel) => {
 
 export {
     flagPatient,
-    getFlaggedPatients
+    getFlaggedPatients,
+    unflagPatient
 };
