@@ -1,78 +1,81 @@
 import "./widgetLg.css";
+import moment from "moment";
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
 export default function WidgetLg() {
+  useEffect(() => {
+    const fetchTodaysDate = async () => {
+      console.log("hhhhh");
+      try {
+        const response = await axios.put(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/status/get/all/date",
+          {
+            date: todaysDate,
+          }
+        );
+        console.log("dddd" + response);
+        setTodaysReport(response);
+      } catch (error) {
+        console.log("eji d" + error);
+      }
+      fetchTodaysDate();
+    };
+  });
+
   const Button = ({ type }) => {
     return <button className={"widgetLgButton " + type}>{type}</button>;
   };
+
+  const todaysDate = moment().format("YYYY[-]MM[-]DD");
+  console.log(todaysDate);
+
+  const [todaysReport, setTodaysReport] = useState([]);
+
   return (
     <div className="widgetLg">
-      <h3 className="widgetLgTitle">Latest transactions</h3>
+      <h3 className="widgetLgTitle">Today's patient status updated</h3>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
-          <th className="widgetLgTh">Customer</th>
-          <th className="widgetLgTh">Date</th>
-          <th className="widgetLgTh">Amount</th>
+          <th className="widgetLgTh">Patient</th>
           <th className="widgetLgTh">Status</th>
         </tr>
         <tr className="widgetLgTr">
           <td className="widgetLgUser">
-            <img
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-              className="widgetLgImg"
-            />
             <span className="widgetLgName">Susan Carol</span>
           </td>
-          <td className="widgetLgDate">2 Jun 2021</td>
-          <td className="widgetLgAmount">$122.00</td>
-          <td className="widgetLgStatus">
-            <Button type="Approved" />
-          </td>
+          <td className="widgetLgDate">Status</td>
         </tr>
         <tr className="widgetLgTr">
           <td className="widgetLgUser">
-            <img
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-              className="widgetLgImg"
-            />
             <span className="widgetLgName">Susan Carol</span>
           </td>
-          <td className="widgetLgDate">2 Jun 2021</td>
-          <td className="widgetLgAmount">$122.00</td>
-          <td className="widgetLgStatus">
-            <Button type="Declined" />
-          </td>
+          <td className="widgetLgDate">Status</td>
         </tr>
         <tr className="widgetLgTr">
           <td className="widgetLgUser">
-            <img
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-              className="widgetLgImg"
-            />
             <span className="widgetLgName">Susan Carol</span>
           </td>
-          <td className="widgetLgDate">2 Jun 2021</td>
-          <td className="widgetLgAmount">$122.00</td>
-          <td className="widgetLgStatus">
-            <Button type="Pending" />
-          </td>
+          <td className="widgetLgDate">Status</td>
         </tr>
         <tr className="widgetLgTr">
           <td className="widgetLgUser">
-            <img
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-              className="widgetLgImg"
-            />
             <span className="widgetLgName">Susan Carol</span>
           </td>
-          <td className="widgetLgDate">2 Jun 2021</td>
-          <td className="widgetLgAmount">$122.00</td>
-          <td className="widgetLgStatus">
-            <Button type="Approved" />
+          <td className="widgetLgDate">Status</td>
+        </tr>
+        <tr className="widgetLgTr">
+          <td className="widgetLgUser">
+            <span className="widgetLgName">Susan Carol</span>
           </td>
+          <td className="widgetLgDate">Status</td>
+        </tr>
+        <tr className="widgetLgTr">
+          <td className="widgetLgUser">
+            <span className="widgetLgName">Susan Carol</span>
+          </td>
+          <td className="widgetLgDate">Status</td>
         </tr>
       </table>
     </div>

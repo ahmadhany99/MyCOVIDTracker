@@ -136,7 +136,7 @@ export default function Assigning() {
           </div>
         );
       })}
-      <Button onClick={submitAssignment}>ASSIGN DOCTOR TO Patients</Button>
+      <Button onClick={submitAssignment}>ASSIGN DOCTOR TO PATIENTS</Button>
     </div>
   );
 }

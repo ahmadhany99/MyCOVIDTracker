@@ -41,7 +41,8 @@ function App() {
             path="/admin/users"
             element={
               <>
-                <Sidebar /> <UserList />
+                {" "}
+                <UserList />
               </>
             }
           />
