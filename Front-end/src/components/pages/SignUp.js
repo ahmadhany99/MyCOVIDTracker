@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import Axios from "axios";
 import { useState } from "react";
-import Banner from "../layout/Banner.js";
 
 const Register = () => {
   const registerUser = () => {

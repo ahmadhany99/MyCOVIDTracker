@@ -4,7 +4,9 @@ import { Box } from "@mui/system";
 function Banner() {
   return (
     <Box>
-      <div className={classes.banner}>myCOVIDtracker</div>
+      <div className={classes.banner} data-testid="header">
+        myCOVIDtracker
+      </div>
     </Box>
   );
 }

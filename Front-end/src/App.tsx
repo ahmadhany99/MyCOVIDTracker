@@ -10,7 +10,7 @@ import CalendarPage from "./components/pages/Calendar.js";
 import Layout from "./components/layout/Layout.js";
 import Banner from "./components/layout/Banner";
 import PrivateRoute from "./components/pages/PrivateRoute.js";
-
+import ResponsiveDrawer from "./components/admin/components/siderbar2.0/sidebar2.0.js";
 import AdminSignUp from "./components/admin/pages/AdminSignUp.js";
 import AdminLogin from "./components/admin/pages/AdminLogin.js";
 import Home from "./components/admin/pages/home/Home.jsx";
@@ -21,7 +21,6 @@ import UserList from "./components/admin/pages/patientList/PatientsList.jsx";
 import Status from "./components/admin/pages/StatusList/Status.jsx";
 import FlaggedPatients from "./components/admin/pages/FlagPatients/FlagPatients.jsx";
 import DoctorsList from "./components/admin/pages/Doctors/Doctors.jsx";
-import SimpleBottomNavigation from "./components/layout/SimpleBottomNavigation.js";
 import Assigning from "./components/admin/pages/DoctorPatientAssignment.js";
 function App() {
   //domain:'/'  localhost:3000/
@@ -53,7 +52,8 @@ function App() {
             element={
               <>
                <AdminPrivateRoute>
-                <Sidebar /> <Status />
+                <Sidebar />
+                 <Status />
                 </AdminPrivateRoute>
               </>
             }
@@ -73,7 +73,7 @@ function App() {
             element={
               <>
                <AdminPrivateRoute>
-                <Sidebar /> <Home />
+                <ResponsiveDrawer /> <Home />
                 </AdminPrivateRoute>
               </>
             }

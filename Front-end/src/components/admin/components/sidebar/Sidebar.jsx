@@ -51,7 +51,7 @@ export default function Sidebar() {
             </Link>
             <Link to="/admin/flagged" className="link">
               <li className="sidebarListItem">
-                <PermIdentity ty className="sidebarIcon" />
+                <PermIdentity className="sidebarIcon" />
                 Flagged Patients
               </li>
             </Link>
