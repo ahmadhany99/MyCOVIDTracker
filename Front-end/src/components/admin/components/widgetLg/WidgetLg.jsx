@@ -32,7 +32,7 @@ export default function WidgetLg() {
   console.log(todaysDate);
 
   const [todaysReport, setTodaysReport] = useState([]);
-  console.log("hello doc: " + todaysReport[0].report);
+  //console.log("hello doc: " + todaysReport[0].report);
 
   return (
     <div className="widgetLg">

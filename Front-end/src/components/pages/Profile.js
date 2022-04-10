@@ -24,7 +24,6 @@ function Profile() {
     Cookies.remove("patientFirstName");
     navigate("/admin/users");
   };
-  const [doctor, setDoctor] = useState([]);
   useEffect(() => {
     if (Cookies.get("accountID") !== null) {
       window.addEventListener("beforeunload", leavePatient);
@@ -35,13 +34,14 @@ function Profile() {
     const fetchPosts = async () => {
       try {
         const response = await axios.put(
-          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/getDoctor",
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/get/doctor",
           {
             patientID: Cookies.get("patientID"),
           }
         );
-        console.log(response);
-        setDoctor(response);
+        console.log(response.data);
+        setFirstDoctor(response.data[0].firstName);
+        setLastDoctor(response.data[0].lastName);
       } catch (err) {
         console.log(err);
       }
@@ -60,10 +60,30 @@ function Profile() {
     isAdmin();
   }, []);
 
+  useEffect(() => {
+    const getdoctor = async () => {
+      try {
+        const response = await axios.put(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/get/doctor",
+          {
+            patientID: Cookies.get("patientID"),
+          }
+        );
+        console.log(response.data);
+        setFirstDoctor(response.data[0].firstName);
+        setLastDoctor(response.data[0].lastName);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getdoctor();
+  }, []);
+
   const firstname = Cookies.get("patientFirstName");
   const lastname = Cookies.get("patientLastName");
   const [admin, setAdmin] = useState();
-
+  const [Firstdoctor, setFirstDoctor] = useState("");
+  const [Lastdoctor, setLastDoctor] = useState("");
   return (
     <Box>
       <div className={classes.profileHeader}>
@@ -81,7 +101,9 @@ function Profile() {
         <h2>
           {firstname} {lastname}
         </h2>
-        <p>Assigned to Dr. {doctor}</p>
+        <p>
+          Assigned to Dr. {Firstdoctor} {Lastdoctor}
+        </p>
       </div>
       <div className={classes.statusHeader}>
         <h2>Status Backlog</h2>

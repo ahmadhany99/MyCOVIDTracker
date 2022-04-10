@@ -10,16 +10,13 @@ const outside = (c) => {
   }
 };
 
-const AdminPrivateRoute = ({
-    redirectPath = '/',
-    children,
-  }) => {
-    const user = Cookies.get("email");
-    if (!user) {
-      return <Navigate to={redirectPath} replace />;
-    }
-  
-    return children;
-  };
+const AdminPrivateRoute = ({ redirectPath = "/", children }) => {
+  const user = Cookies.get("email");
+  if (!user) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return children;
+};
 
 export default AdminPrivateRoute;

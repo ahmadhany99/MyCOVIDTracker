@@ -41,8 +41,10 @@ function App() {
             path="/admin/users"
             element={
               <>
+             <AdminPrivateRoute>
                 {" "}
                 <UserList />
+                </AdminPrivateRoute>
               </>
             }
           />
@@ -50,7 +52,9 @@ function App() {
             path="/admin/status"
             element={
               <>
+               <AdminPrivateRoute>
                 <Sidebar /> <Status />
+                </AdminPrivateRoute>
               </>
             }
           />
@@ -58,7 +62,9 @@ function App() {
             path="/admin/flagged"
             element={
               <>
+               <AdminPrivateRoute>
                 <Sidebar /> <FlaggedPatients />
+                </AdminPrivateRoute>
               </>
             }
           />
@@ -66,7 +72,9 @@ function App() {
             path="/admin/dashboard"
             element={
               <>
+               <AdminPrivateRoute>
                 <Sidebar /> <Home />
+                </AdminPrivateRoute>
               </>
             }
           />
@@ -74,7 +82,9 @@ function App() {
             path="/admin/doctors"
             element={
               <>
+               <AdminPrivateRoute>
                 <Sidebar /> <DoctorsList />
+                </AdminPrivateRoute>
               </>
             }
           />
@@ -82,7 +92,9 @@ function App() {
             path="/admin/assign"
             element={
               <>
+                <AdminPrivateRoute>
                 <Assigning />
+                </AdminPrivateRoute>
               </>
             }
           />
@@ -90,9 +102,9 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <PrivateRoute>
+              <AdminPrivateRoute>
                 <DashboardPage />
-              </PrivateRoute>
+              </AdminPrivateRoute>
             }
           />
           <Route

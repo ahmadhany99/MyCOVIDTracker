@@ -75,7 +75,9 @@ export default function Status() {
       },
     },
   ];
-
+  
+    data.sort((a,b)=> a.statusID - b.statusID)
+  
   return (
     <div className="userList">
      <div className="userHeader"><h1>Status </h1>
@@ -85,12 +87,14 @@ export default function Status() {
      </div>
         {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
       {data.map((value) => {
+                const date = value.date;
+                const cutDate = date.substring(0, 10);
         return(
           <div className="userCard">
             <AccountCircleRoundedIcon fontSize="large"/>
               
             <span className="userDetails">
-             <span >  {value.statusID} : {value.patientID} : {value.date} : {value.report}</span>
+             <span >  {value.statusID} : {value.patientID} : {cutDate} : {value.report}</span>
             </span>
           </div>
         )

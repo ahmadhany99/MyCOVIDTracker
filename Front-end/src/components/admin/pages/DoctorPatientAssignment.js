@@ -1,4 +1,3 @@
-import { DeleteOutline } from "@mui/icons-material";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -71,6 +70,10 @@ export default function Assigning() {
         console.log(
           "looping assignment" + checked[i] + "to this doc: " + selectDoc
         );
+        setMessage(
+          "Assigned patient " + checked[i] + " to doctor : " + selectDoc
+        );
+
         axios.post(
           "https://tranquil-wildwood-60713.herokuapp.com/api/doctor/assignDoctorToPatient",
           {
@@ -84,14 +87,14 @@ export default function Assigning() {
       console.log(error);
     }
   };
-
+  const [Message, setMessage] = useState();
   return (
     <div className="userList">
       <div className="userHeader">
-        <p>hello: {checkedItems} :bye</p>
+        <p>Patient {checkedItems}</p>
         <p>
           <br />
-          Dr.{selectDoc}
+          Dr. {selectDoc}
         </p>
       </div>
 
@@ -136,6 +139,7 @@ export default function Assigning() {
           </div>
         );
       })}
+      <h2>{Message}</h2>
       <Button onClick={submitAssignment}>ASSIGN DOCTOR TO PATIENTS</Button>
     </div>
   );

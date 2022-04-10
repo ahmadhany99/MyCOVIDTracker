@@ -1,15 +1,16 @@
 import "./sidebar.css";
 import {
-  LineStyle,
   PermIdentity,
-  Storefront,
-  AttachMoney,
-  BarChart,
-  ChatBubbleOutline,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import Cookies from "js-cookie";
+import MedicationIcon from '@mui/icons-material/Medication';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import HomeIcon from '@mui/icons-material/Home';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PeopleIcon from '@mui/icons-material/People';
 
 const logout = () => {
   Cookies.remove("email");
@@ -27,7 +28,7 @@ export default function Sidebar() {
           <ul className="sidebarList">
             <Link to="/admin/dashboard" className="link">
               <li className="sidebarListItem active">
-                <LineStyle className="sidebarIcon" />
+                <HomeIcon className="sidebarIcon" />
                 Home
               </li>
             </Link>
@@ -38,44 +39,49 @@ export default function Sidebar() {
           <ul className="sidebarList">
             <Link to="/admin/users" className="link">
               <li className="sidebarListItem">
-                <PermIdentity className="sidebarIcon" />
+                <PeopleIcon className="sidebarIcon" />
                 Patients
               </li>
             </Link>
             <Link to="/admin/status" className="link">
               <li className="sidebarListItem">
-                <Storefront className="sidebarIcon" />
+                <ReceiptIcon className="sidebarIcon" />
                 Status
               </li>
             </Link>
             <Link to="/admin/flagged" className="link">
               <li className="sidebarListItem">
-                <PermIdentity className="sidebarIcon" />
+                <PermIdentity ty className="sidebarIcon" />
                 Flagged Patients
               </li>
             </Link>
             <Link to="/admin/doctors" className="link">
               <li className="sidebarListItem">
-                <BarChart className="sidebarIcon" />
+                <MedicationIcon className="sidebarIcon" />
                 Doctors
               </li>
             </Link>
           </ul>
         </div>
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications</h3>
+          <h3 className="sidebarTitle">Assigning Patients</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem">
-              <ChatBubbleOutline className="sidebarIcon" />
-              Messages
+             
+              <AssignmentIndIcon className="sidebarIcon" />
+              <Link to="/admin/assign" className="link">
+              Assign
+              </Link>
             </li>
+           
           </ul>
+
         </div>
         <div className="sidebarMenu">
           <ul className="sidebarList"></ul>
         </div>
         <Link to="/admin">
-          <Button onClick={logout}>Logout</Button>
+          <Button onClick={logout}>  <LogoutIcon className='sidebarIcon'/> Logout</Button>
         </Link>
       </div>
     </div>

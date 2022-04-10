@@ -10,7 +10,7 @@ import * as Axios from "axios";
 const username = Cookies.get("username");
 console.log(username);
 
-function DashboardPage(response) {
+function DashboardPage() {
   return (
     <section className={classes.dashboard}>
       <h2 className={classes.hello}>

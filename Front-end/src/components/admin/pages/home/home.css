@@ -8,3 +8,9 @@
     display: flex;
     margin: 20px;
 }
+.hello {
+    padding-left: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    font-weight: 400;
+  }
