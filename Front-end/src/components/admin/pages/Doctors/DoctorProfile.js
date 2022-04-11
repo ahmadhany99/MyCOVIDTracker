@@ -6,8 +6,62 @@ import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 import StatusLog from "../../../layout/StatusLog";
 import Status from "../StatusList/Status";
+import axios from "axios";
 
 function DoctorProfile() {
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/account/get/patient"
+        );
+        //console.log(response.data.result);
+        setPatients(response.data.result);
+      } catch (err) {
+        console.log(err.response);
+      }
+    };
+    const fetchPriority = async (props) => {
+      try {
+        const response = await axios.put(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/get/flag",
+          {
+            patientID: props,
+          }
+        );
+        //console.log(response.data);
+        setPriority(response.data);
+      } catch (err) {
+        console.log(err.response);
+      }
+    };
+    const numberOfPatients = async () => {
+      try {
+        const response = await axios.post(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/doctor/getDoctorsNumberOfPatients",
+          {
+            doctorID: Cookies.get("accountID"),
+          }
+        );
+        console.log("hello" + response);
+        setNbrOfPatients(response);
+        setBannerStatus("Patients");
+      } catch (error) {
+        console.log(error);
+        setNbrOfPatients(0);
+        setBannerStatus("You have no patients!");
+        //console.log(nbrOfPatients);
+      }
+    };
+    numberOfPatients();
+    fetchPriority();
+    fetchPosts();
+  }, []);
+  const [patients, setPatients] = useState([]);
+  const [priority, setPriority] = useState([]);
+  const [nbrOfPatients, setNbrOfPatients] = useState();
+  const [bannerStatus, setBannerStatus] = useState();
+
   let navigate = useNavigate();
   const logout = () => () => {
     Cookies.remove("email");
@@ -59,9 +113,8 @@ function DoctorProfile() {
         </h2>
       </div>
       <div className={classes.statusHeader}>
-        <h2>Patient Status Backlog</h2>
+        <h2>Patients</h2>
       </div>
-      <Status />
     </Box>
   );
 }

@@ -100,7 +100,9 @@ export default function UserList() {
     <div className="userList">
       <div className="userHeader">{bannerStatus}</div>
       {priority.map((values) => {
-        if (values.doctorID === Cookies.get("accountID")) {
+        console.log(values.doctorID + " " + values.firstName);
+
+        if (values.doctorID == Cookies.get("accountID")) {
           return (
             <div className="userCard">
               <AccountCircleRoundedIcon fontSize="large" />
