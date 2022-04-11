@@ -12,10 +12,11 @@ import classes from "./Checkbox.module.css";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 export default function CheckboxListSecondary() {
+  const [Covid, setCovid] = useState(0);
   const submitStatus = async () => {
     Axios.post(
       "https://tranquil-wildwood-60713.herokuapp.com/api/status/update",
@@ -32,7 +33,24 @@ export default function CheckboxListSecondary() {
       .catch((error) => {
         console.error(error.response);
       });
+    Axios.put(
+      "https://tranquil-wildwood-60713.herokuapp.com/api/patient/update/covid",
+      {
+        patientID: Cookies.get("patientID"),
+        covidStatus: Covid,
+      }
+    )
+      .then((response) => {
+        // setTimeout(() => {
+        //   navigate("/profile");
+        // }, 2000);
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        console.error(error.response);
+      });
   };
+
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -47,7 +65,6 @@ export default function CheckboxListSecondary() {
 
   const navigate = useNavigate();
   const [checked, setChecked] = React.useState([]);
-
   const handleToggle = (event) => () => {
     const currentIndex = checked.indexOf(event);
     const newChecked = [...checked];
@@ -66,6 +83,9 @@ export default function CheckboxListSecondary() {
       })
     : "";
 
+  // if (checked.includes("Fever")) {
+  //   setCovid(true);
+  // }
   const statusArray = [
     {
       question: "Do you have covid?",
@@ -96,7 +116,6 @@ export default function CheckboxListSecondary() {
       answer: "Sore throat",
     },
   ];
-
   return (
     <section>
       <List dense sx={{ width: "100%" }}>
@@ -130,6 +149,15 @@ export default function CheckboxListSecondary() {
         </div>
       </Link>
       <div>{checkedItems}</div>
+      {useEffect(() => {
+        if (checked.includes("Has Covid")) {
+          setCovid(1);
+          console.log("+");
+        } else {
+          setCovid(0);
+          console.log("-");
+        }
+      })}
     </section>
   );
 }
