@@ -116,7 +116,7 @@ export default function AllFlaggedPatients() {
   const [bannerStatus, setBannerStatus] = useState();
   return (
     <div className="userList">
-      <div className="userHeader">{bannerStatus}</div>
+      <div className="userHeader">All Flagged Patients</div>
 
       {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
       {flaggedPatients.map((values) => {
