@@ -23,13 +23,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFlaggedPatients = exports.flagPatient = void 0;
+exports.unflagPatient = exports.getFlaggedPatients = exports.flagPatient = void 0;
 const flagging = __importStar(require("../repositories/flagging"));
 const NAMESPACE = 'flagging/service';
 const flagPatient = (app) => {
     return flagging.flagPatient(app);
 };
 exports.flagPatient = flagPatient;
+const unflagPatient = (app) => {
+    return flagging.unflagPatient(app);
+};
+exports.unflagPatient = unflagPatient;
 const getFlaggedPatients = (app) => {
     return flagging.getFlaggedPatients(app);
 };
