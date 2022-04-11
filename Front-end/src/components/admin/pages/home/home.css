@@ -1,16 +1,14 @@
-.home{
-    width: 80%;
-    padding-left: 20%;
-    padding-top: 0px;
+.home {
+  width: 80%;
+  padding-left: 325px;
+  transform: translateY(-100px);
 }
 
-.homeWidgets{
-    display: flex;
-    margin: 20px;
+.homeWidgets {
+  display: flex;
+  margin: 20px;
 }
-.hello {
-    padding-left: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-    font-weight: 400;
-  }
+.welcome {
+  padding-left: 2rem;
+  font-weight: 400;
+}

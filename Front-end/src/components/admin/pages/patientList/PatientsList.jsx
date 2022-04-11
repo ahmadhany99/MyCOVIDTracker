@@ -8,6 +8,7 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import Cookies from "js-cookie";
 import { id } from "date-fns/locale";
 import { Button, Checkbox } from "@material-ui/core";
+import { set } from "date-fns";
 
 export default function UserList() {
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function UserList() {
     };
     const numberOfPatients = async () => {
       try {
-        const response = await axios.put(
+        const response = await axios.post(
           "https://tranquil-wildwood-60713.herokuapp.com/api/doctor/getDoctorsNumberOfPatients",
           {
             doctorID: Cookies.get("accountID"),
@@ -46,9 +47,11 @@ export default function UserList() {
         );
         console.log("hello" + response);
         setNbrOfPatients(response);
+        setBannerStatus("Patients");
       } catch (error) {
         console.log(error);
         setNbrOfPatients(0);
+        setBannerStatus("You have no patients!");
         //console.log(nbrOfPatients);
       }
     };
@@ -62,16 +65,18 @@ export default function UserList() {
   const toggleFlag = (event) => () => {
     try {
       console.log("flaggingggg " + event);
-      const response = axios.put(
-        "https://tranquil-wildwood-60713.herokuapp.com/api/patient/set/flag",
-        {
-          patientID: event,
-        }
-      ).then((response) => {
-        console.log(response);
-        setflagmessage(response.data.message)
-    })} 
-    catch (error) {
+      const response = axios
+        .put(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/set/flag",
+          {
+            patientID: event,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          setflagmessage(response.data.message);
+        });
+    } catch (error) {
       console.log(error);
     }
   };
@@ -80,7 +85,6 @@ export default function UserList() {
 
   let navigate = useNavigate();
 
-  const [profile, setProfile] = useState();
   const [Flagmessage, setflagmessage] = useState();
   const gotoProfile = (id, fname, lname) => () => {
     Cookies.set("patientID", id);
@@ -91,11 +95,12 @@ export default function UserList() {
     setTimeout(navigate("/profile"), 5000);
   };
 
+  const [bannerStatus, setBannerStatus] = useState();
   return (
     <div className="userList">
-      <div className="userHeader">My Patients</div>
+      <div className="userHeader">{bannerStatus}</div>
       {priority.map((values) => {
-        if (values.doctorID !== Cookies.get("accountID")) {
+        if (values.doctorID === Cookies.get("accountID")) {
           return (
             <div className="userCard">
               <AccountCircleRoundedIcon fontSize="large" />
@@ -113,12 +118,8 @@ export default function UserList() {
                 </p>
               </span>
               <Checkbox onChange={toggleFlag(values.patientID)} />
-              
             </div>
           );
-        }
-        if (nbrOfPatients === 0) {
-          return <div>You have no patients!</div>;
         }
       })}
       <h2>{Flagmessage}</h2>

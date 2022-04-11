@@ -1,35 +1,37 @@
-import "../patientList/userList.css"
-import "./productList.css"
+import "../patientList/userList.css";
+import "./productList.css";
 
 import { DeleteOutline } from "@mui/icons-material";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 import axios from "axios";
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
 export default function Status() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/status/get/all')
+        const response = await axios.get(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/status/get/all"
+        );
         setData(response.data.result);
-      }catch(err){
-  console.log(err.response.data);
+      } catch (err) {
+        console.log(err.response.data);
       }
-    }
-    fetchPosts()
-  },[])
+    };
+
+    fetchPosts();
+  }, []);
   const [data, setData] = useState([]);
 
   const handleDelete = (uid) => {
     setData(data.filter((item) => item.uid !== uid));
   };
-  
+
   const columns = [
     { field: "accountID", headerName: "accountID", width: 90 },
     {
@@ -75,31 +77,22 @@ export default function Status() {
       },
     },
   ];
-  
-    data.sort((a,b)=> a.statusID - b.statusID)
-  
+
+  data.sort((a, b) => a.statusID - b.statusID);
+
   return (
     <div className="userList">
-     <div className="userHeader"><h1>Status </h1>
-     
-     <h1>SID,PID,Date,Report</h1>
-   
-     </div>
-        {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
+      <h1 className="userHeader">Status </h1>
+      {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
       {data.map((value) => {
-                const date = value.date;
-                const cutDate = date.substring(0, 10);
-        return(
+        const date = value.date;
+        const cutDate = date.substring(0, 10);
+        return (
           <div className="userCard">
-            <AccountCircleRoundedIcon fontSize="large"/>
-              
-            <span className="userDetails">
-             <span >  {value.statusID} : {value.patientID} : {cutDate} : {value.report}</span>
-            </span>
+            {value.patientID} : {cutDate} : {value.report}
           </div>
-        )
+        );
       })}
-      
     </div>
   );
 }

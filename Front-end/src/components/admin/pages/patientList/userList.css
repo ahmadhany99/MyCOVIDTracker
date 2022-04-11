@@ -1,6 +1,7 @@
 .userList {
   flex: 4;
   border: 3px solid black;
+  padding-left: 325px;
 }
 
 .userHeader {

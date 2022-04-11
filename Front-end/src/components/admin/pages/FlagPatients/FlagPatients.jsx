@@ -9,6 +9,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import FlagIcon from "@mui/icons-material/Flag";
 import Cookies from "js-cookie";
 import ToggleFlagged from "../../components/ToggleFlag";
+import { Checkbox } from "@mui/material";
 
 export default function FlaggedPatients() {
   useEffect(() => {
@@ -83,20 +84,30 @@ export default function FlaggedPatients() {
   };
 
   const [flagged, setFlagged] = useState(false);
+  const [flagmessage, setflagmessage] = useState(false);
 
-  const handleChangeFlagged = () => {
-    setFlagged((previousFlag) => {
-      return !previousFlag;
-    });
+  const toggleFlag = (event) => () => {
+    try {
+      console.log("flaggingggg " + event);
+      const response = axios
+        .put(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/set/flag",
+          {
+            patientID: event,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          setflagmessage(response.data.message);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="userList">
-      <div className="userHeader">
-        <h1>Patients </h1>
-
-        <h1>ID,firstName,lastName</h1>
-      </div>
+      <h1 className="userHeader">Flagged Patients </h1>
 
       {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
       {patients.map((values) => {
@@ -118,13 +129,11 @@ export default function FlaggedPatients() {
             </span>
             {/* onclick=cookies.set() */}
             {/* //value={value.accountID} */}
-            <ToggleFlagged
-              flagged={flagged}
-              handleChangeFlagged={handleChangeFlagged}
-            />
+            <Checkbox onChange={toggleFlag(values.patientID)} />
           </div>
         );
       })}
+      <h2>{flagmessage}</h2>
     </div>
   );
 }

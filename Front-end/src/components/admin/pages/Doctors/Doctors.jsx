@@ -1,35 +1,35 @@
 import "./Doctor.css";
 import { DeleteOutline } from "@mui/icons-material";
 import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-import Cookies from "js-cookie"
-
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
+import Cookies from "js-cookie";
 
 export default function DoctorsList() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-
-        const response = await axios.get('https://tranquil-wildwood-60713.herokuapp.com/api/doctor/getAllDoctors')
-        console.log(response.data.result)
+        const response = await axios.get(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/doctor/getAllDoctors"
+        );
+        console.log(response.data.result);
         setPatients(response.data.result);
-      }catch(err){
-       console.log(err.response);
+      } catch (err) {
+        console.log(err.response);
       }
-    }
-    fetchPosts()
-  },[])
+    };
+    fetchPosts();
+  }, []);
   const [patients, setPatients] = useState([]);
-
+  let navigate = useNavigate();
   // const handleDelete = (accountID) => {
   //   setData(data.filter((item) => item.accountID !== accountID));
   // };
-  
+
   const columns = [
     { field: "accountID", headerName: "accountID", width: 90 },
     {
@@ -68,56 +68,72 @@ export default function DoctorsList() {
             </Link>
             <DeleteOutline
               className="userListDelete"
-             // onClick={() => handleDelete(params.row.accountID)}
+              // onClick={() => handleDelete(params.row.accountID)}
             />
           </>
         );
       },
     },
   ];
-  const makeID=props=>{
-    setTimeout(()=>{
-    Cookies.set("PatientID", props)
-    },10)
-  }
+  const makeID = (props) => {
+    setTimeout(() => {
+      Cookies.set("PatientID", props);
+    }, 10);
+  };
 
-  const flagapatient=()=>{
+  const flagapatient = () => {
     try {
-
-      const response = axios.post('https://tranquil-wildwood-60713.herokuapp.com/api/flag/flagPatient',{
-        flag:flag
-      })
-      console.log(response.data.result)
+      const response = axios.post(
+        "https://tranquil-wildwood-60713.herokuapp.com/api/flag/flagPatient",
+        {
+          flag: flag,
+        }
+      );
+      console.log(response.data.result);
       setflag(response.data.result);
-    }catch(err){
-     console.log(err.response);
+    } catch (err) {
+      console.log(err.response);
     }
-  }
-  const [flag,setflag]=useState()
+  };
+  const [flag, setflag] = useState();
+  const gotoProfile = (id, fname, lname) => () => {
+    Cookies.set("doctorID", id);
+    Cookies.set("doctorFirstName", fname);
+    Cookies.set("doctorLastName", lname);
+    setTimeout(navigate("/admin/profile"), 5000);
+  };
+
   return (
     <div className="userList">
-      <div className="userHeader"><h1>Patients </h1>
-     
-      <h1 >ID,firstName,lastName</h1>
-    
-    
-      </div>
-      
-        {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
+      <h1 className="userHeader">Doctors</h1>
+
+      {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
       {patients.map((values) => {
-        return(
+        return (
           <div className="userCard">
-            <AccountCircleRoundedIcon fontSize="large"/>
-              
-            <span className="userDetails" value={values.accountID} onClick={()=> makeID(values.accountID)}>
-              <Link to="/profile"><span >  {values.accountID} : {values.lastName}, {values.firstName}</span></Link>  
+            <AccountCircleRoundedIcon fontSize="large" />
+
+            <span
+              className="userDetails"
+              value={values.accountID}
+              onClick={() => makeID(values.accountID)}
+            >
+              <span className="userDetails<">
+                <p
+                  className="patientLink"
+                  onClick={gotoProfile(
+                    values.accountID,
+                    values.firstName,
+                    values.lastName
+                  )}
+                >
+                  {values.accountID} : {values.lastName}, {values.firstName}
+                </p>
+              </span>
             </span>
-            {/* onclick=cookies.set() */}
-            {/* //value={value.accountID} */}
           </div>
-        )
+        );
       })}
-      
     </div>
   );
 }

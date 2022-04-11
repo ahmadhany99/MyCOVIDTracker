@@ -22,6 +22,7 @@ import Status from "./components/admin/pages/StatusList/Status.jsx";
 import FlaggedPatients from "./components/admin/pages/FlagPatients/FlagPatients.jsx";
 import DoctorsList from "./components/admin/pages/Doctors/Doctors.jsx";
 import Assigning from "./components/admin/pages/DoctorPatientAssignment.js";
+import DoctorProfile from "./components/admin/pages/Doctors/DoctorProfile.js";
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/
@@ -40,9 +41,9 @@ function App() {
             path="/admin/users"
             element={
               <>
-             <AdminPrivateRoute>
-                {" "}
-                <UserList />
+                <AdminPrivateRoute>
+                  <ResponsiveDrawer />
+                  <UserList />
                 </AdminPrivateRoute>
               </>
             }
@@ -51,9 +52,9 @@ function App() {
             path="/admin/status"
             element={
               <>
-               <AdminPrivateRoute>
-                <Sidebar />
-                 <Status />
+                <AdminPrivateRoute>
+                  <ResponsiveDrawer />
+                  <Status />
                 </AdminPrivateRoute>
               </>
             }
@@ -62,8 +63,8 @@ function App() {
             path="/admin/flagged"
             element={
               <>
-               <AdminPrivateRoute>
-                <Sidebar /> <FlaggedPatients />
+                <AdminPrivateRoute>
+                  <ResponsiveDrawer /> <FlaggedPatients />
                 </AdminPrivateRoute>
               </>
             }
@@ -72,8 +73,8 @@ function App() {
             path="/admin/dashboard"
             element={
               <>
-               <AdminPrivateRoute>
-                <ResponsiveDrawer /> <Home />
+                <AdminPrivateRoute>
+                  <ResponsiveDrawer /> <Home />
                 </AdminPrivateRoute>
               </>
             }
@@ -82,8 +83,9 @@ function App() {
             path="/admin/doctors"
             element={
               <>
-               <AdminPrivateRoute>
-                <Sidebar /> <DoctorsList />
+                <AdminPrivateRoute>
+                  <ResponsiveDrawer />
+                  <DoctorsList />
                 </AdminPrivateRoute>
               </>
             }
@@ -93,7 +95,7 @@ function App() {
             element={
               <>
                 <AdminPrivateRoute>
-                <Assigning />
+                  <Assigning />
                 </AdminPrivateRoute>
               </>
             }
@@ -112,6 +114,14 @@ function App() {
             element={
               <AdminPrivateRoute>
                 <Home />
+              </AdminPrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/profile"
+            element={
+              <AdminPrivateRoute>
+                <DoctorProfile />
               </AdminPrivateRoute>
             }
           />
