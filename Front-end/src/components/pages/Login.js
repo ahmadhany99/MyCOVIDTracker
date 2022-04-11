@@ -35,6 +35,7 @@ const fetchPosts = async () => {
     Cookies.set("patientID", response.data.result[0].accountID);
     Cookies.set("patientLastName", response.data.result[0].lastName);
     Cookies.set("patientFirstName", response.data.result[0].firstName);
+    Cookies.set("Usertype", response.data.result[0].userType);
   } catch (err) {
     console.log(err);
   }

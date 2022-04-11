@@ -15,6 +15,7 @@ function Profile() {
     Cookies.remove("patientID");
     Cookies.remove("patientLastName");
     Cookies.remove("patientFirstName");
+    Cookies.remove("Usertype");
     navigate("/");
   };
 

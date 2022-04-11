@@ -48,13 +48,17 @@ export default function UserList() {
             doctorID: Cookies.get("accountID"),
           }
         );
-        console.log("hello" + response);
-        setNbrOfPatients(response);
-        setBannerStatus("Patients");
+        console.log(response.data[0].PatientsCount);
+        if(response.data[0].PatientsCount===0){
+          setNbrOfPatients(response.data[0].PatientsCount);
+          setBannerStatus("There are no patients assigned to you at the moment.");
+        }
+        else {
+          setNbrOfPatients(response.data[0].PatientsCount);
+          setBannerStatus("Patients");
+        }
       } catch (error) {
         console.log(error);
-        setNbrOfPatients(0);
-        setBannerStatus("You have no patients!");
         //console.log(nbrOfPatients);
       }
     };
@@ -101,7 +105,8 @@ export default function UserList() {
   const [bannerStatus, setBannerStatus] = useState();
   return (
     <div className="userList">
-      <div className="userHeader">{bannerStatus}</div>
+      <div className="userHeader">
+        {bannerStatus}</div>
       {patients.map((values) => {
         console.log(values.doctorID + " " + values.firstName);
 

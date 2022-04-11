@@ -32,8 +32,8 @@ export default function FlaggedPatients() {
             doctorID: Cookies.get("accountID"),
           }
         );
-        console.log("hello" + response);
-        setNbrOfPatients(response);
+        console.log(response.data[0].PatientsCount);
+        setNbrOfPatients(response.data[0].PatientsCount);
         setBannerStatus("Flagged Patients");
       } catch (error) {
         console.log(error);

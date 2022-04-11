@@ -28,6 +28,7 @@ const logout = () => {
   Cookies.remove("accountID");
   Cookies.remove("lastName");
   Cookies.remove("firstName");
+  Cookies.remove("Usertype");
 };
 
 export default function ResponsiveDrawer(props) {
