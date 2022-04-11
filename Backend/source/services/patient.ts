@@ -16,7 +16,7 @@ const countAllPatients = (patient: patient) => {
 const getPatient = async (patient: patient) => {
         var patientID = await patientRep.checkIfPatientExistsInPatient(patient);
          if(patientID[0] != undefined){
-        return patientRep.getPatient(patient);
+          return patientRep.getPatient(patient);
          }
           else{
         logging.error(NAMESPACE, "This patient is not in patient table");
@@ -46,6 +46,7 @@ const getCovidStatus = async (patient: patient) => {
     else {
         const result = await patientRep.getCovidStatus(patient.patientID);
 
+
         if (result[0].covidStatus.readInt8() == 1) {
             return true;
         }
@@ -67,7 +68,7 @@ const setCovidStatus = async (patient: patient) => {
         throw("Patient does not exist");
     }
     else {
-        return await patientRep.setCovidStatus(patient.patientID, patient.covidStatus);
+         return patientRep.setCovidStatus(patient.patientID, patient.covidStatus);
     }
 }
 
