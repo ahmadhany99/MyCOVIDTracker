@@ -24,6 +24,8 @@ import DoctorsList from "./components/admin/pages/Doctors/Doctors.jsx";
 import Assigning from "./components/admin/pages/DoctorPatientAssignment.js";
 import DoctorProfile from "./components/admin/pages/Doctors/DoctorProfile.js";
 import ActivateDoctor from "./components/admin/pages/ActivateDoctors.js";
+import AllPatients from "./components/admin/pages/AllPatients.js";
+import AllFlaggedPatients from "./components/admin/pages/AllFlaggedPatients.js";
 function App() {
   //domain:'/'  localhost:3000/
   //after dev: my-page.com/
@@ -110,6 +112,28 @@ function App() {
                 <AdminPrivateRoute>
                   <ResponsiveDrawer />
                   <ActivateDoctor />
+                </AdminPrivateRoute>
+              </>
+            }
+          />
+          <Route
+            path="/admin/allpatients"
+            element={
+              <>
+                <AdminPrivateRoute>
+                  <ResponsiveDrawer />
+                  <AllPatients />
+                </AdminPrivateRoute>
+              </>
+            }
+          />
+          <Route
+            path="/admin/allflaggedpatients"
+            element={
+              <>
+                <AdminPrivateRoute>
+                  <ResponsiveDrawer />
+                  <AllFlaggedPatients />
                 </AdminPrivateRoute>
               </>
             }
