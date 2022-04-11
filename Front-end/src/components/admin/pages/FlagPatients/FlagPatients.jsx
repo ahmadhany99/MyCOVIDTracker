@@ -13,13 +13,13 @@ import { Checkbox } from "@mui/material";
 
 export default function FlaggedPatients() {
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchFlaggedPatients = async () => {
       try {
         const response = await axios.get(
           "https://tranquil-wildwood-60713.herokuapp.com/api/patient/get/flag"
         );
         console.log(response.data);
-        setPatients(response.data);
+        setFlaggedPatients(response.data);
       } catch (err) {
         console.log(err.response);
       }
@@ -43,9 +43,9 @@ export default function FlaggedPatients() {
       }
     };
     numberOfPatients();
-    fetchPosts();
+    fetchFlaggedPatients();
   }, []);
-  const [patients, setPatients] = useState([]);
+  const [flaggedPatients, setFlaggedPatients] = useState([]);
   const [nbrOfPatients, setNbrOfPatients] = useState();
 
   // const handleDelete = (accountID) => {
@@ -138,7 +138,7 @@ export default function FlaggedPatients() {
       <div className="userHeader">{bannerStatus}</div>
 
       {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
-      {patients.map((values) => {
+      {flaggedPatients.map((values) => {
         if (values.doctorID == Cookies.get("accountID"))
           return (
             <div className="userCard">

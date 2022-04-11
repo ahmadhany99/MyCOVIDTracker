@@ -12,18 +12,21 @@ import { set } from "date-fns";
 
 export default function UserList() {
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPatients = async () => {
       try {
-        const response = await axios.get(
-          "https://tranquil-wildwood-60713.herokuapp.com/api/account/get/patient"
+        const response = await axios.post(
+          "https://tranquil-wildwood-60713.herokuapp.com/api/doctor/getDoctorsPatientsInfo",
+          {
+            doctorID: Cookies.get("accountID"),
+          }
         );
-        //console.log(response.data.result);
-        setPatients(response.data.result);
+        console.log("patients" + response.data);
+        setPatients(response.data);
       } catch (err) {
-        console.log(err.response);
+        console.log(err);
       }
     };
-    const fetchPriority = async (props) => {
+    const fetchFlaggedPatients = async (props) => {
       try {
         const response = await axios.put(
           "https://tranquil-wildwood-60713.herokuapp.com/api/patient/get/flag",
@@ -32,7 +35,7 @@ export default function UserList() {
           }
         );
         //console.log(response.data);
-        setPriority(response.data);
+        setFlaggedPatients(response.data);
       } catch (err) {
         console.log(err.response);
       }
@@ -56,11 +59,11 @@ export default function UserList() {
       }
     };
     numberOfPatients();
-    fetchPriority();
-    fetchPosts();
+    fetchFlaggedPatients();
+    fetchPatients();
   }, []);
   const [patients, setPatients] = useState([]);
-  const [priority, setPriority] = useState([]);
+  const [flaggedPatients, setFlaggedPatients] = useState([]);
 
   const toggleFlag = (event) => () => {
     try {
@@ -99,7 +102,7 @@ export default function UserList() {
   return (
     <div className="userList">
       <div className="userHeader">{bannerStatus}</div>
-      {priority.map((values) => {
+      {patients.map((values) => {
         console.log(values.doctorID + " " + values.firstName);
 
         if (values.doctorID == Cookies.get("accountID")) {

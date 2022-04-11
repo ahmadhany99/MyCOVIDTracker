@@ -62,6 +62,7 @@ function DoctorProfile() {
   const [nbrOfPatients, setNbrOfPatients] = useState();
   const [bannerStatus, setBannerStatus] = useState();
 
+  console.log(patients);
   let navigate = useNavigate();
   const logout = () => () => {
     Cookies.remove("email");
