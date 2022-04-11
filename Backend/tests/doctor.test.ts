@@ -1,5 +1,4 @@
 import { fail } from 'assert';
-import { isExportDeclaration } from 'typescript';
 import logging from '../source/config/logging';
 import { doctorModel } from '../source/models/doctor';
 import { patient } from '../source/models/patient';
