@@ -111,7 +111,7 @@ export default function FlaggedPatients() {
       console.log("flaggingggg " + event);
       const response = axios
         .put(
-          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/set/flag",
+          "https://tranquil-wildwood-60713.herokuapp.com/api/patient/rem/flag",
           {
             patientID: event,
           }
@@ -119,7 +119,10 @@ export default function FlaggedPatients() {
         .then((response) => {
           console.log(response);
           setflagmessage(response.data.message);
-        });
+        }).catch(error=>{
+          console.log(error)
+        })
+        ;
     } catch (error) {
       console.log(error);
     }
