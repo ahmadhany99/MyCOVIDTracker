@@ -95,6 +95,7 @@ function App() {
             element={
               <>
                 <AdminPrivateRoute>
+                  <ResponsiveDrawer />
                   <Assigning />
                 </AdminPrivateRoute>
               </>

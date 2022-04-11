@@ -70,9 +70,7 @@ export default function Assigning() {
         console.log(
           "looping assignment" + checked[i] + "to this doc: " + selectDoc
         );
-        setMessage(
-          "Assigned patient " + checked[i] + " to doctor : " + selectDoc
-        );
+        setMessage("Assigned patient " + checked + " to doctor " + selectDoc);
 
         axios.post(
           "https://tranquil-wildwood-60713.herokuapp.com/api/doctor/assignDoctorToPatient",
@@ -90,57 +88,63 @@ export default function Assigning() {
   const [Message, setMessage] = useState();
   return (
     <div className="userList">
-      <div className="userHeader">
-        <p>Patient {checkedItems}</p>
-        <p>
-          <br />
-          Dr. {selectDoc}
-        </p>
-      </div>
+      <div className="userHeader">Doctor to Patients Assignment Table</div>
 
       {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
-      {patients.map((values) => {
-        return (
-          <div className="userCard">
-            <Checkbox
-              onChange={handleToggle(values.accountID)}
-              checked={checked.indexOf(values.accountID) !== -1}
-            />
-            <span className="userDetails">
-              <Link to="/">
-                <span>
-                  {values.accountID} : {values.lastName}, {values.firstName}
+      <div className="assignment" style={{ display: "flex" }}>
+        <div
+          className="doctorSide"
+          style={{ width: "50%", border: "1px solid black" }}
+        >
+          {doctors.map((values) => {
+            return (
+              <div className="userCard">
+                <input
+                  type="radio"
+                  value={values.accountID}
+                  name="doctor"
+                  onChange={handleDoctorToggle(values.accountID)}
+                />
+                <span className="userDetails">
+                  <span>
+                    {values.lastName}, {values.firstName}
+                  </span>
                 </span>
-              </Link>
-            </span>
-            {/* onclick=cookies.set() */}
-            {/* //value={value.accountID} */}
-          </div>
-        );
-      })}
-      {doctors.map((values) => {
-        return (
-          <div className="userCard">
-            <input
-              type="radio"
-              value={values.accountID}
-              name="doctor"
-              onChange={handleDoctorToggle(values.accountID)}
-            />
-            <span className="userDetails">
-              <Link to="/">
-                <span>
-                  {values.accountID} : {values.lastName}, {values.firstName}
+                {/* onclick=cookies.set() */}
+                {/* //value={value.accountID} */}
+              </div>
+            );
+          })}
+        </div>
+        <div
+          className="patientSide"
+          style={{ width: "50%", border: "1px solid black" }}
+        >
+          {patients.map((values) => {
+            return (
+              <div className="userCard">
+                <Checkbox
+                  onChange={handleToggle(values.accountID)}
+                  checked={checked.indexOf(values.accountID) !== -1}
+                />
+                <span className="userDetails">
+                  <span>
+                    {values.lastName}, {values.firstName}
+                  </span>
                 </span>
-              </Link>
-            </span>
-            {/* onclick=cookies.set() */}
-            {/* //value={value.accountID} */}
-          </div>
-        );
-      })}
+                {/* onclick=cookies.set() */}
+                {/* //value={value.accountID} */}
+              </div>
+            );
+          })}
+        </div>
+      </div>
       <h2>{Message}</h2>
-      <Button onClick={submitAssignment}>ASSIGN DOCTOR TO PATIENTS</Button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button onClick={submitAssignment} style={{ fontSize: "24px" }}>
+          ASSIGN DOCTOR TO PATIENTS
+        </button>
+      </div>
     </div>
   );
 }
