@@ -6,14 +6,16 @@ const NAMESPACE = 'account/repository';
 
 //Create an account in table account with the passed accountModel, account will be a Patient (type=1)
 const createAccount = (account: accountdb) => {
-    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.username}", "${account.firstname}", "${account.lastname}", "${account.userType}", 1)`;
+    const query = `INSERT INTO account(email, password, username, firstName, lastName, userType, language)
+    VALUES ("${account.email}", "${account.password}", "${account.username}", "${account.firstname}", "${account.lastname}", 1, 1)`;
     logging.debug(NAMESPACE, query);
     return queryDatabase(query);
 }
 
 //Create an account in table account with the passed accountModel
 const createAccountWithID = (account: accountdb) => {
-    const query = `INSERT INTO account VALUES (accountID, "${account.email}", "${account.password}", "${account.username}", "${account.firstname}", "${account.lastname}", "${account.userType}", 1)`;
+    const query = `INSERT INTO account(email, password, username, firstName, lastName, userType, language)
+    VALUES ("${account.email}", "${account.password}", "${account.username}", "${account.firstname}", "${account.lastname}", "${account.userType}", 1)`;
     logging.debug(NAMESPACE, query);
     return queryDatabase(query);
 }

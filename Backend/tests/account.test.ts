@@ -5,24 +5,30 @@ import * as accountService from '../source/services/account';
 
 const NAMESPACE = 'account/test';
 
-const tester: accountModel = {email:'taversofiya@gmail.com', password: 'test', username:'sofiya'};
-const tester2: accountModel = {email:"hello@world.com", password:"wehaveliftoff!"}
+const test_user: accountModel = {email:"test@gmail.com", password:"123", firstname:"Remi", lastname:"Do"}
+const test_user2: accountModel = {email:"newuser@gmail.com", password:"123", firstname:"Hello", lastname:"World"}
 
-beforeAll( () => {
-    accountService.deleteAccount(tester2);
+test('register:success', async () => {
+    await accountService.deleteAccount(test_user2).catch((err) => {
+    })
+    await accountService.createAccount(test_user2).catch((err) => {
+        fail(err.message);
+    })
 })
 
-afterAll( () => {
-    setTimeout('',5000);
-    accountService.deleteAccount(tester2);
-    logging.info(NAMESPACE, "ALL ACCOUNT TESTS ARE FINISHED");
+test('register:existing account', async () => {
+    // test account exists -> expect error
+    await accountService.createAccount(test_user).catch((err) => {
+        expect(err.message).toBe("account exist");
+    })
 })
-// test('login:success', async () => {
-//     var result = await accountService.loginAccount(tester);
-//     expect(result).toBe(true);
-// })
 
-test('login:wrong password',async () => {
+test('login:success', async () => {
+    var result = await accountService.loginAccount(test_user);
+    expect(result).toBe(true);
+})
+
+test('login:wrong password', async () => {
     const wronguser: accountModel = {
         email: "test@gmail.com",
         password: "456"
@@ -38,17 +44,5 @@ test('login:wrong user',async () => {
     }
     await accountService.loginAccount(wronguser).catch((err) => {
         expect(err.message).toBe("account does not exist");
-    })
-})
-
-test('register:account exists', async ()=> {
-    await accountService.createAccount(tester).catch((err) => {
-        expect(err.message).toBe("account exist");
-    })
-})
-
-test('register:create', async () => {
-    await accountService.createAccount(tester2).catch((err) => {
-        fail(err.message);
     })
 })

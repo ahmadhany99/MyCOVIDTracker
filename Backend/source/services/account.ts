@@ -102,11 +102,12 @@ const loginAccount = async (acc: accountModel) => {
         }
         //check if user exists
         var exists = await accountdb.getAccountByEmail(acc.email);
+        logging.debug(NAMESPACE, "", exists[0])
         if (exists[0] == undefined) {
                 throw new Error("account does not exist");
         }
 
-        const result = await bcryptjs.compare(""+acc.password, ""+exists[0].password).then((isEqual: boolean) => {
+        var result = await bcryptjs.compare(""+acc.password, ""+exists[0].password).then((isEqual: boolean) => {
                 logging.debug(NAMESPACE, "password is ", isEqual?"true":"false");
                 return isEqual;
         })
