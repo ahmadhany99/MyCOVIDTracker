@@ -35,7 +35,7 @@ export default function WidgetLg() {
 
   return (
     <div className="widgetLg">
-      <h3 className="widgetLgTitle">Today's patient status updated</h3>
+      <h3 className="widgetLgTitle">Today's all patients status updated</h3>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
           <th className="widgetLgTh">Patient</th>

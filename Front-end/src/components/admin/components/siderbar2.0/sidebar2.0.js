@@ -39,7 +39,7 @@ export default function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
+  const draweradmin = (
     <div>
       <Link to="/admin/dashboard" className="link">
         <ListItem disablePadding>
@@ -129,21 +129,234 @@ export default function ResponsiveDrawer(props) {
       </List>
     </div>
   );
-
+  const drawerdoctor = (
+    <div>
+      <Link to="/admin/dashboard" className="link">
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <HomeIcon className="sidebarIcon" />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+      </Link>
+      <Divider />
+      <List>
+        <Link to="/admin/users" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <PeopleIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Patients" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/admin/status" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ReceiptIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Status" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/admin/flagged" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <PermIdentity className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Flagged Patients" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      </List>
+      <Divider />
+      <List>
+        <Link to="/admin" className="link">
+          <ListItem disablePadding>
+            <ListItemButton onClick={logout}>
+              <ListItemIcon>
+                <LogoutIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      </List>
+    </div>
+  );
+  const drawerofficial = (
+    <div>
+      <Link to="/admin/dashboard" className="link">
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <HomeIcon className="sidebarIcon" />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+      </Link>
+      <Divider />
+      <List>
+        <Link to="/admin/users" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <PeopleIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Patients" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/admin/status" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ReceiptIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Status" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/admin/flagged" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <PermIdentity className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Flagged Patients" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/admin/doctors" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <MedicationIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Doctors" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      </List>
+      <Divider />
+      <List>
+        <Link to="/admin/assign" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <AssignmentIndIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Assign Patients" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/admin" className="link">
+          <ListItem disablePadding>
+            <ListItemButton onClick={logout}>
+              <ListItemIcon>
+                <LogoutIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      </List>
+    </div>
+  );
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        {/* <Toolbar>
+  if (Cookies.get("Usertype") == 2) {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
+          }}
+        >
+          {/* <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { sm: "none" } }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Toolbar> */}
+        </AppBar>
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="mailbox folders"
+        >
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawerdoctor}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            {drawerdoctor}
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+          }}
+        >
+          <Toolbar />
+        </Box>
+      </Box>
+    );
+  } else if (Cookies.get("Usertype") == 3 || Cookies.get("Usertype") == 4) {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
+          }}
+        >
+          {/* <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -154,55 +367,129 @@ export default function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
         </Toolbar> */}
-      </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+        </AppBar>
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="mailbox folders"
+        >
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawerofficial}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            {drawerofficial}
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
           sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
+          <Toolbar />
+        </Box>
+      </Box>
+    );
+  } else {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
           sx={{
-            display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
           }}
-          open
         >
-          {drawer}
-        </Drawer>
+          {/* <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar> */}
+        </AppBar>
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="mailbox folders"
+        >
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {draweradmin}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            {draweradmin}
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+          }}
+        >
+          <Toolbar />
+        </Box>
       </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-      </Box>
-    </Box>
-  );
+    );
+  }
 }
