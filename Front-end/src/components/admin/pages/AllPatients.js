@@ -64,6 +64,7 @@ export default function AllPatients() {
     <div className="userList">
       <div className="userHeader">All Patients</div>
       {patients.map((values) => {
+        console.log(values);
         return (
           <div className="userCard">
             <AccountCircleRoundedIcon fontSize="large" />
@@ -80,7 +81,7 @@ export default function AllPatients() {
                 {values.lastName}, {values.firstName}
               </p>
             </span>
-            <Checkbox onChange={toggleFlag(values.patientID)} />
+            <Checkbox onChange={toggleFlag(values.accountID)} />
           </div>
         );
       })}

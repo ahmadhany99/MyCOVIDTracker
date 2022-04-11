@@ -24,7 +24,6 @@ export default function AllFlaggedPatients() {
     fetchFlaggedPatients();
   }, []);
   const [flaggedPatients, setFlaggedPatients] = useState([]);
-  const [nbrOfPatients, setNbrOfPatients] = useState();
 
   // const handleDelete = (accountID) => {
   //   setData(data.filter((item) => item.accountID !== accountID));
