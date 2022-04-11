@@ -2,16 +2,24 @@ import { Box } from "@mui/system";
 import classes from "./ChatLog.module.css";
 
 const chatlog = [
-  { message: "hello doc", user: "patient", type: "Urgent!" },
-  { message: "hello doc", user: "patient", type: "" },
-  { message: "hello bro", user: "doctor", type: "" },
+  { message: "Hello Doc! I have a problem.", user: "patient", type: "Urgent!" },
+  { message: "Please help me with my back pains!", user: "patient", type: "" },
+  {
+    message: "Hello! Can you please discribe the pain to me?",
+    user: "doctor",
+    type: "",
+  },
   {
     message:
       "Mauris interdum orci non nisi blandit condimentum. Mauris mollis neque purus, ac vulputate arcu rhoncus quis. Proin imperdiet porttitor volutpat. Quisque ut ante in ligula lobortis aliquam. Praesent vel sodales orci. Fusce in maximus odio. Duis et dui vitae arcu viverra consectetur sed vel nisl. Nullam a nisl quis velit ultricies vehicula malesuada id diam. Integer vitae rhoncus risus, quis elementum nibh.",
     user: "doctor",
     type: "",
   },
-  { message: "hello doc", user: "patient", type: "Urgent!" },
+  {
+    message: "Mauris interdum orci non nisi blandit condimentum. doc",
+    user: "patient",
+    type: "Urgent!",
+  },
 ];
 
 function ChatLog() {

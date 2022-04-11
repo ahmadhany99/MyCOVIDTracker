@@ -106,6 +106,16 @@ export default function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         </Link>
+        <Link to="/admin/activate" className="link">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <AssignmentIndIcon className="sidebarIcon" />
+              </ListItemIcon>
+              <ListItemText primary="Activate Doctor" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
         <Link to="/admin" className="link">
           <ListItem disablePadding>
             <ListItemButton onClick={logout}>

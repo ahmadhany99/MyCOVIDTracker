@@ -15,10 +15,9 @@ export default function WidgetLg() {
             date: todaysDate,
           }
         );
-        console.log("dddd" + response.data.result[0].statusID);
         setTodaysReport(response.data.result);
       } catch (error) {
-        console.log("eji d" + error);
+        console.log(error);
       }
     };
     fetchTodaysDate();
@@ -44,6 +43,8 @@ export default function WidgetLg() {
         </tr>
 
         {todaysReport.map((values) => {
+          console.log(values);
+
           return (
             <tr className="widgetLgTr">
               <td className="widgetLgUser">
