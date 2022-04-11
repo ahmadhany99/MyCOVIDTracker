@@ -11,7 +11,6 @@ SOEN390 ...
 |Sofiya Taver             |sofiyataver  |40095050
 |Allan Paul Lopez         |allanation   |40000954
 |Michael Laplaine-Pereira |Mikeymousey  |40018253
-|Hadi Hawi                |Hadihw       |40096690
 |Minh-Tam Do              |mint47       |40095639
 
 # Start App
