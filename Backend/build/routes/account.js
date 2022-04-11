@@ -6,9 +6,9 @@ const express_1 = __importDefault(require("express"));
 const account_1 = __importDefault(require("../controllers/account"));
 const router = express_1.default.Router();
 router.put('/account/login', account_1.default.loginClient);
-router.put('/admin/login', account_1.default.loginAdmin);
+router.put('/account/admin/login', account_1.default.loginAdmin);
 router.post('/account/register', account_1.default.registerClient);
-router.post('/admin/register', account_1.default.registerAdmin);
+router.post('/account/admin/register', account_1.default.registerAdmin);
 //plz test and choose only one to use between get/put
 router.get('/account/get', account_1.default.getAccount);
 router.put('/account/get', account_1.default.getAccount);
