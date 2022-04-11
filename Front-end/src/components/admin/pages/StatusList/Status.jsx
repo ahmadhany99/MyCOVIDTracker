@@ -85,6 +85,7 @@ export default function Status() {
       <h1 className="userHeader">Status </h1>
       {/* lastname={data.map(datas => <div>{JSON.stringify(datas)}</div>)} */}
       {data.map((value) => {
+        console.log(value);
         const date = value.date;
         const cutDate = date.substring(0, 10);
         return (
