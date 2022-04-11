@@ -53,7 +53,7 @@ export default function ResponsiveDrawer(props) {
       </Link>
       <Divider />
       <List>
-        <Link to="/admin/users" className="link">
+        <Link to="/admin/allpatients" className="link">
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -73,7 +73,7 @@ export default function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/admin/flagged" className="link">
+        <Link to="/admin/allflaggedpatients" className="link">
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -213,7 +213,7 @@ export default function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/admin/status" className="link">
+        <Link to="/admin/allpatients" className="link">
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -223,7 +223,7 @@ export default function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/admin/flagged" className="link">
+        <Link to="/admin/allflaggedpatients" className="link">
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>

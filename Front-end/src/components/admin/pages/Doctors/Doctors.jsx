@@ -127,7 +127,7 @@ export default function DoctorsList() {
                     values.lastName
                   )}
                 >
-                  {values.accountID} : {values.lastName}, {values.firstName}
+               {values.lastName}, {values.firstName}
                 </p>
               </span>
             </span>

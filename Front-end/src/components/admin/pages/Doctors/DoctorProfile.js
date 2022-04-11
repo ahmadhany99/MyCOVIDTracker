@@ -144,7 +144,7 @@ function DoctorProfile() {
                       values.lastName
                     )}
                   >
-                    {values.patientID} : {values.lastName}, {values.firstName}
+                    {values.lastName}, {values.firstName}
                   </p>
                 </span>
               </div>
