@@ -34,5 +34,5 @@ SOEN390 ...
 |4. Risk Assessment & Risk Management Plan (RMP) |[RMP](https://docs.google.com/spreadsheets/d/19pll7K4vfft5RpWc3XY_mr_mzK3Kgz0W/edit?usp=sharing&ouid=100065792280865296979&rtpof=true&sd=true)
 |5. UI prototypes for Sprint #3 user stories     | [UIP](https://docs.google.com/document/d/1uBESrofI35jFGL3LGNSbbG86htb_SX91NCIj1kRFRq8/edit?usp=sharing)
 |6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1fAbSfHkD02Vpo1PR5BOb2GjjUOXwF3dXkvfmESFn3SA/edit?usp=sharing)
-|7. Running prototype                            |[RP] (https://mycovidtrackermobile.netlify.app)
+|7. Running prototype                            |[RP](https://mycovidtrackermobile.netlify.app)
 |8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/11ZEpu2pGquiSM9XVqAxGZJpTB5-fUVqAKwqUPYBgWgE/edit?usp=sharing)
