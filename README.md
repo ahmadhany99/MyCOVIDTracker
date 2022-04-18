@@ -25,7 +25,7 @@ SOEN390 ...
 
 
 
-# Sprint 4
+# Sprint 5
 |deliverables                                    |link
 |---|---
 |1. User Stories Backlog (USB)                   |[USB](https://docs.google.com/spreadsheets/d/11p0U-zCPAayfLQusWur0hO5mZX3hGNTCIV7EMeG5r5M/edit?usp=sharing)
@@ -35,4 +35,4 @@ SOEN390 ...
 |5. UI prototypes for Sprint #3 user stories     | [UIP](https://docs.google.com/document/d/1uBESrofI35jFGL3LGNSbbG86htb_SX91NCIj1kRFRq8/edit?usp=sharing)
 |6. Testing Plan                                 |[TP](https://docs.google.com/document/d/1fAbSfHkD02Vpo1PR5BOb2GjjUOXwF3dXkvfmESFn3SA/edit?usp=sharing)
 |7. Running prototype                            |[RP](https://mycovidtrackermobile.netlify.app)
-|8. Short sprint retrospective                   |[SSR](https://docs.google.com/document/d/11ZEpu2pGquiSM9XVqAxGZJpTB5-fUVqAKwqUPYBgWgE/edit?usp=sharing)
+|8. Complete sprint retrospective                   |[SSR](https://docs.google.com/document/d/17YbnmsO8q8M8YLOKDHeBjzUGEVej91fNzQ95nTwqYMw/edit?usp=sharing)
